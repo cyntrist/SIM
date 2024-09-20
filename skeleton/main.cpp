@@ -56,7 +56,7 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	const RenderItem* shape = new RenderItem(CreateShape(PxSphereGeometry(10)), new PxTransform(0,0,0), Vector4(1, 1, 1, 1));
-	RegisterRenderItem(shape);
+	//RegisterRenderItem(shape);
 }
 
 
