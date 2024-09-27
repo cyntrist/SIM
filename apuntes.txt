@@ -1,0 +1,38 @@
+lab 27.09.2024
+
+
+integrate(t) con Euler
+p osicion += vt
+v elocidad += at <-- dampener (acotado) que eventualmente serán fuerzas de rozamiento
+
+v = v * d^t
+para 0 < d < 1
+
+
+hacer gestor de escena (lmao)
+se hará otro método de integración si da tiempo, con una variable de entorno para qué tipo queremos
+euler semimplícito si eso
+
+Euler
+x' = f(x,t)
+h x0
+x_l+1 = xi + hf(x_i, t_l)
+
+una pequeña mejora es euler semimplícito que es solo cambiar las ecuaciones de orden
+sistema de segundo orden, a = d^2v,dt*2 
+v =dp/dt a =dv/dt
+p' = v(t)
+v' = a(t)
+
+
+integrate(t)
+p = p + t*v
+v = v + t*a
+v = v * d^t
+
+pl+i = pl + hvl
+Ol+i = vl + hai
+
+vl+i = vl+hai
+pl+i = pl+hvl+i
+

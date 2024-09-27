@@ -10,6 +10,8 @@
 
 #include <iostream>
 
+#include "Particle.h"
+
 std::string display_text = "This is a test";
 
 
@@ -30,6 +32,7 @@ PxDefaultCpuDispatcher*	gDispatcher = NULL;
 PxScene*				gScene      = NULL;
 ContactReportCallback gContactReportCallback;
 
+Particle*				mParticle;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -55,8 +58,8 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	const RenderItem* shape = new RenderItem(CreateShape(PxSphereGeometry(10)), new PxTransform(0,0,0), Vector4(1, 1, 1, 1));
-	//RegisterRenderItem(shape);
+	//const RenderItem* shape = new RenderItem(CreateShape(PxSphereGeometry(10)), new PxTransform(0,0,0), Vector4(1, 1, 1, 1));
+	mParticle = new Particle(Vector3(0,0,0), Vector3(0,10,0));
 }
 
 
@@ -69,6 +72,8 @@ void stepPhysics(bool interactive, double t)
 
 	gScene->simulate(t);
 	gScene->fetchResults(true);
+
+	mParticle->integrate(t);
 }
 
 // Function to clean data
@@ -87,6 +92,9 @@ void cleanupPhysics(bool interactive)
 	transport->release();
 	
 	gFoundation->release();
+	
+	delete mParticle;
+	mParticle = nullptr;
 	}
 
 // Function called when a key is pressed
