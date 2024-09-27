@@ -59,7 +59,8 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	//const RenderItem* shape = new RenderItem(CreateShape(PxSphereGeometry(10)), new PxTransform(0,0,0), Vector4(1, 1, 1, 1));
-	mParticle = new Particle(Vector3(0,0,0), Vector3(0,10,0));
+	mParticle = new Particle(Vector3(0,0,0), Vector3(10,0,0));
+	mParticle->setColor(0, 1, 0, 1);
 }
 
 
