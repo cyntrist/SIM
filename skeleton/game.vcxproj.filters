@@ -16,6 +16,7 @@
     <ClCompile Include="Particle.cpp">
       <Filter>Clases</Filter>
     </ClCompile>
+    <ClCompile Include="SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Particle.h">
       <Filter>Clases</Filter>
     </ClInclude>
+    <ClInclude Include="SceneManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -40,6 +42,9 @@
     </Filter>
     <Filter Include="Clases">
       <UniqueIdentifier>{569930dc-a55b-4116-bc73-24ccfc2463ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Managers">
+      <UniqueIdentifier>{c25d7d46-bcdd-409f-bf97-3eb28ea9af2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
