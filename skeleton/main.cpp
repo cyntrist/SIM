@@ -110,9 +110,9 @@ void keyPress(unsigned char key, Camera* camera)
 			auto p = new Particle(
 				camera->getTransform().p + camera->getDir() * 20, 
 				camera->getDir() * 20,
-				Vector3(
+				Vector3( 
 					camera->getDir().x, 
-					camera->getDir().y - 9.8, 
+					camera->getDir().y - 9.8f, 
 					camera->getDir().z
 				)
 			);
