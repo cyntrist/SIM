@@ -110,7 +110,11 @@ void keyPress(unsigned char key, Camera* camera)
 			auto p = new Particle(
 				camera->getTransform().p + camera->getDir() * 20, 
 				camera->getDir() * 20,
-				camera->getDir() * 10
+				Vector3(
+					camera->getDir().x, 
+					camera->getDir().y - 9.8, 
+					camera->getDir().z
+				)
 			);
 			mParticles.push_back(p);
 		}
