@@ -57,10 +57,6 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
-
-	//const RenderItem* shape = new RenderItem(CreateShape(PxSphereGeometry(10)), new PxTransform(0,0,0), Vector4(1, 1, 1, 1));
-	/*mParticle = new Particle(Vector3(0,0,0), Vector3(-10,0,0));
-	mParticle->setColor(0, 1, 0, 1);*/
 }
 
 
@@ -74,7 +70,7 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 
-	for (auto p : mParticles)
+	for (const auto p : mParticles)
 		p->integrate(t);
 }
 
@@ -109,12 +105,12 @@ void keyPress(unsigned char key, Camera* camera)
 	
 	switch (toupper(key))
 	{
-	case 'Z':
+	case 'E':
 		{
 			auto p = new Particle(
 				camera->getTransform().p + camera->getDir() * 20, 
 				camera->getDir() * 20,
-				camera->getDir() * 10 
+				camera->getDir() * 10
 			);
 			mParticles.push_back(p);
 		}

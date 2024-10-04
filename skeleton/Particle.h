@@ -6,7 +6,8 @@
 class Particle
 {
 public:
-	Particle(Vector3 pos, Vector3 vel, Vector3 acc = Vector3(0,0,0), double dampener = 0.98, int size = 10);
+	Particle(Vector3 pos, Vector3 vel, Vector3 acc = Vector3(0,0,0),
+		float size = 1, double dampener = 0.98,  double weight = 1);
 	~Particle();
 	bool integrate(double t);
 	void setColor(double r, double g, double b, double a) const
@@ -23,6 +24,7 @@ private:
 	RenderItem* renderItem;
 	Vector3 acc;
 	double dampener;
-	int size;
+	float size;
+	double weight;
 };
 
