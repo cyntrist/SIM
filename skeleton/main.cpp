@@ -17,22 +17,22 @@ std::string display_text = "This is a test";
 
 using namespace physx;
 
-PxDefaultAllocator		gAllocator;
-PxDefaultErrorCallback	gErrorCallback;
+PxDefaultAllocator gAllocator;
+PxDefaultErrorCallback gErrorCallback;
 
-PxFoundation*			gFoundation = NULL;
-PxPhysics*				gPhysics	= NULL;
+PxFoundation* gFoundation = nullptr;
+PxPhysics* gPhysics = nullptr;
 
 
-PxMaterial*				gMaterial	= NULL;
+PxMaterial* gMaterial = nullptr;
 
-PxPvd*                  gPvd        = NULL;
+PxPvd* gPvd = nullptr;
 
-PxDefaultCpuDispatcher*	gDispatcher = NULL;
-PxScene*				gScene      = NULL;
+PxDefaultCpuDispatcher* gDispatcher = nullptr;
+PxScene* gScene = nullptr;
 ContactReportCallback gContactReportCallback;
 
-Particle*				mParticle;
+std::vector<Particle*> mParticles;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -43,9 +43,9 @@ void initPhysics(bool interactive)
 
 	gPvd = PxCreatePvd(*gFoundation);
 	PxPvdTransport* transport = PxDefaultPvdSocketTransportCreate(PVD_HOST, 5425, 10);
-	gPvd->connect(*transport,PxPvdInstrumentationFlag::eALL);
+	gPvd->connect(*transport, PxPvdInstrumentationFlag::eALL);
 
-	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(),true,gPvd);
+	gPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale(), true, gPvd);
 
 	gMaterial = gPhysics->createMaterial(0.5f, 0.5f, 0.6f);
 
@@ -59,8 +59,8 @@ void initPhysics(bool interactive)
 	gScene = gPhysics->createScene(sceneDesc);
 
 	//const RenderItem* shape = new RenderItem(CreateShape(PxSphereGeometry(10)), new PxTransform(0,0,0), Vector4(1, 1, 1, 1));
-	mParticle = new Particle(Vector3(0,0,0), Vector3(-10,0,0));
-	mParticle->setColor(0, 1, 0, 1);
+	/*mParticle = new Particle(Vector3(0,0,0), Vector3(-10,0,0));
+	mParticle->setColor(0, 1, 0, 1);*/
 }
 
 
@@ -74,7 +74,8 @@ void stepPhysics(bool interactive, double t)
 	gScene->simulate(t);
 	gScene->fetchResults(true);
 
-	mParticle->integrate(t);
+	for (auto p : mParticles)
+		p->integrate(t);
 }
 
 // Function to clean data
@@ -87,45 +88,57 @@ void cleanupPhysics(bool interactive)
 	gScene->release();
 	gDispatcher->release();
 	// -----------------------------------------------------
-	gPhysics->release();	
+	gPhysics->release();
 	PxPvdTransport* transport = gPvd->getTransport();
 	gPvd->release();
 	transport->release();
-	
+
 	gFoundation->release();
-	
-	delete mParticle;
-	mParticle = nullptr;
+
+	for (auto p : mParticles)
+	{
+		delete p;
+		p = nullptr;
 	}
+}
 
 // Function called when a key is pressed
-void keyPress(unsigned char key, const PxTransform& camera)
+void keyPress(unsigned char key, Camera* camera)
 {
 	PX_UNUSED(camera);
-
-	switch(toupper(key))
+	
+	switch (toupper(key))
 	{
-	//case 'B': break;
+	case 'Z':
+		{
+			auto p = new Particle(
+				camera->getTransform().p + camera->getDir() * 20, 
+				camera->getDir() * 20,
+				camera->getDir() * 10 
+			);
+			mParticles.push_back(p);
+		}
+		break;
 	//case ' ':	break;
 	case ' ':
-	{
-		break;
-	}
+		{
+			break;
+		}
 	default:
 		break;
 	}
 }
 
-void onCollision(physx::PxActor* actor1, physx::PxActor* actor2)
+void onCollision(PxActor* actor1, PxActor* actor2)
 {
 	PX_UNUSED(actor1);
 	PX_UNUSED(actor2);
 }
 
 
-int main(int, const char*const*)
+int main(int, const char* const*)
 {
-#ifndef OFFLINE_EXECUTION 
+#ifndef OFFLINE_EXECUTION
 	extern void renderLoop();
 	renderLoop();
 #else
