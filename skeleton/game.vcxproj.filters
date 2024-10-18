@@ -19,9 +19,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Managers</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleSystem.cpp">
-      <Filter>Systems</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
