@@ -1,5 +1,7 @@
 #include "Particle.h"
 
+#include <iostream>
+
 constexpr int LOW_TRESH = 10;
 
 Particle::Particle(Vector3 pos, Vector3 vel, Vector3 acc, 
@@ -15,26 +17,20 @@ Particle::Particle(Vector3 pos, Vector3 vel, Vector3 acc,
 	RegisterRenderItem(renderItem);
 }
 
-Particle::~Particle()
-{
-	DeregisterRenderItem(renderItem);
-	delete renderItem;
-	renderItem = nullptr;
-}
-
 bool Particle::update(double t)
 {
 	if (!alive)
 		return false;
 
+	std::cout<< pose.p.y<<std::endl;
 	if (acttime > lifetime || pose.p.y <= -LOW_TRESH)
 	{
-		kill();
-		return false;
+		//kill();
+		//return false;
 	}
 
-	if (pose.p.y <= -10)
-		kill();
+	//if (pose.p.y <= -10)
+		//kill();
 
 	acttime += t;
 	integrate(t);

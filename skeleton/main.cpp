@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "Particle.h"
+#include "ParticleSystem.h"
 #include "Scene.h"
 
 std::string display_text = "This is a test";
@@ -64,7 +65,11 @@ void initPhysics(bool interactive)
 	/// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
 	scene = new Scene();
-	//scene->addObject();
+	auto system = new ParticleSystem();
+	system->addGenerator(new ParticleGenerator(Vector3(0,0,0), Vector3(0, 10, 0), 1000));
+	//system->addGenerator(new ParticleGenerator());
+	//system->addGenerator(new ParticleGenerator());
+	scene->addObject(system);
 }
 
 
@@ -80,6 +85,9 @@ void stepPhysics(bool interactive, double t)
 
 	for (const auto p : mParticles)
 		p->integrate(t);
+
+	if (scene != nullptr)
+		scene->update(t);
 }
 
 // Function to clean data
