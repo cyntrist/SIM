@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "Particle.h"
+#include "Scene.h"
 
 std::string display_text = "This is a test";
 
@@ -33,6 +34,8 @@ PxScene* gScene = nullptr;
 ContactReportCallback gContactReportCallback;
 
 std::vector<Particle*> mParticles;
+
+Scene* scene = nullptr;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -57,6 +60,11 @@ void initPhysics(bool interactive)
 	sceneDesc.filterShader = contactReportFilterShader;
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
+
+	/// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
+
+	scene = new Scene();
+	//scene->addObject();
 }
 
 

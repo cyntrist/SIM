@@ -2,14 +2,20 @@
 //#include <foundation/Px.h>
 #include "core.hpp"
 #include "RenderUtils.hpp"
+#include "SceneObject.h"
 
-class Particle
+class Particle : public SceneObject
 {
 public:
 	Particle(Vector3 pos, Vector3 vel, Vector3 acc = Vector3(0,0,0),
-		float size = 1, double dampener = 0.98,  double weight = 1);
-	~Particle();
+		float size = 1, double dampener = 0.98,  double weight = 1, double lifetime = 10, 
+		double acttime = 0);
+	~Particle() override;
+
+	bool update(double t) override;
 	bool integrate(double t);
+
+	// setters
 	void setColor(double r, double g, double b, double a) const
 	{ 
 		renderItem->color = Vector4(r, g, b, a);
@@ -18,6 +24,14 @@ public:
 	void setPose(const physx::PxTransform& p) { pose = p; }
 	void setAcc(const Vector3& a = { 0, 0, 0 }) { acc = a; }
 	void setDamp(double d = 0.98) { dampener = d; }
+
+	// getters
+	Vector4 getColor() const { return renderItem->color; }
+	Vector3 getVel() const { return vel; }
+	physx::PxTransform getPose() const { return pose; }
+	Vector3 getAcc() const { return acc; }
+	double getDamp() const { return dampener; }
+
 private:
 	Vector3 vel;
 	physx::PxTransform pose;
@@ -25,6 +39,9 @@ private:
 	Vector3 acc;
 	double dampener;
 	float size;
-	double weight; // para cuando haya fuerzas
+	double weight;
+	double lifetime;
+	double acttime = 10;
+	bool alive = true;
 };
 

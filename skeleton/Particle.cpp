@@ -1,8 +1,11 @@
 #include "Particle.h"
 
+constexpr int LOW_TRESH = 10;
+
 Particle::Particle(Vector3 pos, Vector3 vel, Vector3 acc, 
-	 float size, double dampener, double weight)
-	:  vel(vel), pose(pos), acc(acc), dampener(dampener), size(size), weight(weight)
+	 float size, double dampener, double weight, double lifetime, double acttime)
+	:  vel(vel), pose(pos), acc(acc), dampener(dampener), size(size),
+	weight(weight), lifetime(lifetime), acttime(acttime)
 {
 	renderItem = new RenderItem(CreateShape(
 		physx::PxSphereGeometry(this->size)),
@@ -17,6 +20,25 @@ Particle::~Particle()
 	DeregisterRenderItem(renderItem);
 	delete renderItem;
 	renderItem = nullptr;
+}
+
+bool Particle::update(double t)
+{
+	if (!alive)
+		return false;
+
+	if (acttime > lifetime || pose.p.y <= -LOW_TRESH)
+	{
+		kill();
+		return false;
+	}
+
+	if (pose.p.y <= -10)
+		kill();
+
+	acttime += t;
+	integrate(t);
+	return true;
 }
 
 bool Particle::integrate(double t)

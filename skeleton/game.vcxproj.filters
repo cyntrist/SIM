@@ -17,9 +17,14 @@
       <Filter>Clases</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Managers</Filter>
+      <Filter>Clases\Managers</Filter>
     </ClCompile>
-    <ClCompile Include="ParticleGenerator.cpp" />
+    <ClCompile Include="ParticleGenerator.cpp">
+      <Filter>Clases\Generators</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneObject.h">
+      <Filter>Clases</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -38,12 +43,17 @@
       <Filter>Clases</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
-      <Filter>Managers</Filter>
+      <Filter>Clases\Managers</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
-      <Filter>Systems</Filter>
+      <Filter>Clases\Systems</Filter>
     </ClInclude>
-    <ClInclude Include="ParticleGenerator.h" />
+    <ClInclude Include="ParticleGenerator.h">
+      <Filter>Clases\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Clases</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -52,11 +62,14 @@
     <Filter Include="Clases">
       <UniqueIdentifier>{569930dc-a55b-4116-bc73-24ccfc2463ed}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Managers">
-      <UniqueIdentifier>{c25d7d46-bcdd-409f-bf97-3eb28ea9af2b}</UniqueIdentifier>
+    <Filter Include="Clases\Generators">
+      <UniqueIdentifier>{5238623d-043f-460f-a33f-d9736fc59e57}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Systems">
+    <Filter Include="Clases\Systems">
       <UniqueIdentifier>{f0cf1eee-778a-4e4b-99c0-be00c6f635e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Clases\Managers">
+      <UniqueIdentifier>{c25d7d46-bcdd-409f-bf97-3eb28ea9af2b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
