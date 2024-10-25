@@ -4,13 +4,15 @@
 #include <vector>
 #include "Particle.h"
 #include "ParticleGenerator.h"
+#include "Scene.h"
 
 class ParticleSystem : public SceneObject
 {
 	std::vector<ParticleGenerator*> generators;
+	Scene* scene;
 
 public:
-	ParticleSystem() = default;
+	ParticleSystem(Scene* scene) : scene(scene){}
 	~ParticleSystem()  = default;
 
 	bool update(double t) override
@@ -22,6 +24,7 @@ public:
 	void addGenerator(ParticleGenerator* gen)
 	{
 		generators.push_back(gen);
+		gen->setScene(scene);
 	};
 	void destroyGenerator(int i)
 	{

@@ -17,17 +17,21 @@ bool ParticleGenerator::update(double t)
 	if (shouldGenerate())
 		particles.push_back(addParticle());
 
-	for (const auto particle : particles)
+	for (auto particle : particles)
 		particle->update(t);
 
-	for (const auto particle : particles)
+
+	for (int i = 0; i < particles.size(); i++)
 	{
-		if (!particle->isAlive())
+		if (!particles[i]->isAlive())
 		{
-			delete particle;
-			particles.erase(std::find(particles.begin(), particles.end(), particle));
+			//delete particles[i];
+			//auto ref = std::find(particles.begin(), particles.end(), particles[i]);
+			//particles.erase(ref);
+			//i--;
 		}
 	}
+
 	return true;
 }
 

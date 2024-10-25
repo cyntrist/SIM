@@ -22,15 +22,11 @@ bool Particle::update(double t)
 	if (!alive)
 		return false;
 
-	std::cout<< pose.p.y<<std::endl;
 	if (acttime > lifetime || pose.p.y <= -LOW_TRESH)
 	{
-		//kill();
-		//return false;
+		kill();
+		return false;
 	}
-
-	//if (pose.p.y <= -10)
-		//kill();
 
 	acttime += t;
 	integrate(t);
@@ -39,10 +35,6 @@ bool Particle::update(double t)
 
 bool Particle::integrate(double t)
 {
-	//pose.p += vel * t;
-	//vel += acc * t;
-	//vel *= pow(dampener, t);
-
 	vel *= pow(dampener, t);
 	vel += acc * t;
 	pose.p += vel * t;

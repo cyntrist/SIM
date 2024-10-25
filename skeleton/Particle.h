@@ -18,7 +18,6 @@ public:
 		renderItem = nullptr;
 	}
 
-
 	bool update(double t) override;
 	bool integrate(double t);
 

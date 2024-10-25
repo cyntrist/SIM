@@ -65,7 +65,7 @@ void initPhysics(bool interactive)
 	/// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
 	scene = new Scene();
-	auto system = new ParticleSystem();
+	auto system = new ParticleSystem(scene);
 	system->addGenerator(new ParticleGenerator(Vector3(0,0,0), Vector3(0, 10, 0), 1000));
 	//system->addGenerator(new ParticleGenerator());
 	//system->addGenerator(new ParticleGenerator());

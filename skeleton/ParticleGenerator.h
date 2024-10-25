@@ -2,6 +2,7 @@
 #include <random>
 
 #include "Particle.h"
+#include "Scene.h"
 
 enum Mode
 {
@@ -11,7 +12,7 @@ enum Mode
 class ParticleGenerator 
 {
 	Mode modo = FUENTE;
-
+	Scene* scene = nullptr;
 	Particle* model = nullptr; // particula modelo
 
 	size_t num = 0;
@@ -36,5 +37,6 @@ public:
 	Particle* addParticle();
 	bool shouldGenerate();
 	void setMode(const Mode m) { modo = m;}
+	void setScene(Scene* s) { scene = s; }
 };
 

@@ -260,7 +260,6 @@
     <ClCompile Include="RenderUtils.cpp" />
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
-    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SceneObject.h" />
     <ClCompile Include="Vector3D.cpp" />
   </ItemGroup>
@@ -274,7 +273,6 @@
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="Scene.h" />
-    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
