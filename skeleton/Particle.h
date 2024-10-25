@@ -25,6 +25,6 @@ private:
 	Vector3 acc;
 	double dampener;
 	float size;
-	double weight;
+	double weight; // para cuando haya fuerzas
 };
 

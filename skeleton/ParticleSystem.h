@@ -22,10 +22,10 @@ class ParticleSystem
 
 public:
 	ParticleSystem() = default;
-	virtual ~ParticleSystem()  = default;
+	~ParticleSystem()  = default;
 
-	virtual bool update(double t);
-	virtual void addParticle();
-	virtual void destroyParticle();
+	bool update(double t);
+	void addParticle();
+	void destroyParticle();
 };
 
