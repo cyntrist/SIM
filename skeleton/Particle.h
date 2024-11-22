@@ -11,12 +11,7 @@ public:
 	         float size = 1, double dampener = 0.98, double weight = 1, double lifetime = 10,
 	         double acttime = 0);
 
-	virtual ~Particle()
-	{
-		DeregisterRenderItem(renderItem);
-		delete renderItem;
-		renderItem = nullptr;
-	}
+	virtual ~Particle();
 
 	bool update(double t) override;
 	bool integrate(double t);

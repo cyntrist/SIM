@@ -12,6 +12,7 @@
 
 #include "Particle.h"
 #include "ParticleSystem.h"
+#include "ParticleGenerator.h"
 #include "Scene.h"
 
 std::string display_text = "This is a test";
@@ -66,7 +67,14 @@ void initPhysics(bool interactive)
 
 	scene = new Scene();
 	auto system = new ParticleSystem(scene);
-	system->addGenerator(new ParticleGenerator(Vector3(0,0,0), Vector3(0, 10, 0), 1000));
+	auto p1 = new ParticleGenerator(Vector3(0,0,0), Vector3(0, 10, 0), 1000);
+	auto p2 = new ParticleGenerator(Vector3(100,0,0), Vector3(0, 20, 0), 1000);
+	auto p3 = new ParticleGenerator(Vector3(50,0,-100), Vector3(0, 30, 0), 1000);
+	p2->setMode(Mode::FUEGOS);
+	p3->setMode(Mode::HUMO);
+	system->addGenerator(p1);
+	system->addGenerator(p2);
+	system->addGenerator(p3);
 	//system->addGenerator(new ParticleGenerator());
 	//system->addGenerator(new ParticleGenerator());
 	scene->addObject(system);
