@@ -40,9 +40,10 @@ bool Particle::update(double t)
 
 bool Particle::integrate(double t)
 {
-	vel *= pow(dampener, t);
 	vel += acc * t;
 	pose.p += vel * t;
 
+	// se hace el damping siempre lo ultimo
+	vel *= pow(dampener, t);
 	return true;
 }

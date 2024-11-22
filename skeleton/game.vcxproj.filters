@@ -22,6 +22,9 @@
     <ClCompile Include="SceneObject.h">
       <Filter>Clases</Filter>
     </ClCompile>
+    <ClCompile Include="ForceGenerator.cpp">
+      <Filter>Clases\Generators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core.hpp" />
@@ -47,6 +50,12 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Clases</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceGenerator.h">
+      <Filter>Clases\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="ForceSystem.h">
+      <Filter>Clases\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
