@@ -80,7 +80,7 @@ void CascadaGen::generateParticle()
 		// añadimos las particulas a la lista
 
 		generatedGameObjects[aux] = true; // Aniaadir al mapa
-		scene->addObject(aux, this); // Aniadir a la escena y pasar referencia del generador
+		scene->addGameObject(aux, this); // Aniadir a la escena y pasar referencia del generador
 
 		//particles.push_back(aux);
 		nGameObjects++;
@@ -131,7 +131,7 @@ void NieblaGen::generateParticle()
 
 		// añadimos las particulas a la lista
 		generatedGameObjects[aux] = true; // Aniaadir al mapa
-		scene->addObject(aux, this); // Aniadir a la escena y pasar referencia del generador
+		scene->addGameObject(aux, this); // Aniadir a la escena y pasar referencia del generador
 		aux->toggleGrav();
 		nGameObjects++;
 		nGameObjectsTotal++;
@@ -183,7 +183,7 @@ void RandomParticleGen::generateParticle()
 
 		// añadimos las particulas a la lista
 		generatedGameObjects[aux] = true; // Aniaadir al mapa
-		scene->addObject(aux, this); // Aniadir a la escena y pasar referencia del generador
+		scene->addGameObject(aux, this); // Aniadir a la escena y pasar referencia del generador
 		nGameObjects++;
 		nGameObjectsTotal++;
 	}

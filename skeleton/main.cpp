@@ -75,11 +75,11 @@ void initPhysics(bool interactive)
 	//auto p3 = new ParticleGenerator(Vector3(50, 0, -100), Vector3(0, 30, 0), 1000);
 	//p2->setMode(Mode::FUEGOS);
 	//p3->setMode(Mode::HUMO);
-	//system->addGenerator(p1);
-	//system->addGenerator(p2);
-	//system->addGenerator(p3);
-	////system->addGenerator(new ParticleGenerator());
-	////system->addGenerator(new ParticleGenerator());
+	//system->addParticleGenerator(p1);
+	//system->addParticleGenerator(p2);
+	//system->addParticleGenerator(p3);
+	////system->addParticleGenerator(new ParticleGenerator());
+	////system->addParticleGenerator(new ParticleGenerator());
 	//currentScene->addObject(system);
 
 	x = {10.0, 0.0, 0.0};

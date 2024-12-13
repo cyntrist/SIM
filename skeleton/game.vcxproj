@@ -264,6 +264,9 @@
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="GameObject.h" />
+    <ClCompile Include="RigidBodyActor.cpp" />
+    <ClCompile Include="RigidBodyDynamic.cpp" />
+    <ClCompile Include="RigidBodyStatic.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="Vector3D.cpp" />
@@ -281,6 +284,9 @@
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="RigidBodyActor.h" />
+    <ClInclude Include="RigidBodyDynamic.h" />
+    <ClInclude Include="RigidBodyStatic.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="System.h" />

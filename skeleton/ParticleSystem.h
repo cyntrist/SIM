@@ -8,8 +8,8 @@
 
 class ParticleSystem : public System
 {
-	std::vector<ParticleGenerator*> generators;
-	Scene* scene;
+	std::vector<ParticleGenerator*> particleGenerators;
+	Scene* scene = nullptr;
 public:
 	ParticleSystem(Scene* scene) : System(scene)
 	{
@@ -19,19 +19,19 @@ public:
 
 	bool update(double t) override
 	{
-		for (auto gen : generators)
+		for (auto gen : particleGenerators)
 			gen->update(t);
 		return true;
 	};
 
-	void addGenerator(ParticleGenerator* gen)
+	void addParticleGenerator(ParticleGenerator* gen)
 	{
-		generators.push_back(gen);
+		particleGenerators.push_back(gen);
 		gen->setScene(scene);
 	};
 
-	void destroyGenerator(int i)
+	void destroyParticleGenerator(int i)
 	{
-		generators.erase(std::find(generators.begin(), generators.end(), generators[i]));
+		particleGenerators.erase(std::find(particleGenerators.begin(), particleGenerators.end(), particleGenerators[i]));
 	};
 };

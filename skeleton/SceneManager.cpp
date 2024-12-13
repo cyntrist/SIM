@@ -4,7 +4,7 @@
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
-	addScene(new ParticleScene());
+	addScene(new ParticleScene(GetCamera()));
 	//addScene(new ScenaViento(GetCamera()));
 	//addScene(new ScenaTorbellino(GetCamera()));
 	//addScene(new ScenaExplosion(GetCamera()));

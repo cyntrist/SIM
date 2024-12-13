@@ -4,6 +4,6 @@
 bool GameObject::update(double t)
 {
 	if (!alive)
-		scene->deleteObject(name);
+		scene->deleteGameObject(name);
 	return alive;
 }

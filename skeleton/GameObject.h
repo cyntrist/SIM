@@ -37,7 +37,7 @@ public:
 	bool isAlive() const { return alive; }
 	bool isVisible() const { return visible; }
 
-	void setVisible(bool vis)
+	virtual void setVisible(bool vis)
 	{
 		visible = vis;
 		visible ? RegisterRenderItem(renderItem) : DeregisterRenderItem(renderItem);
@@ -59,7 +59,7 @@ public:
 	void setMass(float mas) { mass = mas; }
 	void setVel(const Vector3& vel) { this->vel = vel; }
 
-	void setShape(PxShape* shp, float siz)
+	virtual void setShape(PxShape* shp, float siz)
 	{
 		renderItem->shape = shp;
 		shape = shp;
