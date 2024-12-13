@@ -4,16 +4,18 @@
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
+	addScene(new ParticleScene());
 	//addScene(new ScenaViento(GetCamera()));
 	//addScene(new ScenaTorbellino(GetCamera()));
 	//addScene(new ScenaExplosion(GetCamera()));
 	//addScene(new ScenaMuelles(GetCamera()));
 	//addScene(new ScenaSolidoRigido(GetCamera(), gPhysics, gScene));
-	setScene(4);
+	setScene(0);
 }
 
 SceneManager::~SceneManager()
 {
+	//...
 }
 
 void SceneManager::addScene(Scene* scn)
@@ -27,7 +29,8 @@ void SceneManager::addScene(Scene* scn)
 
 void SceneManager::update(float t)
 {
-	scenes[actualScene]->update(t);
+	if (actualScene < scenes.capacity())
+		scenes[actualScene]->update(t);
 }
 
 void SceneManager::setScene(int id)

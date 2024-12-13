@@ -1,6 +1,7 @@
 ﻿#pragma once
+#include "Scene.h"
 
-class ParticleScene
+class ParticleScene : public Scene
 {
 public:
 	
