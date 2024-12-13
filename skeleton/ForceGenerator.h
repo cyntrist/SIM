@@ -1,9 +1,8 @@
 #pragma once
 class ForceGenerator
 {
-	public:
+public:
 	ForceGenerator();
 	~ForceGenerator() = default;
 	bool update(double t);
 };
-

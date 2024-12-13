@@ -1,10 +1,9 @@
 #pragma once
-//#include <foundation/Px.h>
 #include "core.hpp"
 #include "RenderUtils.hpp"
-#include "SceneObject.h"
+#include "GameObject.h"
 
-class Particle : public SceneObject
+class Particle : public GameObject
 {
 public:
 	Particle(Vector3 pos, Vector3 vel, Vector3 acc = Vector3(0, 0, 0),
@@ -39,6 +38,11 @@ public:
 	double getActtime() const { return acttime; }
 	Vector3 getGrav() const { return grav; }
 
+	// fuerzas:
+	void addForce(float x, float y, float z) override { forces.push_back({ x,y,z }); }
+	void addForce(Vector3 fc) override { forces.push_back(fc); }
+	void applyForce();
+
 private:
 	Vector3 vel;
 	physx::PxTransform pose;
@@ -50,5 +54,5 @@ private:
 	double lifetime;
 	double acttime = 10;
 	bool alive = true;
-	Vector3 grav = Vector3 (0, -9.8, 0);
+	Vector3 grav = Vector3(0, -9.8, 0);
 };

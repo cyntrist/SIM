@@ -7,39 +7,45 @@
     <ClCompile Include="Render\Render.cpp">
       <Filter>Render</Filter>
     </ClCompile>
-    <ClCompile Include="RenderUtils.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="Vector3D.cpp">
-      <Filter>Clases</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle.cpp">
       <Filter>Clases</Filter>
     </ClCompile>
     <ClCompile Include="ParticleGenerator.cpp">
       <Filter>Clases\Generators</Filter>
     </ClCompile>
-    <ClCompile Include="SceneObject.h">
-      <Filter>Clases</Filter>
-    </ClCompile>
     <ClCompile Include="ForceGenerator.cpp">
       <Filter>Clases\Generators</Filter>
     </ClCompile>
+    <ClCompile Include="callbacks.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderUtils.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle.cpp">
+      <Filter>Clases\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.h">
+      <Filter>Clases\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Clases\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="core.hpp" />
     <ClInclude Include="Render\Camera.h">
       <Filter>Render</Filter>
     </ClInclude>
     <ClInclude Include="Render\Render.h">
       <Filter>Render</Filter>
     </ClInclude>
-    <ClInclude Include="RenderUtils.hpp" />
-    <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="Vector3D.h">
-      <Filter>Clases</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle.h">
       <Filter>Clases</Filter>
     </ClInclude>
     <ClInclude Include="ParticleSystem.h">
@@ -48,14 +54,38 @@
     <ClInclude Include="ParticleGenerator.h">
       <Filter>Clases\Generators</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Clases</Filter>
-    </ClInclude>
     <ClInclude Include="ForceGenerator.h">
       <Filter>Clases\Generators</Filter>
     </ClInclude>
     <ClInclude Include="ForceSystem.h">
       <Filter>Clases\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderUtils.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="callbacks.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="core.hpp">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle.h">
+      <Filter>Clases\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Clases\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Clases\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Clases\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Clases\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +100,15 @@
     </Filter>
     <Filter Include="Clases\Systems">
       <UniqueIdentifier>{f0cf1eee-778a-4e4b-99c0-be00c6f635e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{515fb699-8363-45a6-ac9b-e8c6fb6a2611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Clases\Core">
+      <UniqueIdentifier>{54028a3f-6e7b-4ebf-8076-d136e366cd87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Clases\Scenes">
+      <UniqueIdentifier>{c1330035-2281-4ee3-bb18-c2b3d01899d6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

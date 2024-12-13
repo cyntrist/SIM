@@ -12,8 +12,8 @@
 
 using namespace Snippets;
 
-typedef physx::PxVec3 Vector3;
-typedef physx::PxVec4 Vector4;
+using Vector3 = physx::PxVec3;
+using Vector4 = physx::PxVec4;
 
 
 #endif

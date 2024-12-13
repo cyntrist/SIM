@@ -14,6 +14,7 @@
 #include "ParticleSystem.h"
 #include "ParticleGenerator.h"
 #include "Scene.h"
+#include "SceneManager.h"
 
 std::string display_text = "This is a test";
 
@@ -37,7 +38,7 @@ ContactReportCallback gContactReportCallback;
 
 std::vector<Particle*> mParticles;
 
-Scene* scene = nullptr;
+SceneManager* sm = nullptr;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -65,11 +66,11 @@ void initPhysics(bool interactive)
 
 	/// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
-	scene = new Scene();
-	auto system = new ParticleSystem(scene);
-	auto p1 = new ParticleGenerator(Vector3(0,0,0), Vector3(0, 10, 0), 1000);
-	auto p2 = new ParticleGenerator(Vector3(100,0,0), Vector3(0, 20, 0), 1000);
-	auto p3 = new ParticleGenerator(Vector3(50,0,-100), Vector3(0, 30, 0), 1000);
+	currentScene = new Scene();
+	auto system = new ParticleSystem(currentScene);
+	auto p1 = new ParticleGenerator(Vector3(0, 0, 0), Vector3(0, 10, 0), 1000);
+	auto p2 = new ParticleGenerator(Vector3(100, 0, 0), Vector3(0, 20, 0), 1000);
+	auto p3 = new ParticleGenerator(Vector3(50, 0, -100), Vector3(0, 30, 0), 1000);
 	p2->setMode(Mode::FUEGOS);
 	p3->setMode(Mode::HUMO);
 	system->addGenerator(p1);
@@ -77,7 +78,7 @@ void initPhysics(bool interactive)
 	system->addGenerator(p3);
 	//system->addGenerator(new ParticleGenerator());
 	//system->addGenerator(new ParticleGenerator());
-	scene->addObject(system);
+	currentScene->addObject(system);
 }
 
 
@@ -94,8 +95,8 @@ void stepPhysics(bool interactive, double t)
 	for (const auto p : mParticles)
 		p->integrate(t);
 
-	if (scene != nullptr)
-		scene->update(t);
+	if (currentScene != nullptr)
+		currentScene->update(t);
 }
 
 // Function to clean data
@@ -126,17 +127,17 @@ void cleanupPhysics(bool interactive)
 void keyPress(unsigned char key, Camera* camera)
 {
 	PX_UNUSED(camera);
-	
+
 	switch (toupper(key))
 	{
 	case 'E':
 		{
 			auto p = new Particle(
-				camera->getTransform().p + camera->getDir() * 20, 
+				camera->getTransform().p + camera->getDir() * 20,
 				camera->getDir() * 20,
-				Vector3( 
-					camera->getDir().x, 
-					camera->getDir().y - 9.8f, 
+				Vector3(
+					camera->getDir().x,
+					camera->getDir().y - 9.8f,
 					camera->getDir().z
 				)
 			);

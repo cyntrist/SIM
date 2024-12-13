@@ -2,9 +2,12 @@
 
 extern void onCollision(physx::PxActor* actor1, physx::PxActor* actor2);
 
-physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes attributes0, physx::PxFilterData filterData0,
-	physx::PxFilterObjectAttributes attributes1, physx::PxFilterData filterData1,
-	physx::PxPairFlags& pairFlags, const void* constantBlock, physx::PxU32 constantBlockSize)
+physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes attributes0,
+                                               physx::PxFilterData filterData0,
+                                               physx::PxFilterObjectAttributes attributes1,
+                                               physx::PxFilterData filterData1,
+                                               physx::PxPairFlags& pairFlags, const void* constantBlock,
+                                               physx::PxU32 constantBlockSize)
 {
 	PX_UNUSED(attributes0);
 	PX_UNUSED(attributes1);
@@ -21,7 +24,8 @@ physx::PxFilterFlags contactReportFilterShader(physx::PxFilterObjectAttributes a
 	return physx::PxFilterFlag::eDEFAULT;
 }
 
-void ContactReportCallback::onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs, physx::PxU32 nbPairs)
+void ContactReportCallback::onContact(const physx::PxContactPairHeader& pairHeader, const physx::PxContactPair* pairs,
+                                      physx::PxU32 nbPairs)
 {
 	PX_UNUSED(pairs);
 	PX_UNUSED(nbPairs);

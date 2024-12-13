@@ -20,11 +20,13 @@ public:
 			gen->update(t);
 		return true;
 	}
+
 	void addGenerator(ForceGenerator* gen)
 	{
 		generators.push_back(gen);
 		gen->setScene(scene);
 	}
+
 	void destroyGenerator(int i)
 	{
 		generators.erase(std::find(generators.begin(), generators.end(), generators[i]));
