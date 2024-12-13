@@ -267,13 +267,16 @@
     <ClCompile Include="GameObject.h" />
     <ClCompile Include="RigidBodyActor.cpp" />
     <ClCompile Include="RigidBodyDynamic.cpp" />
+    <ClCompile Include="RigidBodyScene.cpp" />
     <ClCompile Include="RigidBodyStatic.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpringScene.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="WhirlScene.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="Widget.h" />
+    <ClCompile Include="WindScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
@@ -290,12 +293,15 @@
     <ClInclude Include="Render\Render.h" />
     <ClInclude Include="RigidBodyActor.h" />
     <ClInclude Include="RigidBodyDynamic.h" />
+    <ClInclude Include="RigidBodyScene.h" />
     <ClInclude Include="RigidBodyStatic.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpringScene.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Vector3D.h" />
+    <ClInclude Include="WhirlScene.h" />
+    <ClInclude Include="WindScene.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

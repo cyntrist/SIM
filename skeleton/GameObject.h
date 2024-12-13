@@ -66,7 +66,7 @@ public:
 		size = siz;
 	}
 
-	void setColor(Vector4 col)
+	virtual void setColor(Vector4 col)
 	{
 		renderItem->color = col;
 		color = col;

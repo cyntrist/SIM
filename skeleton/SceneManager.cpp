@@ -1,11 +1,13 @@
 ﻿#include "SceneManager.h"
 #include "RenderUtils.hpp"
 #include "Scene.h"
+#include "SpringScene.h"
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
 	addScene(new Scene());
 	addScene(new ParticleScene(GetCamera()));
+	addScene(new SpringScene(GetCamera()));
 	//addScene(new ScenaViento(GetCamera()));
 	//addScene(new ScenaTorbellino(GetCamera()));
 	//addScene(new ScenaExplosion(GetCamera()));

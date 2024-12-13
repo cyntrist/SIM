@@ -21,6 +21,7 @@ public:
 	{
 		renderItem->color = Vector4(r, g, b, a);
 	}
+	void setColor(Vector4 col) override { renderItem->color = col; color = col; }
 
 	void setPose(PxTransform* p) { pose = p; }
 	void setAcc(const Vector3& a = {0, 0, 0}) { acc = a; }
