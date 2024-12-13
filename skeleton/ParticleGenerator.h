@@ -1,44 +1,77 @@
 #pragma once
+#include "Particle.h"
+#include <unordered_map>
 #include <random>
 
-#include "Particle.h"
-#include "Scene.h"
-
-enum class Mode
-{
-	FUENTE,
-	FUEGOS,
-	HUMO
-};
+class ParticleSystem;
+class Scene;
 
 class ParticleGenerator
 {
-	Mode modo = Mode::FUENTE;
+protected:
+	//Particle particleReference;
+	std::default_random_engine generator;
+	ParticleSystem* particleSystem;
+
+	// Propiedades inicio
+	int startNGameObjects;
+	Vector3 origen;
+	Vector3 startVel;
+	float startLifetime;
+
+
+	float startSize;
+	Vector4 startColor;
+
+	// Current particles
 	Scene* scene = nullptr;
-	Particle* model = nullptr; // particula modelo
+	int nGameObjects = 0;
+	int nGameObjectsTotal = 0;
+	std::unordered_map<GameObject*, bool> generatedGameObjects; // Partículas generadas por este generador
 
-	size_t num = 0;
-	size_t max_num; // max numero de particulas
-	double min_life; // promedio vida
-	double max_life;
-	std::vector<Particle*> particles; // vector de particulas
-
-	Vector3 origin;
-	Vector3 ini_speed;
-	Vector3 mean_speed;
-
-	double chance = 1; // probabilidad
-	std::normal_distribution<> probability();
-	std::random_device rd{};
-	std::mt19937 mt{rd()};
 
 public:
-	ParticleGenerator(Particle* model, Mode mode = Mode::FUENTE);
-	ParticleGenerator(Vector3 origin, Vector3 speed, double max_life, Mode mode = Mode::FUENTE);
-	~ParticleGenerator() = default;
-	bool update(double t);
-	Particle* addParticle();
-	bool shouldGenerate();
-	void setMode(const Mode m) { modo = m; }
-	void setScene(Scene* s) { scene = s; }
+	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn);
+	~ParticleGenerator();
+
+	void setScene(Scene* sc) { scene = sc; }
+	virtual void generateParticle() = 0;
+	bool mayGenerate();
+	int getNumParticles() const { return nGameObjects; }
+	void onGameObjectDeath(GameObject* p);
+
+	//void setVisibility(bool visibility);
+
+	void update(double t);
+};
+
+// --- GENERADOR DE CASCADA ---
+class CascadaGen : public ParticleGenerator
+{
+
+public:
+	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(org, nparts, partsys, scn) {};
+	~CascadaGen() {};
+
+	void generateParticle() override;
+};
+
+// --- GENERADOR DE NIEBLA ---
+class NieblaGen : public ParticleGenerator
+{
+public:
+	NieblaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(org, nparts, partsys, scn) {};
+	~NieblaGen() {};
+
+	void generateParticle() override;
+};
+
+// --- GENERADOR DE PARTICULAS DE VARIAS MASAS ---
+class RandomParticleGen : public ParticleGenerator
+{
+public:
+	RandomParticleGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(org, nparts, partsys, scn) {};
+	~RandomParticleGen() {};
+
+	void generateParticle() override;
 };

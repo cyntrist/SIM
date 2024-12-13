@@ -1,107 +1,190 @@
 #include "ParticleGenerator.h"
+#include "Scene.h"
+#include "ParticleSystem.h"
 
-ParticleGenerator::ParticleGenerator(Particle* model, Mode mode) : modo(mode), model(model)
-{
-	origin = model->getPose().p;
-	max_life = model->getLifetime();
-	ini_speed = model->getVel();
-}
-
-ParticleGenerator::ParticleGenerator(Vector3 origin, Vector3 speed, double max_life, Mode mode)
-	: modo(mode), max_life(max_life), origin(origin), ini_speed(speed)
+ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn) :
+	particleSystem(partsys), startNGameObjects(stNpart), origen(org), scene(scn)
 {
 }
 
-bool ParticleGenerator::update(double t)
+ParticleGenerator::~ParticleGenerator()
 {
-	if (shouldGenerate())
-		particles.push_back(addParticle());
-
-	for (auto particle : particles)
-		particle->update(t);
+}
 
 
-	for (int i = 0; i < particles.size(); i++)
+void ParticleGenerator::update(double t)
+{
+	if (mayGenerate())
+		generateParticle();
+}
+
+bool ParticleGenerator::mayGenerate()
+{
+	return nGameObjects <= startNGameObjects;
+}
+
+void ParticleGenerator::onGameObjectDeath(GameObject* p)
+{
+	if (generatedGameObjects.find(p) != generatedGameObjects.end())
 	{
-		if (!particles[i]->isAlive())
-		{
-			delete particles[i];
-			auto ref = std::find(particles.begin(), particles.end(), particles[i]);
-			particles.erase(ref);
-			i--;
-		}
+		generatedGameObjects.erase(p);
+		nGameObjects--;
 	}
-
-	return true;
 }
 
-Particle* ParticleGenerator::addParticle()
+void ParticleGenerator::generateParticle()
 {
-	Particle* part;
-	switch (modo)
+	cout << "---Nueva particula generada del sistema---" << endl;
+}
+
+// --- GENERADOR DE CASCADA ---
+void CascadaGen::generateParticle()
+{
+	// cantidad de particulas no generadas
+	int restParticles = (startNGameObjects / 2) - nGameObjects;
+
+	// Generamos una cantidad de particulas, cuya cantidad entra en el rango de la capacidad de particulas maxima,
+	// es decir restParticles
+	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
+	std::normal_distribution<> YnormalDistribution(5, 2.0); // media|dispersion
+	std::normal_distribution<> ZnormalDistribution(10, 2.0); // media|dispersion
+	std::normal_distribution<> LFEnormalDistribution(2, 10.0); // media|dispersion
+	std::normal_distribution<> ORGnormalDistribution(origen.x, 10.0); // media|dispersion
+
+	// origen de la nueva particula
+	Vector3 origen2;
+	// velocidad para la nueva particula
+	Vector3 velocity;
+	velocity.x = 0;
+	// tiempo de vida para la nueva particula
+	float lifetime;
+	// cantidad de particulas que se van a generar
+	int particlesGenerated = numPartsUniform(generator);
+
+	for (int i = 0; i < particlesGenerated; i++)
 	{
-	case Mode::FUENTE:
-		{
-			std::normal_distribution<> probability(5.0, 3.0);
+		// aleatorizamos las variabes asignadas a las nuevas particulas
+		origen2 = origen;
+		origen2.x = ORGnormalDistribution(generator);
+		velocity.y = YnormalDistribution(generator);
+		velocity.z = ZnormalDistribution(generator);
+		lifetime = LFEnormalDistribution(generator);
 
-			Vector3 newVel;
-			newVel.x = probability(rd);
-			newVel.y = probability(rd);
-			newVel.z = probability(rd);
+		// creamos la nueva particula
+		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
+		aux->setVel(velocity);
+		aux->setSize(0.5);
+		aux->setActtime(lifetime);
+		aux->toggleGrav();
 
-			part = new Particle(
-				origin,
-				newVel + ini_speed,
-				Vector3(0, -10, 0)
-			);
-			part->setColor(0.1, 1.0, 0.2, 1);
+		// añadimos las particulas a la lista
 
-			break;
-		}
-	case Mode::FUEGOS:
-		{
-			std::normal_distribution<> probability(1.0, 5.0);
+		generatedGameObjects[aux] = true; // Aniaadir al mapa
+		scene->addObject(aux, this); // Aniadir a la escena y pasar referencia del generador
 
-			Vector3 newVel;
-			newVel.x = probability(rd);
-			newVel.y = probability(rd);
-			newVel.z = probability(rd);
-
-			part = new Particle(
-				origin,
-				newVel + ini_speed,
-				Vector3(0, -10, 0)
-			);
-			part->setColor(1.0, 0.2, 0.1, 1);
-
-			break;
-		}
-	case Mode::HUMO:
-		{
-			std::normal_distribution<> probability(10.0, 2.0);
-
-			Vector3 newVel;
-			newVel.x = probability(rd);
-			newVel.y = probability(rd);
-			newVel.z = probability(rd);
-
-			part = new Particle(
-				origin,
-				newVel + ini_speed,
-				Vector3(0, -10, 0)
-			);
-			part->setColor(0.1, 0.2, 1.0, 1);
-
-			break;
-		}
+		//particles.push_back(aux);
+		nGameObjects++;
+		nGameObjectsTotal++;
 	}
-	num++;
-
-	return part;
 }
 
-bool ParticleGenerator::shouldGenerate()
+
+// --- GENERADOR DE NIEBLA ---
+void NieblaGen::generateParticle()
 {
-	std::uniform_int_distribution<> distr(0, 4); // define the range
-	return num < max_num && distr(mt) == 1;
+	// cantidad de particulas no generadas
+	int restParticles = (startNGameObjects / 2) - nGameObjects;
+
+	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
+	std::uniform_int_distribution<> posXZUniform(-20, 20); // numero de -10 a 10
+	std::uniform_int_distribution<> posYUniform(0, 40); // numero de 0 a 20
+
+	std::normal_distribution<> Bdistribution(10, 0.8); // numero de 0 a restParticles
+
+	// origen de la nueva particula
+	Vector3 origen2;
+	// velocidad para la nueva particula
+	Vector3 velocity;
+	velocity.x = 0;
+	velocity.y = 0;
+	velocity.z = 0;
+	// tiempo de vida para la nueva particula
+	float lifetime;
+	// cantidad de particulas que se van a generar
+	int particlesGenerated = numPartsUniform(generator);
+
+	for (int i = 0; i < particlesGenerated; i++)
+	{
+		// aleatorizamos las variabes asignadas a las nuevas particulas
+		origen2 = origen;
+		origen2.x = posXZUniform(generator);
+		origen2.y = posYUniform(generator);
+		origen2.z = posXZUniform(generator);
+
+		lifetime = Bdistribution(generator);
+
+		// creamos la nueva particula
+		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
+		aux->setVel(velocity);
+		aux->setSize(0.25);
+		aux->setActtime(lifetime);
+
+		// añadimos las particulas a la lista
+		generatedGameObjects[aux] = true; // Aniaadir al mapa
+		scene->addObject(aux, this); // Aniadir a la escena y pasar referencia del generador
+		aux->toggleGrav();
+		nGameObjects++;
+		nGameObjectsTotal++;
+	}
+}
+
+// --- GENERADOR DE PARTICULAS DE VARIAS MASAS ---
+void RandomParticleGen::generateParticle()
+{
+	// cantidad de particulas no generadas
+	int restParticles = (startNGameObjects / 2) - nGameObjects;
+
+	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
+	std::uniform_int_distribution<> posXZUniform(-40, 40); // numero de -40 a 40
+	std::uniform_int_distribution<> posYUniform(0, 80); // numero de 0 a 80
+
+	std::uniform_real_distribution<> lifeTimeUdistribution(5, 10); // numero de 0 a restParticles
+	std::normal_distribution<> massUdistribution(10, 0.2); // numero de 0 a restParticles
+
+	// origen de la nueva particula
+	Vector3 origen2;
+	// velocidad para la nueva particula
+	Vector3 velocity;
+	velocity.x = 0;
+	velocity.y = 0;
+	velocity.z = 0;
+	// tiempo de vida para la nueva particula
+	float lifetime;
+	// cantidad de particulas que se van a generar
+	int particlesGenerated = numPartsUniform(generator);
+
+	for (int i = 0; i < particlesGenerated; i++)
+	{
+		// aleatorizamos las variabes asignadas a las nuevas particulas
+		origen2 = origen;
+		origen2.x = posXZUniform(generator);
+		origen2.y = posYUniform(generator);
+		origen2.z = posXZUniform(generator);
+
+		lifetime = lifeTimeUdistribution(generator);
+
+		// creamos la nueva particula
+		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
+		aux->setVel(velocity);
+		//aux->setSize(0.25);
+		aux->setActtime(lifetime);
+		aux->toggleGrav();
+		aux->setMass(massUdistribution(generator));
+
+		// añadimos las particulas a la lista
+		generatedGameObjects[aux] = true; // Aniaadir al mapa
+		scene->addObject(aux, this); // Aniadir a la escena y pasar referencia del generador
+		nGameObjects++;
+		nGameObjectsTotal++;
+	}
 }

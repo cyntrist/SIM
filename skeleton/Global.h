@@ -1,4 +1,5 @@
 #pragma once
+#include "RenderUtils.hpp"
 
 using namespace std;
 using namespace physx;

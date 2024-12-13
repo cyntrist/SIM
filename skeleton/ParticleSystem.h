@@ -6,13 +6,12 @@
 #include "ParticleGenerator.h"
 #include "Scene.h"
 
-class ParticleSystem : public GameObject
+class ParticleSystem : public System
 {
 	std::vector<ParticleGenerator*> generators;
 	Scene* scene;
-
 public:
-	ParticleSystem(Scene* scene) : scene(scene)
+	ParticleSystem(Scene* scene) : System(scene)
 	{
 	}
 

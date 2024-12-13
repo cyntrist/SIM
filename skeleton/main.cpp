@@ -39,6 +39,8 @@ ContactReportCallback gContactReportCallback;
 std::vector<Particle*> mParticles;
 
 SceneManager* sm = nullptr;
+RenderItem *xRenderItem = nullptr, *yRenderItem = nullptr, *zRenderItem = nullptr;
+PxTransform x, y, z;
 
 // Initialize physics engine
 void initPhysics(bool interactive)
@@ -66,19 +68,29 @@ void initPhysics(bool interactive)
 
 	/// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
 
-	currentScene = new Scene();
-	auto system = new ParticleSystem(currentScene);
-	auto p1 = new ParticleGenerator(Vector3(0, 0, 0), Vector3(0, 10, 0), 1000);
-	auto p2 = new ParticleGenerator(Vector3(100, 0, 0), Vector3(0, 20, 0), 1000);
-	auto p3 = new ParticleGenerator(Vector3(50, 0, -100), Vector3(0, 30, 0), 1000);
-	p2->setMode(Mode::FUEGOS);
-	p3->setMode(Mode::HUMO);
-	system->addGenerator(p1);
-	system->addGenerator(p2);
-	system->addGenerator(p3);
-	//system->addGenerator(new ParticleGenerator());
-	//system->addGenerator(new ParticleGenerator());
-	currentScene->addObject(system);
+	//currentScene = new Scene();
+	//auto system = new ParticleSystem(currentScene);
+	//auto p1 = new ParticleGenerator(Vector3(0, 0, 0), Vector3(0, 10, 0), 1000);
+	//auto p2 = new ParticleGenerator(Vector3(100, 0, 0), Vector3(0, 20, 0), 1000);
+	//auto p3 = new ParticleGenerator(Vector3(50, 0, -100), Vector3(0, 30, 0), 1000);
+	//p2->setMode(Mode::FUEGOS);
+	//p3->setMode(Mode::HUMO);
+	//system->addGenerator(p1);
+	//system->addGenerator(p2);
+	//system->addGenerator(p3);
+	////system->addGenerator(new ParticleGenerator());
+	////system->addGenerator(new ParticleGenerator());
+	//currentScene->addObject(system);
+
+	x = {10.0, 0.0, 0.0};
+	y = {0.0, 10.0, 0.0};
+	z = {0.0, 0.0, 10.0};
+
+	xRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &x, {1.0, 0.0, 0.0, 1.0});
+	yRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &y, {0.0, 1.0, 0.0, 1.0});
+	zRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &z, {0.0, 0.0, 1.0, 1.0});
+
+	sm = new SceneManager(gPhysics, gScene);
 }
 
 
@@ -95,8 +107,8 @@ void stepPhysics(bool interactive, double t)
 	for (const auto p : mParticles)
 		p->integrate(t);
 
-	if (currentScene != nullptr)
-		currentScene->update(t);
+	if (sm != nullptr)
+		sm->update(t);
 }
 
 // Function to clean data
@@ -128,30 +140,32 @@ void keyPress(unsigned char key, Camera* camera)
 {
 	PX_UNUSED(camera);
 
-	switch (toupper(key))
-	{
-	case 'E':
-		{
-			auto p = new Particle(
-				camera->getTransform().p + camera->getDir() * 20,
-				camera->getDir() * 20,
-				Vector3(
-					camera->getDir().x,
-					camera->getDir().y - 9.8f,
-					camera->getDir().z
-				)
-			);
-			mParticles.push_back(p);
-		}
-		break;
-	//case ' ':	break;
-	case ' ':
-		{
-			break;
-		}
-	default:
-		break;
-	}
+	//switch (toupper(key))
+	//{
+	//case 'E':
+	//	{
+	//		auto p = new Particle(
+	//			camera->getTransform().p + camera->getDir() * 20,
+	//			camera->getDir() * 20,
+	//			Vector3(
+	//				camera->getDir().x,
+	//				camera->getDir().y - 9.8f,
+	//				camera->getDir().z
+	//			)
+	//		);
+	//		mParticles.push_back(p);
+	//	}
+	//	break;
+	////case ' ':	break;
+	//case ' ':
+	//	{
+	//		break;
+	//	}
+	//default:
+	//	break;
+	//}
+
+	sm->keyPressed(key, camera->getTransform());
 }
 
 void onCollision(PxActor* actor1, PxActor* actor2)

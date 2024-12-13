@@ -2,12 +2,13 @@
 #include <iostream>
 #include <unordered_map>
 #include <vector>
-#include "GameObject.h"
 #include "Global.h"
 #include "System.h"
 
 using namespace std;
 using namespace physx;
+
+class GameObject;
 
 class Scene
 {
@@ -51,71 +52,19 @@ public:
 		setObjsVisible(active);
 	};
 
-	void setObjsVisible(bool vis)
+	void addSystem(System* sys)
 	{
-		for (auto go : gameObjects)
-			go.second.gameObject->setVisible(vis);
+		systems.push_back(sys);
 	}
 
 	virtual void setup()
 	{
 	};
 
-	void addObject(GameObject* obj, ParticleGenerator* partGen)
-	{
-		if (const int i = gameObjects.count(obj->getName()) > 0)
-			obj->setName(obj->getName() + "(" + to_string(i) + ")");
-		ObjInfo infogb = {obj, partGen};
-		gameObjects.insert({obj->getName(), infogb});
-	}
-
-	void deleteObject(string& name)
-	{
-		const auto objInfo = gameObjects.find(name);
-
-		if (objInfo == gameObjects.end())
-			return;
-
-		if (objInfo->second.partGen)
-			objInfo->second.partGen = nullptr;
-
-		delete objInfo->second.gameObject;
-		gameObjects.erase(name);
-	}
-
-	void addSystem(System* sys)
-	{
-		systems.push_back(sys);
-	}
-
-	void update(double t)
-	{
-		if (!active) return;
-
-		vector<string> deleteList;
-		for (auto ob : gameObjects)
-		{
-			if (ob.second.gameObject == nullptr)
-			{
-				deleteList.push_back(ob.second.gameObject->getName());
-				continue;
-			}
-
-			ob.second.gameObject->update(t);
-
-			if (!ob.second.gameObject->isAlive())
-				deleteList.push_back(ob.second.gameObject->getName());
-		}
-
-		for (auto o : deleteList)
-			deleteObject(o);
-
-		for (const auto s : systems)
-		{
-			s->update(t);
-			s->affectParticles(gameObjects, t);
-		}
-	}
+	void setObjsVisible(bool vis);
+	void addObject(GameObject* obj, ParticleGenerator* partGen);
+	void deleteObject(string& name);
+	void update(double t);
 
 	void setActorVisible(PxRigidActor* actor, bool vis)
 	{
