@@ -7,10 +7,6 @@ ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* p
 {
 }
 
-ParticleGenerator::~ParticleGenerator()
-{
-}
-
 
 void ParticleGenerator::update(double t)
 {
@@ -18,10 +14,6 @@ void ParticleGenerator::update(double t)
 		generateParticle();
 }
 
-bool ParticleGenerator::mayGenerate()
-{
-	return nGameObjects <= startNGameObjects;
-}
 
 void ParticleGenerator::onGameObjectDeath(GameObject* p)
 {

@@ -14,7 +14,6 @@ void FloatScene::setup()
 
 	fsys->addForceGenerator(new FlotationGenerator(20, this, 10000));
 
-
 	// particula encima del agua
 	auto partFlot = new Particle("partFlot", this, {-10, 30, 0});
 	addGameObject(partFlot);

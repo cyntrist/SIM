@@ -9,8 +9,7 @@ class Scene;
 class ParticleGenerator
 {
 protected:
-	//Particle particleReference;
-	std::default_random_engine generator;
+	default_random_engine generator;
 	ParticleSystem* particleSystem;
 
 	// Propiedades inicio
@@ -27,16 +26,20 @@ protected:
 	Scene* scene = nullptr;
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
-	std::unordered_map<GameObject*, bool> generatedGameObjects; // Partículas generadas por este generador
-
+	unordered_map<GameObject*, bool> generatedGameObjects;
+	vector<GameObject*> gameObjects;
 
 public:
 	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn);
-	~ParticleGenerator();
 
 	void setScene(Scene* sc) { scene = sc; }
 	virtual void generateParticle() = 0;
-	bool mayGenerate();
+
+	bool mayGenerate() const
+	{
+		return nGameObjects <= startNGameObjects;
+	}
+
 	int getNumParticles() const { return nGameObjects; }
 	void onGameObjectDeath(GameObject* p);
 
