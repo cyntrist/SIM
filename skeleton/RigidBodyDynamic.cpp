@@ -32,5 +32,5 @@ void RBDynamic::setShape(PxShape* shp, float siz)
 void RBDynamic::setVisible(bool vis)
 {
 	RBActor::setVisible(vis);
-	scene->pxSceneVisivility(actor, vis);
+	scene->setActorVisible(actor, vis);
 }

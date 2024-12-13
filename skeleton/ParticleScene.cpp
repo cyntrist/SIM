@@ -23,7 +23,7 @@ void ParticleScene::setup()
 	// ----- PARTICULA -----
 	//addParticle( new Particle({0,0,0}, {0,1,0}, {0,10,0}, 0.98));
 	// ----- PROYECTIL -----
-	//scene->addObject(new Proyectile({ 0,0,0 }, { 25,25,0 }));
+	//scene->addGameObject(new Proyectile({ 0,0,0 }, { 25,25,0 }));
 
 
 	// ------- SISTEMAS DE PARTICULAS ------

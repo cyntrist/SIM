@@ -80,7 +80,7 @@ void initPhysics(bool interactive)
 	//system->addParticleGenerator(p3);
 	////system->addParticleGenerator(new ParticleGenerator());
 	////system->addParticleGenerator(new ParticleGenerator());
-	//currentScene->addObject(system);
+	//currentScene->addGameObject(system);
 
 	x = {10.0, 0.0, 0.0};
 	y = {0.0, 10.0, 0.0};

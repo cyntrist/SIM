@@ -23,6 +23,7 @@ protected:
 
 public:
 	Scene() { setup(); };
+	Scene(Camera* cam, PxPhysics* gPhysics = nullptr, PxScene* gScene = nullptr);
 	virtual ~Scene() = default;
 
 	// getters
@@ -62,8 +63,8 @@ public:
 	};
 
 	void setObjsVisible(bool vis);
-	void addObject(GameObject* obj, ParticleGenerator* partGen);
-	void deleteObject(string& name);
+	void addGameObject(GameObject* obj, ParticleGenerator* partGen = nullptr);
+	void deleteGameObject(string& name);
 	void update(double t);
 
 	void setActorVisible(PxRigidActor* actor, bool vis)

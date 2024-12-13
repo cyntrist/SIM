@@ -1,21 +1,26 @@
 #include "Scene.h"
 #include "GameObject.h"
 
+Scene::Scene(Camera* cam, PxPhysics* gPhysics, PxScene* gScene) : camera(cam), gPhysics(gPhysics), gScene(gScene)
+{
+	setup();
+}
+
 void Scene::setObjsVisible(bool vis)
 {
 	for (auto go : gameObjects)
 		go.second.gameObject->setVisible(vis);
 }
 
-void Scene::addObject(GameObject* obj, ParticleGenerator* partGen)
+void Scene::addGameObject(GameObject* obj, ParticleGenerator* partGen)
 {
-	if (int i = gameObjects.count(obj->getName()) > 0)
-		obj->setName(obj->getName() + "(" + to_string(i) + ")");
+	if (gameObjects.count(obj->getName()))
+		obj->setName(obj->getName() + "(1)");
 	ObjInfo infogb = {obj, partGen};
 	gameObjects.insert({obj->getName(), infogb});
 }
 
-void Scene::deleteObject(string& name)
+void Scene::deleteGameObject(string& name)
 {
 	const auto objInfo = gameObjects.find(name);
 
@@ -50,7 +55,7 @@ void Scene::update(double t)
 	}
 
 	for (auto o : deleteList)
-		deleteObject(o);
+		deleteGameObject(o);
 
 	for (const auto s : systems)
 	{

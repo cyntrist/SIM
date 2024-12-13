@@ -255,6 +255,7 @@
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
+    <ClCompile Include="ForceSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -269,7 +270,10 @@
     <ClCompile Include="RigidBodyStatic.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
+    <ClCompile Include="SpringScene.cpp" />
     <ClCompile Include="Vector3D.cpp" />
+    <ClCompile Include="Widget.cpp" />
+    <ClCompile Include="Widget.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
@@ -289,6 +293,7 @@
     <ClInclude Include="RigidBodyStatic.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
+    <ClInclude Include="SpringScene.h" />
     <ClInclude Include="System.h" />
     <ClInclude Include="Vector3D.h" />
   </ItemGroup>

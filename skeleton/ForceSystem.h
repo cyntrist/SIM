@@ -1,34 +1,20 @@
 #pragma once
 #include <vector>
+#include "System.h"
 #include "ForceGenerator.h"
 
-class Scene;
 using namespace std;
 
-class ForceSystem
+class ForceSystem : public System
 {
-	vector<ForceGenerator*> generators;
-	Scene* scene;
-
+private:
+	vector<ForceGenerator*> forceGenerators;
 public:
-	ForceSystem();
-	~ForceSystem() = default;
+	ForceSystem(Scene* scn);
+	~ForceSystem();
 
-	bool update(double t)
-	{
-		for (auto gen : generators)
-			gen->update(t);
-		return true;
-	}
+	void affectParticles(unordered_map<string, ObjInfo>const& gameObjects, double t) override;
 
-	void addGenerator(ForceGenerator* gen)
-	{
-		generators.push_back(gen);
-		gen->setScene(scene);
-	}
-
-	void destroyGenerator(int i)
-	{
-		generators.erase(std::find(generators.begin(), generators.end(), generators[i]));
-	}
+	void addForceGenerator(ForceGenerator* forcGen);
 };
+
