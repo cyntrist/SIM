@@ -1,4 +1,5 @@
 ﻿#include "SceneManager.h"
+#include "FloatScene.h"
 #include "RenderUtils.hpp"
 #include "Scene.h"
 #include "SpringScene.h"
@@ -12,7 +13,8 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new WindScene()); // 2
 	addScene(new WhirlScene()); // 3
 	addScene(new SpringScene()); // 4
-	setScene(0);
+	addScene(new FloatScene()); // 5
+	setScene(4);
 }
 
 SceneManager::~SceneManager()

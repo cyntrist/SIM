@@ -14,10 +14,6 @@ public:
 	{
 	};
 
-	~SpringScene() override
-	{
-	};
-
 	void setup() override;
 
 	void keyPressed(unsigned char key, const PxTransform& camera) override;

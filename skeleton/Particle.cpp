@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-constexpr int LOW_TRESH = 10;
+constexpr int LOW_TRESH = 10000;
 
 Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
 {
@@ -48,7 +48,7 @@ Particle::Particle(string nam, Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc
 
 Particle::~Particle()
 {
-	//DeregisterRenderItem(renderItem);
+	DeregisterRenderItem(renderItem);
 }
 
 bool Particle::update(double t)
@@ -56,7 +56,7 @@ bool Particle::update(double t)
 	if (!alive)
 		return false;
 
-	if (lifetime > maxLifetime || pose->p.y <= -LOW_TRESH)
+	if ((maxLifetime != -1 && lifetime > maxLifetime) || pose->p.y <= -LOW_TRESH)
 	{
 		kill();
 		return false;

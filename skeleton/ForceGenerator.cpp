@@ -7,11 +7,10 @@ void ForceGenerator::generateRadiusSphere()
 {
 	if (radius <= 0)
 		return;
-	// si ya existe un render item, elimina el que esta y crea uno nuevo con el nuevo radio
+
 	if (!widget)
 	{
 		widget = new Widget("RadioSphera", scene, origen, radius);
-
 		scene->addGameObject(widget, nullptr);
 	}
 
@@ -58,13 +57,13 @@ Vector3 VientoGenerador::generateForce(GameObject& obj)
 	return force;
 }
 
-// ------- GENERADOR DE TORVELLINO -------
+// ------- GENERADOR DE TORBELLINO -------
 Vector3 TorbellinoGenerator::generateForce(GameObject& obj)
 {
 	Vector3 force(0, 0, 0),
 	        partPos = obj.getPosition();
 
-	//calculo de la fuerza en torvellino
+	//calculo de la fuerza en torbellino
 	force = k * Vector3(-(partPos.z - origen.z), 50 - (partPos.y - origen.y), partPos.x - origen.x);
 
 	force -= obj.getVel();
@@ -72,11 +71,9 @@ Vector3 TorbellinoGenerator::generateForce(GameObject& obj)
 	return force;
 }
 
-// -------- GENERADOR DE EXPLOSION --------
 Vector3 ExplosionGenerator::generateForce(GameObject& obj)
 {
 	Vector3 force(0, 0, 0);
-	simuleTime;
 
 	if (simuleTime < 0 || simuleTime >= 4 * tau) return force;
 
@@ -84,7 +81,7 @@ Vector3 ExplosionGenerator::generateForce(GameObject& obj)
 	// distancia al centro de la explosion
 	float r = (obj.getPosition() - origen).magnitude();
 	// si la distancia es menor que el radio la fuerza es 0
-	if (r >= radius) return force; // creo que esto no hace falta, porque si entra al metodo es porque r<radius
+	if (r >= radius) return force; // creo que esto no hace falta, porque si entra al metodo es porque r<radious
 
 	force = ((k / r * r) * (obj.getPosition() - origen)) * exp(-simuleTime / tau);
 

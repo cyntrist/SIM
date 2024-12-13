@@ -61,7 +61,7 @@ private:
 	double dampener;
 	float size;
 	double lifetime;
-	double maxLifetime = 10;
+	double maxLifetime = -1;
 	Vector3 grav = Vector3(0, -9.8, 0);
 	bool gravitable = false;
 	bool immovible = false;

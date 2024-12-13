@@ -43,6 +43,42 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Clases\Core</Filter>
     </ClCompile>
+    <ClCompile Include="ExplosionScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="ForceSystem.cpp">
+      <Filter>Clases\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyActor.cpp">
+      <Filter>Clases\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyScene.cpp">
+      <Filter>Clases\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyStatic.cpp">
+      <Filter>Clases\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="SpringScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WhirlScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="WindScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyDynamic.cpp">
+      <Filter>Clases\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.h">
+      <Filter>Clases\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Widget.cpp">
+      <Filter>Clases\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="FloatScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -93,6 +129,33 @@
     <ClInclude Include="Global.h">
       <Filter>Clases\Core</Filter>
     </ClInclude>
+    <ClInclude Include="ExplosionScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyActor.h">
+      <Filter>Clases\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyDynamic.h">
+      <Filter>Clases\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyStatic.h">
+      <Filter>Clases\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyScene.h">
+      <Filter>Clases\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="SpringScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WhirlScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="WindScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="FloatScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Render">
@@ -115,6 +178,9 @@
     </Filter>
     <Filter Include="Clases\Scenes">
       <UniqueIdentifier>{c1330035-2281-4ee3-bb18-c2b3d01899d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Clases\RigidBody">
+      <UniqueIdentifier>{ea3aa709-e5f9-45ce-a056-7f977e15794c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

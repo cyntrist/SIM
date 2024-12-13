@@ -82,13 +82,13 @@ void initPhysics(bool interactive)
 	////system->addParticleGenerator(new ParticleGenerator());
 	//currentScene->addGameObject(system);
 
-	x = {10.0, 0.0, 0.0};
+	/*x = {10.0, 0.0, 0.0};
 	y = {0.0, 10.0, 0.0};
 	z = {0.0, 0.0, 10.0};
 
 	xRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &x, {1.0, 0.0, 0.0, 1.0});
 	yRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &y, {0.0, 1.0, 0.0, 1.0});
-	zRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &z, {0.0, 0.0, 1.0, 1.0});
+	zRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &z, {0.0, 0.0, 1.0, 1.0});*/
 
 	sm = new SceneManager(gPhysics, gScene);
 }

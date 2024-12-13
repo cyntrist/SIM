@@ -10,10 +10,5 @@ public:
 	WindScene(Camera* cam = nullptr) : Scene(cam)
 	{
 	};
-
-	~WindScene() override
-	{
-	};
-
 	void setup() override;
 };

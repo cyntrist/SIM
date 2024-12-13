@@ -43,13 +43,6 @@ public:
 	{
 	};
 
-	~GravityGenerator() override
-	{
-	};
-
-	void update(double delta) override
-	{
-	}
 
 	Vector3 generateForce(GameObject& object) override;
 };
@@ -68,14 +61,6 @@ public:
 	{
 	};
 
-	~VientoGenerador() override
-	{
-	};
-
-	void update(double delta) override
-	{
-	}
-
 	Vector3 generateForce(GameObject& object) override;
 };
 
@@ -90,13 +75,6 @@ public:
 	{
 	};
 
-	~TorbellinoGenerator() override
-	{
-	};
-
-	void update(double delta) override
-	{
-	}
 
 	Vector3 generateForce(GameObject& object) override;
 };
@@ -183,10 +161,6 @@ public:
 	{
 	};
 
-	~GomaGenerator() override
-	{
-	};
-
 	bool onRadius(GameObject* part) override { return part == object2; };
 
 	Vector3 generateForce(GameObject& object) override;
@@ -206,9 +180,6 @@ public:
 	{
 	};
 
-	~FlotationGenerator() override
-	{
-	};
 
 	bool onRadius(GameObject* obj) override { if (obj) return obj->getPosition().y <= origen.y; };
 
