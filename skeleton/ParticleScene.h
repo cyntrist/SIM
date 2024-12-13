@@ -4,7 +4,7 @@
 class ParticleScene : public Scene
 {
 public:
-	ParticleScene(Camera* cam);
+	ParticleScene(Camera* cam = nullptr);
 
 	void setup() override;
 };

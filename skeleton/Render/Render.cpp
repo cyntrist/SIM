@@ -67,9 +67,9 @@ void renderGeometry(const PxGeometryHolder& h, bool wireframe = false)
 	case PxGeometryType::eSPHERE:
 		{
 			if (wireframe)
-				glutWireSphere(static_cast<GLdouble>(h.sphere().radius), 10, 10);
+				glutWireSphere(h.sphere().radius, 10, 10);
 			else
-				glutSolidSphere(static_cast<GLdouble>(h.sphere().radius), 10, 10);
+				glutSolidSphere(h.sphere().radius, 10, 10);
 		}
 		break;
 	case PxGeometryType::eCAPSULE:
@@ -123,7 +123,7 @@ void renderGeometry(const PxGeometryHolder& h, bool wireframe = false)
 				PxHullPolygon data;
 				mesh->getPolygonData(i, data);
 
-				const PxU32 nbTris = static_cast<PxU32>(data.mNbVerts - 2);
+				const PxU32 nbTris = data.mNbVerts - 2;
 				const PxU8 vref0 = polygons[data.mIndexBase + 0];
 				PX_ASSERT(vref0 < nbVerts);
 				for (PxU32 j = 0; j < nbTris; j++)
@@ -294,13 +294,13 @@ namespace Snippets
 		glLoadIdentity();
 		gluPerspective(
 			60.0, static_cast<GLdouble>(glutGet(GLUT_WINDOW_WIDTH)) / static_cast<GLdouble>(
-				glutGet(GLUT_WINDOW_HEIGHT)), static_cast<GLdouble>(clipNear), static_cast<GLdouble>(clipFar));
+				glutGet(GLUT_WINDOW_HEIGHT)), clipNear, clipFar);
 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		gluLookAt(static_cast<GLdouble>(cameraEye.x), static_cast<GLdouble>(cameraEye.y),
-		          static_cast<GLdouble>(cameraEye.z), static_cast<GLdouble>(cameraEye.x + cameraDir.x),
-		          static_cast<GLdouble>(cameraEye.y + cameraDir.y), static_cast<GLdouble>(cameraEye.z + cameraDir.z),
+		gluLookAt(cameraEye.x, cameraEye.y,
+		          cameraEye.z, cameraEye.x + cameraDir.x,
+		          cameraEye.y + cameraDir.y, cameraEye.z + cameraDir.z,
 		          0.0, 1.0, 0.0);
 
 		glColor4f(0.4f, 0.4f, 0.4f, 1.0f);

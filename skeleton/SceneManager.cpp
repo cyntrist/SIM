@@ -2,17 +2,16 @@
 #include "RenderUtils.hpp"
 #include "Scene.h"
 #include "SpringScene.h"
+#include "WhirlScene.h"
+#include "WindScene.h"
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
-	addScene(new Scene());
-	addScene(new ParticleScene(GetCamera()));
-	addScene(new SpringScene(GetCamera()));
-	//addScene(new ScenaViento(GetCamera()));
-	//addScene(new ScenaTorbellino(GetCamera()));
-	//addScene(new ScenaExplosion(GetCamera()));
-	//addScene(new ScenaMuelles(GetCamera()));
-	//addScene(new ScenaSolidoRigido(GetCamera(), gPhysics, gScene));
+	addScene(new Scene()); // 0
+	addScene(new ParticleScene()); // 1
+	addScene(new WindScene()); // 2
+	addScene(new WhirlScene()); // 3
+	addScene(new SpringScene()); // 4
 	setScene(0);
 }
 

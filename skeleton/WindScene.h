@@ -7,8 +7,13 @@
 class WindScene : public Scene
 {
 public:
-	WindScene(Camera* cam) : Scene(cam) {};
-	~WindScene() {};
+	WindScene(Camera* cam = nullptr) : Scene(cam)
+	{
+	};
+
+	~WindScene() override
+	{
+	};
 
 	void setup() override;
 };

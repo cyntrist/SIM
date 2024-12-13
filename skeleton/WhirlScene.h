@@ -7,8 +7,13 @@
 class WhirlScene : public Scene
 {
 public:
-	WhirlScene(Camera* cam) : Scene(cam)  {};
-	~WhirlScene() {};
+	WhirlScene(Camera* cam = nullptr) : Scene(cam)
+	{
+	};
+
+	~WhirlScene() override
+	{
+	};
 
 	void setup() override;
 };

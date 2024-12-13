@@ -3,7 +3,7 @@
 void WindScene::setup()
 {
 	// ------- SISTEMAS DE PARTICULAS ------
-	ParticleSystem* partsyst = new ParticleSystem(this);
+	auto partsyst = new ParticleSystem(this);
 	addSystem(partsyst);
 
 	// denerador de particula niebla
@@ -11,11 +11,11 @@ void WindScene::setup()
 
 
 	// --------- SISTEMA DE FUERZAS ------------
-	ForceSystem* fSys = new ForceSystem(this);
+	auto fSys = new ForceSystem(this);
 	addSystem(fSys);
 
 	// generador de viento
-	VientoGenerador* vgen = new VientoGenerador({ 0,0,0 }, this, { 0,0,0 });
+	auto vgen = new VientoGenerador({0, 0, 0}, this, {0, 0, 0});
 	fSys->addForceGenerator(vgen);
 
 	vgen->setRadius(100);

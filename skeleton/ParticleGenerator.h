@@ -48,10 +48,15 @@ public:
 // --- GENERADOR DE CASCADA ---
 class CascadaGen : public ParticleGenerator
 {
-
 public:
-	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(org, nparts, partsys, scn) {};
-	~CascadaGen() {};
+	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
+		org, nparts, partsys, scn)
+	{
+	};
+
+	~CascadaGen()
+	{
+	};
 
 	void generateParticle() override;
 };
@@ -60,8 +65,14 @@ public:
 class NieblaGen : public ParticleGenerator
 {
 public:
-	NieblaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(org, nparts, partsys, scn) {};
-	~NieblaGen() {};
+	NieblaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
+		org, nparts, partsys, scn)
+	{
+	};
+
+	~NieblaGen()
+	{
+	};
 
 	void generateParticle() override;
 };
@@ -70,8 +81,14 @@ public:
 class RandomParticleGen : public ParticleGenerator
 {
 public:
-	RandomParticleGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(org, nparts, partsys, scn) {};
-	~RandomParticleGen() {};
+	RandomParticleGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
+		org, nparts, partsys, scn)
+	{
+	};
+
+	~RandomParticleGen()
+	{
+	};
 
 	void generateParticle() override;
 };

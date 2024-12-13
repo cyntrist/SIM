@@ -62,7 +62,9 @@ bool Particle::update(double t)
 		return false;
 	}
 
-	lifetime += t;
+	if (immovible) return true;
+
+	applyForce();
 	integrate(t);
 	return true;
 }

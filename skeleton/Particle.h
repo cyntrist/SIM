@@ -21,7 +21,12 @@ public:
 	{
 		renderItem->color = Vector4(r, g, b, a);
 	}
-	void setColor(Vector4 col) override { renderItem->color = col; color = col; }
+
+	void setColor(Vector4 col) override
+	{
+		renderItem->color = col;
+		color = col;
+	}
 
 	void setPose(PxTransform* p) { pose = p; }
 	void setAcc(const Vector3& a = {0, 0, 0}) { acc = a; }
@@ -37,10 +42,12 @@ public:
 	double getLifetime() const { return lifetime; }
 	double getMaxLifetime() const { return maxLifetime; }
 	Vector3 getGrav() const { return grav; }
+
 	void toggleGrav()
 	{
 		gravitable = !gravitable;
 	}
+
 	// fuerzas
 	void addForce(float x, float y, float z) override { forces.push_back({x, y, z}); }
 	void addForce(Vector3 fc) override { forces.push_back(fc); }

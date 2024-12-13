@@ -27,7 +27,7 @@ void ParticleScene::setup()
 
 
 	// ------- SISTEMAS DE PARTICULAS ------
-	ParticleSystem* partsyst = new ParticleSystem(this);
+	auto partsyst = new ParticleSystem(this);
 	addSystem(partsyst);
 
 
@@ -44,7 +44,7 @@ void ParticleScene::setup()
 	//partsyst->addParticleGenerator(new Disparo(Vector3(0, 10, 0), 10, partsyst));
 	// sistema de particula sangre
 	//partsyst->addParticleGenerator(new Sangre(Vector3(0, 10, 50), 15, partsyst));
-	
+
 	//// --------- SISTEMA DE FUERZAS ------------
 	//ForceSystem* fSys = new ForceSystem(this);
 	//addSystem(fSys);

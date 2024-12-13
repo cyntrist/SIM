@@ -10,6 +10,7 @@ class ParticleSystem : public System
 {
 	std::vector<ParticleGenerator*> particleGenerators;
 	Scene* scene = nullptr;
+
 public:
 	ParticleSystem(Scene* scene) : System(scene)
 	{
@@ -32,6 +33,7 @@ public:
 
 	void destroyParticleGenerator(int i)
 	{
-		particleGenerators.erase(std::find(particleGenerators.begin(), particleGenerators.end(), particleGenerators[i]));
+		particleGenerators.erase(std::find(particleGenerators.begin(), particleGenerators.end(),
+		                                   particleGenerators[i]));
 	};
 };

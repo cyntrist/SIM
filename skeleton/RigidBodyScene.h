@@ -4,7 +4,6 @@
 class RigidBodyScene : public Scene
 {
 public:
-	RigidBodyScene(Camera* cam, physx::PxPhysics* gPhycs, physx::PxScene* gScn);
-	void setup()override;
+	RigidBodyScene(Camera* cam = nullptr, PxPhysics* gPhycs = nullptr, PxScene* gScn = nullptr);
+	void setup() override;
 };
-

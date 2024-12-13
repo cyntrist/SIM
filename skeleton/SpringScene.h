@@ -8,11 +8,17 @@ class SpringScene : public Scene
 private:
 	ExplosionGenerator* expls = nullptr;
 	SpringGenerator* sprngGen = nullptr;
+
 public:
-	SpringScene(Camera* cam) : Scene(cam) {};
-	~SpringScene() {};
+	SpringScene(Camera* cam = nullptr) : Scene(cam)
+	{
+	};
+
+	~SpringScene() override
+	{
+	};
 
 	void setup() override;
 
-	void keyPressed(unsigned char key, const physx::PxTransform& camera);
+	void keyPressed(unsigned char key, const PxTransform& camera) override;
 };

@@ -15,7 +15,7 @@ void ForceGenerator::generateRadiusSphere()
 		scene->addGameObject(widget, nullptr);
 	}
 
-	widget->changeShape(CreateShape(physx::PxSphereGeometry(radius)));
+	widget->changeShape(CreateShape(PxSphereGeometry(radius)));
 }
 
 ForceGenerator::ForceGenerator(Vector3 org, Scene* scn) : origen(org), scene(scn)
@@ -40,6 +40,7 @@ void ForceGenerator::setRadius(float rad)
 	radius = rad;
 	generateRadiusSphere();
 }
+
 // ------- GENERADOR DE GRAVEDAD --------
 Vector3 GravityGenerator::generateForce(GameObject& obj)
 {
@@ -61,7 +62,7 @@ Vector3 VientoGenerador::generateForce(GameObject& obj)
 Vector3 TorbellinoGenerator::generateForce(GameObject& obj)
 {
 	Vector3 force(0, 0, 0),
-		partPos = obj.getPosition();
+	        partPos = obj.getPosition();
 
 	//calculo de la fuerza en torvellino
 	force = k * Vector3(-(partPos.z - origen.z), 50 - (partPos.y - origen.y), partPos.x - origen.x);
@@ -88,14 +89,13 @@ Vector3 ExplosionGenerator::generateForce(GameObject& obj)
 	force = ((k / r * r) * (obj.getPosition() - origen)) * exp(-simuleTime / tau);
 
 
-
 	return force;
 }
 
 // ------- MUELLES -------
 Vector3 SpringGenerator::generateForce(GameObject& obj)
 {
-	Vector3 force{ 0,0,0 };
+	Vector3 force{0, 0, 0};
 
 	// largura actual del muelle
 	Vector3 dir = origen - obj.getPosition();
@@ -116,7 +116,7 @@ Vector3 SpringGenerator::generateForce(GameObject& obj)
 Vector3 GomaGenerator::generateForce(GameObject& obj)
 {
 	Vector3 position1 = object1->getPosition();
-	Vector3 force{ 0,0,0 };
+	Vector3 force{0, 0, 0};
 
 	// largura actual del muelle
 	Vector3 dir = position1 - obj.getPosition();
@@ -138,24 +138,27 @@ Vector3 GomaGenerator::generateForce(GameObject& obj)
 Vector3 FlotationGenerator::generateForce(GameObject& particle)
 {
 	float height = particle.getSize() * 2,
-		h = particle.getPosition().y,
-		h0 = origen.y,
-		immersed = 0,
-		liquidDensity = k,
-		volume = pow(particle.getSize() * 2, 3);
+	      h = particle.getPosition().y,
+	      h0 = origen.y,
+	      immersed = 0,
+	      liquidDensity = k,
+	      volume = pow(particle.getSize() * 2, 3);
 
-	if (h - h0 > height * 0.5) {
+	if (h - h0 > height * 0.5)
+	{
 		immersed = 0.0;
 	}
-	else if (h0 - h > height * 0.5) {
+	else if (h0 - h > height * 0.5)
+	{
 		immersed = 1.0;
 	}
-	else {
+	else
+	{
 		immersed = (h0 - h) / height + 0.5;
 	}
 
 
-	Vector3 force{ 0,0,0 };
+	Vector3 force{0, 0, 0};
 
 
 	// calculo de la fuerza
@@ -164,4 +167,3 @@ Vector3 FlotationGenerator::generateForce(GameObject& particle)
 	// aplica la fueza a ambos extremos del muelle
 	return force;
 }
-
