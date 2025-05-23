@@ -50,7 +50,7 @@ public:
 
 	// fuerzas
 	void addForce(float x, float y, float z) override { forces.push_back({x, y, z}); }
-	void addForce(Vector3 fc) override { forces.push_back(fc); }
+	void addForce(const Vector3& fc) override { forces.push_back(fc); }
 	void applyForce();
 	void setGravitable(bool g) { gravitable = g; }
 	void setImmovible(bool i) { immovible = i; }

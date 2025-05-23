@@ -23,7 +23,7 @@ public:
 	Vector3 getPosition() override { return actor->getGlobalPose().p; };
 
 	void addForce(float x, float y, float z) override { actor->addForce({x, y, z}); }
-	void addForce(Vector3 fc) override { actor->addForce(fc); }
+	void addForce(const Vector3& fc) override { actor->addForce(fc); }
 
 private:
 	PxRigidDynamic* actor = nullptr;

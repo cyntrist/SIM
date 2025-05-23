@@ -19,7 +19,8 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 
 SceneManager::~SceneManager()
 {
-	//...
+	for (auto* scene : scenes)
+		delete scene;
 }
 
 void SceneManager::addScene(Scene* scn)
@@ -39,10 +40,14 @@ void SceneManager::update(float t)
 void SceneManager::setScene(int id)
 {
 	for (auto* scene : scenes)
-		scene->hide();
+		scene->show(false);
+
+	scenes[id]->onDisable();
 	actualScene = id;
+	scenes[id]->onEnable();
 	scenes[id]->show();
-	Log("SCENE " + to_string(id));
+
+	//Log("SCENE " + to_string(id));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)

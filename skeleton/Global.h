@@ -1,11 +1,12 @@
 #pragma once
 #include "RenderUtils.hpp"
+#include <iostream>
 
 using namespace std;
 using namespace physx;
 
-class ParticleGenerator;
 class GameObject;
+class ParticleGenerator;
 
 struct ObjInfo
 {
@@ -13,9 +14,9 @@ struct ObjInfo
 	ParticleGenerator* partGen;
 };
 
-inline void Log(const string& message)
+inline void Log(const std::string& message)
 {
 #if _DEBUG
-	cout << message << "\n";
+	std::cout << message << "\n";
 #endif 
 }

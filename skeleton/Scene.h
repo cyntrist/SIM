@@ -22,43 +22,39 @@ protected:
 	PxScene* gScene = nullptr;
 
 public:
-	Scene() { setup(); };
+	Scene() { setup(); }
 	Scene(Camera* cam, PxPhysics* gPhysics = nullptr, PxScene* gScene = nullptr);
 	virtual ~Scene() = default;
 
 	// getters
-	unordered_map<string, ObjInfo> getObjects() const { return gameObjects; }
-	vector<System*> getSystems() const { return systems; }
-	Camera* getCamera() const { return camera; }
-	bool getActive() const { return active; }
-	PxPhysics* getPxPhysics() const { return gPhysics; }
-	PxScene* getPxScene() const { return gScene; }
+	unordered_map<string, ObjInfo> getObjects() const	{ return gameObjects; }
+	vector<System*> getSystems() const					{ return systems; }
+	Camera* getCamera() const							{ return camera; }
+	bool getActive() const								{ return active; }
+	PxPhysics* getPxPhysics() const						{ return gPhysics; }
+	PxScene* getPxScene() const							{ return gScene; }
 
-	void show()
+	void show(bool s = true)
 	{
-		update(0);
-		active = true;
-		setObjsVisible(active);
-	};
-
-	void hide()
-	{
-		active = false;
-		setObjsVisible(active);
-	};
+		if (s) update(0);
+		active = s;
+		setObjsVisible(s);
+	}
 
 	void toggle()
 	{
 		active = !active;
 		setObjsVisible(active);
-	};
+	}
 
 	void addSystem(System* sys)
 	{
 		systems.push_back(sys);
 	}
 
-	virtual void setup() {};
+	virtual void setup() {}
+	virtual void onEnable() {}
+	virtual void onDisable() {}
 
 	void setObjsVisible(bool vis);
 	void addGameObject(GameObject* obj, ParticleGenerator* partGen = nullptr);
@@ -72,5 +68,5 @@ public:
 
 	virtual void keyPressed(unsigned char key, const PxTransform& camera)
 	{
-	};
+	}
 };
