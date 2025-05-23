@@ -33,51 +33,44 @@ void SceneManager::addScene(Scene* scn)
 
 void SceneManager::update(float t)
 {
-	if (actualScene < scenes.capacity())
-		scenes[actualScene]->update(t);
+	scenes[actualScene]->update(t);
 }
 
 void SceneManager::setScene(int id)
 {
-	for (int i = 0; i < scenes.size(); i++)
-	{
-		if (i == id)
-			scenes[i]->show();
-		else
-			scenes[i]->hide();
-	}
+	for (auto* scene : scenes)
+		scene->hide();
 	actualScene = id;
+	scenes[id]->show();
+	Log("SCENE " + to_string(id));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 {
+	int index = -1;
 	switch (toupper(key))
 	{
 	case '0':
-		setScene(0);
-		cout << "-- ESCENA 0 --" << endl;
+		index = 0;
 		break;
 	case'1':
-		cout << "-- ESCENA 1 --" << endl;
-		setScene(1);
+		index = 1;
 		break;
 	case'2':
-		cout << "-- ESCENA 2 --" << endl;
-		setScene(2);
+		index = 2;
 		break;
 	case'3':
-		cout << "-- ESCENA 3 --" << endl;
-		setScene(3);
+		index = 3;
 		break;
 	case'4':
-		cout << "-- ESCENA 4 --" << endl;
-		setScene(4);
+		index = 4;
 		break;
-
 	default:
-		for (auto s : scenes)
+		for (const auto& s : scenes)
 			s->keyPressed(key, camera);
-
 		break;
 	}
+
+	if (index != -1)
+		setScene(toupper(key));
 }

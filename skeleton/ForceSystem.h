@@ -7,7 +7,6 @@ using namespace std;
 
 class ForceSystem : public System
 {
-private:
 	vector<ForceGenerator*> forceGenerators;
 
 public:

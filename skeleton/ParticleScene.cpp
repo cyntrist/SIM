@@ -25,9 +25,9 @@ void ParticleScene::setup()
 	addSystem(partsyst);
 	partsyst->addParticleGenerator(new CascadaGen(Vector3(0, 50, 0), 100, partsyst, this));
 
-	ForceSystem* fSys = new ForceSystem(this);
+	auto fSys = new ForceSystem(this);
 	addSystem(fSys);
-	VientoGenerador* vgen = new VientoGenerador({ 0,0,0 }, this, { 5,0,0 });
+	auto vgen = new VientoGenerador({ 0,0,0 }, this, { 5,0,0 });
 	fSys->addForceGenerator(vgen);
 
 	vgen->setRadius(20);

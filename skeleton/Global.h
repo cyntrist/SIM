@@ -12,3 +12,10 @@ struct ObjInfo
 	GameObject* gameObject;
 	ParticleGenerator* partGen;
 };
+
+inline void Log(const string& message)
+{
+#if _DEBUG
+	cout << message << "\n";
+#endif 
+}

@@ -58,16 +58,14 @@ public:
 		systems.push_back(sys);
 	}
 
-	virtual void setup()
-	{
-	};
+	virtual void setup() {};
 
 	void setObjsVisible(bool vis);
 	void addGameObject(GameObject* obj, ParticleGenerator* partGen = nullptr);
-	void deleteGameObject(string& name);
+	void deleteGameObject(const string& name);
 	void update(double t);
 
-	void setActorVisible(PxRigidActor* actor, bool vis)
+	void setActorVisible(PxRigidActor* actor, bool vis) const
 	{
 		vis ? gScene->addActor(*actor) : gScene->removeActor(*actor);
 	}

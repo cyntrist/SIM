@@ -15,12 +15,13 @@ void Scene::setObjsVisible(bool vis)
 void Scene::addGameObject(GameObject* obj, ParticleGenerator* partGen)
 {
 	if (gameObjects.count(obj->getName()))
-		obj->setName(obj->getName() + "(1)");
-	ObjInfo infogb = {obj, partGen};
-	gameObjects.insert({obj->getName(), infogb});
+		obj->setName(obj->getName() + " (" + to_string(gameObjects.count(obj->getName())) + ")");
+	ObjInfo infogb = {obj, partGen };
+	Log("GAME OBJECT CREATED: " + obj->getName());
+	gameObjects.insert({obj->getName(), infogb });
 }
 
-void Scene::deleteGameObject(string& name)
+void Scene::deleteGameObject(const string& name)
 {
 	const auto objInfo = gameObjects.find(name);
 

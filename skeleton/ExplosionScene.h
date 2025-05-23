@@ -5,12 +5,11 @@
 
 class ExplosionScene : public Scene
 {
-private:
 	ExplosionGenerator* explosionGen = nullptr;
 public:
 	ExplosionScene(Camera* cam) : Scene(cam) {};
 
 	void setup() override;
 
-	void keyPressed(unsigned char key, const physx::PxTransform& camera);
+	void keyPressed(unsigned char key, const PxTransform& camera) override;
 };

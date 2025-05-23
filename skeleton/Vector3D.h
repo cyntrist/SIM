@@ -59,7 +59,6 @@ class Vector3D
 	double getZ() const { return z; }
 	double getModule() const { return mod; }
 
-private:
-	double x, y, z;
+double x, y, z;
 	double mod;
 };

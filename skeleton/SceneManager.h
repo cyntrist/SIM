@@ -16,7 +16,6 @@ using namespace physx;
 
 class SceneManager
 {
-private:
 	vector<Scene*> scenes;
 	PxPhysics* gPhysics = nullptr;
 	PxScene* gScene = nullptr;
