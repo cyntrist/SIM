@@ -16,8 +16,8 @@ Widget::Widget(string nam, Scene* scn, Vector3 Pos, PxShape* shap) : GameObject(
 
 	if (shap != nullptr)
 		renderItem = new RenderItem(shap, pose, { 1, 0.0, 0.0, 0.01 });
-	//else
-	//	Log("ERROR CREATING WIDGET");
+	else
+		Log("ERROR CREATING WIDGET");
 }
 
 void Widget::changeShape(PxShape* shap)

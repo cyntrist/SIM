@@ -47,7 +47,7 @@ void SceneManager::setScene(int id)
 	scenes[id]->onEnable();
 	scenes[id]->show();
 
-	//Log("SCENE " + to_string(id));
+	Log("SCENE " + to_string(id));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
@@ -77,5 +77,5 @@ void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 	}
 
 	if (index != -1)
-		setScene(toupper(key));
+		setScene(index);
 }

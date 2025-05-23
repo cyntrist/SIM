@@ -17,7 +17,7 @@ void Scene::addGameObject(GameObject* obj, ParticleGenerator* partGen)
 	if (gameObjects.count(obj->getName()))
 		obj->setName(obj->getName() + " (" + to_string(gameObjects.count(obj->getName())) + ")");
 	ObjInfo infogb = {obj, partGen };
-	//Log("GAME OBJECT CREATED: " + obj->getName());
+	Log("GAME OBJECT CREATED: " + obj->getName());
 	gameObjects.insert({obj->getName(), infogb });
 }
 
