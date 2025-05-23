@@ -9,12 +9,10 @@
 class ParticleSystem : public System
 {
 	std::vector<ParticleGenerator*> particleGenerators;
-	Scene* scene = nullptr;
+	Scene* scene;
 
 public:
-	ParticleSystem(Scene* scene) : System(scene)
-	{
-	}
+	ParticleSystem(Scene* scene) : System(scene) { }
 
 	~ParticleSystem() = default;
 
@@ -23,17 +21,17 @@ public:
 		for (auto gen : particleGenerators)
 			gen->update(t);
 		return true;
-	};
+	}
 
 	void addParticleGenerator(ParticleGenerator* gen)
 	{
 		particleGenerators.push_back(gen);
 		gen->setScene(scene);
-	};
+	}
 
 	void destroyParticleGenerator(int i)
 	{
 		particleGenerators.erase(std::find(particleGenerators.begin(), particleGenerators.end(),
 		                                   particleGenerators[i]));
-	};
+	}
 };

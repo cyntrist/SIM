@@ -13,7 +13,7 @@ public:
 	ForceSystem(Scene* scn);
 	~ForceSystem();
 
-	void affectParticles(const unordered_map<string, ObjInfo>& gameObjects, double t) override;
+	void affectParticles(const vector<GameObject*>& gameObjects, double t) override;
 
 	void addForceGenerator(ForceGenerator* forcGen);
 };

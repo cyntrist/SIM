@@ -13,23 +13,19 @@ protected:
 	Scene* scene = nullptr;
 
 public:
-	System(Scene* scn): scene(scn)
-	{
-	};
+	System(Scene* scn) : scene(scn) { }
 
-	~System()
-	{
-	};
+	~System() { }
 
 	virtual bool update(double t)
 	{
 		delta = t;
 		return false;
-	};
+	}
 
 	double getDelta() const { return delta; }
 
-	virtual void affectParticles(const unordered_map<string, ObjInfo>& gameObjects, double t)
+	virtual void affectParticles(const vector<GameObject*>& gameObjects, double t)
 	{
 	}
 };

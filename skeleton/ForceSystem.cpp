@@ -1,23 +1,19 @@
 #include "ForceSystem.h"
 #include "ForceGenerator.h"
 
-ForceSystem::ForceSystem(Scene* scn) : System(scn)
-{
-}
+ForceSystem::ForceSystem(Scene* scn) : System(scn) { }
 
-ForceSystem::~ForceSystem()
-{
-}
+ForceSystem::~ForceSystem() { }
 
-void ForceSystem::affectParticles(const unordered_map<string, ObjInfo>& gameObjects, double t)
+void ForceSystem::affectParticles(const vector<GameObject*>& gameObjects, double t)
 {
-	for (auto p : gameObjects)
+	for (auto g : gameObjects)
 	{
-		for (auto g : forceGenerators)
+		for (auto f : forceGenerators)
 		{
-			if (g->onRadius(p.second.gameObject))
+			if (f->onRadius(g))
 			{
-				p.second.gameObject->addForce(g->generateForce(*p.second.gameObject));
+				g->addForce(f->generateForce(*g));
 			}
 		}
 	}

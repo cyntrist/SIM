@@ -18,7 +18,6 @@ protected:
 	Vector3 startVel;
 	float startLifetime;
 
-
 	float startSize;
 	Vector4 startColor;
 
@@ -26,7 +25,7 @@ protected:
 	Scene* scene = nullptr;
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
-	unordered_map<GameObject*, bool> generatedGameObjects;
+	//unordered_map<GameObject*, bool> generatedGameObjects;
 	vector<GameObject*> gameObjects;
 
 public:
@@ -35,10 +34,7 @@ public:
 	void setScene(Scene* sc) { scene = sc; }
 	virtual void generateParticle() = 0;
 
-	bool mayGenerate() const
-	{
-		return nGameObjects <= startNGameObjects;
-	}
+	bool mayGenerate() const { return nGameObjects <= startNGameObjects; }
 
 	int getNumParticles() const { return nGameObjects; }
 	void onGameObjectDeath(GameObject* p);
@@ -53,13 +49,9 @@ class CascadaGen : public ParticleGenerator
 {
 public:
 	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
-		org, nparts, partsys, scn)
-	{
-	};
+		org, nparts, partsys, scn) {}
 
-	~CascadaGen()
-	{
-	};
+	~CascadaGen() {}
 
 	void generateParticle() override;
 };
@@ -69,13 +61,9 @@ class NieblaGen : public ParticleGenerator
 {
 public:
 	NieblaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
-		org, nparts, partsys, scn)
-	{
-	};
+		org, nparts, partsys, scn) {}
 
-	~NieblaGen()
-	{
-	};
+	~NieblaGen() {}
 
 	void generateParticle() override;
 };
@@ -85,13 +73,9 @@ class RandomParticleGen : public ParticleGenerator
 {
 public:
 	RandomParticleGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
-		org, nparts, partsys, scn)
-	{
-	};
+		org, nparts, partsys, scn) {}
 
-	~RandomParticleGen()
-	{
-	};
+	~RandomParticleGen() {}
 
 	void generateParticle() override;
 };

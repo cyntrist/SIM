@@ -1,38 +1,34 @@
 #include "Scene.h"
 #include "GameObject.h"
 
-Scene::Scene(Camera* cam, PxPhysics* gPhysics, PxScene* gScene) : camera(cam), gPhysics(gPhysics), gScene(gScene)
+Scene::Scene(Camera* cam, PxPhysics* gPhysics, PxScene* gScene) : camera(cam), gPhysics(gPhysics), gScene(gScene), gameObjects()
 {
 	setup();
 }
 
 void Scene::setObjsVisible(bool vis)
 {
-	for (auto go : gameObjects)
-		go.second.gameObject->setVisible(vis);
+	for (const auto& go : gameObjects)
+		go->setVisible(vis);
 }
 
-void Scene::addGameObject(GameObject* obj, ParticleGenerator* partGen)
+void Scene::addGameObject(GameObject* obj)
 {
-	if (gameObjects.count(obj->getName()))
-		obj->setName(obj->getName() + " (" + to_string(gameObjects.count(obj->getName())) + ")");
-	ObjInfo infogb = {obj, partGen };
-	Log("GAME OBJECT CREATED: " + obj->getName());
-	gameObjects.insert({obj->getName(), infogb });
+	gameObjects.push_back(obj);
 }
 
-void Scene::deleteGameObject(const string& name)
+void Scene::deleteGameObjects()
 {
-	const auto objInfo = gameObjects.find(name);
-
-	if (objInfo == gameObjects.end())
-		return;
-
-	if (objInfo->second.partGen)
-		objInfo->second.partGen = nullptr;
-
-	delete objInfo->second.gameObject;
-	gameObjects.erase(name);
+	for (int i = 0; i < gameObjects.size(); i++)
+	{
+		if (!gameObjects[i]->isAlive())
+		{
+			delete gameObjects[i];
+			auto ref = find(gameObjects.begin(), gameObjects.end(), gameObjects[i]);
+			gameObjects.erase(ref);
+			i--;
+		}
+	}
 }
 
 
@@ -40,23 +36,10 @@ void Scene::update(double t)
 {
 	if (!active) return;
 
-	vector<string> deleteList;
 	for (auto ob : gameObjects)
 	{
-		if (ob.second.gameObject == nullptr)
-		{
-			deleteList.push_back(ob.second.gameObject->getName());
-			continue;
-		}
-
-		ob.second.gameObject->update(t);
-
-		if (!ob.second.gameObject->isAlive())
-			deleteList.push_back(ob.second.gameObject->getName());
+		ob->update(t);
 	}
-
-	for (auto o : deleteList)
-		deleteGameObject(o);
 
 	for (const auto s : systems)
 	{

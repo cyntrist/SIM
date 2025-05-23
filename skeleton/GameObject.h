@@ -32,7 +32,7 @@ public:
 
 	virtual bool update(double t);
 
-	void setName(const string& name)			{ this->name = name; }
+	void setName(const string& n)				{ name = n; }
 	string getName() const						{ return name; }
 	bool isAlive() const						{ return alive; }
 	bool isVisible() const						{ return visible; }

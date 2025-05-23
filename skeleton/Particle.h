@@ -28,20 +28,20 @@ public:
 		color = col;
 	}
 
-	void setPose(PxTransform* p) { pose = p; }
+	void setPose(PxTransform* p)						{ pose = p; }
 	void setAcc(const Vector3& a = {0, 0, 0}) { acc = a; }
-	void setDamp(double d = 0.98) { dampener = d; }
-	void setMaxLifetime(double a) { maxLifetime = a; }
-	void setLifetime(double a) { lifetime = a; }
+	void setDamp(double d = 0.98)						{ dampener = d; }
+	void setMaxLifetime(double a)						{ maxLifetime = a; }
+	void setLifetime(double a)							{ lifetime = a; }
 
 	// getters
-	Vector4 getColor() const { return renderItem->color; }
-	PxTransform* getPose() const { return pose; }
-	Vector3 getAcc() const { return acc; }
-	double getDamp() const { return dampener; }
-	double getLifetime() const { return lifetime; }
-	double getMaxLifetime() const { return maxLifetime; }
-	Vector3 getGrav() const { return grav; }
+	Vector4 getColor() const							{ return renderItem->color; }
+	PxTransform* getPose() const						{ return pose; }
+	Vector3 getAcc() const								{ return acc; }
+	double getDamp() const								{ return dampener; }
+	double getLifetime() const							{ return lifetime; }
+	double getMaxLifetime() const						{ return maxLifetime; }
+	Vector3 getGrav() const								{ return grav; }
 
 	void toggleGrav()
 	{
@@ -49,12 +49,12 @@ public:
 	}
 
 	// fuerzas
-	void addForce(float x, float y, float z) override { forces.push_back({x, y, z}); }
-	void addForce(const Vector3& fc) override { forces.push_back(fc); }
+	void addForce(float x, float y, float z) override	{ forces.push_back({x, y, z}); }
+	void addForce(const Vector3& fc) override			{ forces.push_back(fc); }
 	void applyForce();
-	void setGravitable(bool g) { gravitable = g; }
-	void setImmovible(bool i) { immovible = i; }
-	void setFloor(float h) { floor = h; }
+	void setGravitable(bool g)							{ gravitable = g; }
+	void setImmovible(bool i)							{ immovible = i; }
+	void setFloor(float h)								{ floor = h; }
 
 private:
 	Vector3 acc;

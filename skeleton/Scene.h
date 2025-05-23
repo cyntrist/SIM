@@ -14,20 +14,22 @@ class Scene
 {
 protected:
 	bool active = false;
-	unordered_map<string, ObjInfo> gameObjects;
+	//unordered_map<string, ObjInfo> gameObjects;
 	vector<System*> systems;
+	vector<GameObject*> gameObjects;
 
 	Camera* camera = nullptr;
 	PxPhysics* gPhysics = nullptr;
 	PxScene* gScene = nullptr;
 
 public:
-	Scene() { setup(); }
+	Scene()												{ setup(); }
 	Scene(Camera* cam, PxPhysics* gPhysics = nullptr, PxScene* gScene = nullptr);
 	virtual ~Scene() = default;
 
 	// getters
-	unordered_map<string, ObjInfo> getObjects() const	{ return gameObjects; }
+	//unordered_map<string, ObjInfo> getObjects() const	{ return gameObjects; }
+	vector<GameObject*> getObjects() const				{ return gameObjects; }
 	vector<System*> getSystems() const					{ return systems; }
 	Camera* getCamera() const							{ return camera; }
 	bool getActive() const								{ return active; }
@@ -57,8 +59,8 @@ public:
 	virtual void onDisable() {}
 
 	void setObjsVisible(bool vis);
-	void addGameObject(GameObject* obj, ParticleGenerator* partGen = nullptr);
-	void deleteGameObject(const string& name);
+	void addGameObject(GameObject* obj);
+	void deleteGameObjects();
 	void update(double t);
 
 	void setActorVisible(PxRigidActor* actor, bool vis) const
@@ -66,7 +68,5 @@ public:
 		vis ? gScene->addActor(*actor) : gScene->removeActor(*actor);
 	}
 
-	virtual void keyPressed(unsigned char key, const PxTransform& camera)
-	{
-	}
+	virtual void keyPressed(unsigned char key, const PxTransform& camera) { }
 };
