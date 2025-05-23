@@ -7,11 +7,11 @@ void SpringScene::setup()
 	addSystem(fsys);
 
 	// --- MUELLES ---	
-	//// explosion para probar
-	//expls = new ExplosionGenerator({-20, 50, -10}, this);
-	//fsys->addForceGenerator(expls);
-	//expls->setRadius(30);
-	//expls->setPotencia(100);
+	// explosion para probar
+	expls = new ExplosionGenerator({-20, 50, -10}, this);
+	fsys->addForceGenerator(expls);
+	expls->setRadius(30);
+	expls->setPotencia(100);
 
 
 	///
@@ -98,7 +98,7 @@ void SpringScene::keyPressed(unsigned char key, const PxTransform& camera)
 	switch (key)
 	{
 	case 'e':
-		expls->startGenerate();
+		if (expls != nullptr) expls->startGenerate();
 		break;
 	case 'z':
 		sprngGen->setK(1);
@@ -107,10 +107,10 @@ void SpringScene::keyPressed(unsigned char key, const PxTransform& camera)
 		sprngGen->setK(10);
 		break;
 	case 'c':
-		sprngGen->setK(100);
+		sprngGen->setK(50);
 		break;
 	case 'v':
-		sprngGen->setK(1000);
+		sprngGen->setK(100);
 		break;
 	default:
 		break;
