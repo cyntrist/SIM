@@ -28,7 +28,7 @@ void StartCounter()
 	if (!QueryPerformanceFrequency(&li))
 		return;
 
-	PCFreq = double(li.QuadPart) /*/ 1000.0*/;
+	PCFreq = static_cast<double>(li.QuadPart) /*/ 1000.0*/;
 
 	QueryPerformanceCounter(&li);
 	CounterStart = li.QuadPart;
@@ -39,7 +39,7 @@ double GetCounter()
 {
 	LARGE_INTEGER li;
 	QueryPerformanceCounter(&li);
-	double t = double(li.QuadPart - CounterLast) / PCFreq;
+	double t = static_cast<double>(li.QuadPart - CounterLast) / PCFreq;
 	CounterLast = li.QuadPart;
 	return t;
 }
@@ -118,7 +118,7 @@ namespace
 					continue;
 				}
 			}
-			renderShape(*obj->shape, objTransform ? *objTransform : physx::PxTransform(PxIdentity), obj->color);
+			renderShape(*obj->shape, objTransform ? *objTransform : PxTransform(PxIdentity), obj->color);
 		}
 
 		//PxScene* scene;
@@ -170,7 +170,6 @@ void RegisterRenderItem(const RenderItem* _item)
 
 void DeregisterRenderItem(const RenderItem* _item)
 {
-
 	std::cout << "Desregistrando renderItem..." << std::endl;
 	auto it = find(gRenderItems.begin(), gRenderItems.end(), _item);
 	if (it == gRenderItems.end()) return;
@@ -179,7 +178,7 @@ void DeregisterRenderItem(const RenderItem* _item)
 
 double GetLastTime()
 {
-	double t = double(CounterLast - CounterStart) / PCFreq;
+	double t = static_cast<double>(CounterLast - CounterStart) / PCFreq;
 	return t;
 }
 
