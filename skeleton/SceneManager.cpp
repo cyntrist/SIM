@@ -47,13 +47,12 @@ void SceneManager::setScene(int id)
 	scenes[id]->onEnable();
 	scenes[id]->show();
 
-	Log("SETTING SCENE TO Nº " + to_string(id));
+	Log("SETTING SCENE TO No " + to_string(id));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	const int index = toupper(key) - 48;
-	Log(to_string(key));
 
 	for (const auto& s : scenes)
 		s->keyPressed(key, camera);
