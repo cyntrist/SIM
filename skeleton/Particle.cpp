@@ -4,7 +4,7 @@
 
 #include "ParticleGenerator.h"
 
-constexpr int LOW_TRESH = 10;
+constexpr int LOW_TRESH = 200;
 
 Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
 {

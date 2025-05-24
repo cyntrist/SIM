@@ -6,9 +6,15 @@
 
 class WindScene : public Scene
 {
+	ParticleSystem* partSyst = nullptr;
+	ForceSystem* forceSyst = nullptr;
+	WindGenerator* windGen = nullptr;
+
 public:
 	WindScene(Camera* cam = nullptr) : Scene(cam)
 	{
 	};
 	void setup() override;
+	void onEnable() override;
+	void onDisable() override;
 };

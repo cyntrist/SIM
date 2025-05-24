@@ -3,7 +3,7 @@
 #include "ParticleSystem.h"
 
 ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn) :
-	particleSystem(partsys), startNGameObjects(stNpart), origen(org)
+	particleSystem(partsys), startNGameObjects(stNpart), origen(org), scene(scn)
 {
 
 }
