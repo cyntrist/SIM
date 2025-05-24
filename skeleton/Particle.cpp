@@ -4,7 +4,7 @@
 
 #include "ParticleGenerator.h"
 
-constexpr int LOW_TRESH = 200;
+constexpr int LOW_TRESH = 20000;
 
 Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
 {
@@ -26,6 +26,7 @@ Particle::Particle(string nam, Scene* scn, Vector3 Pos) : GameObject(nam, scn)
 	acc = {0, 0, 0};
 	dampener = 0.8;
 	size = 5;
+	lifetime = 0;
 	maxLifetime = 10;
 	shape = CreateShape(PxSphereGeometry(size));
 	color = {0.5, 1, 1, 1.0};
@@ -61,6 +62,7 @@ bool Particle::update(double t)
 
 	applyForce();
 	integrate(t);
+	lifetime += t;
 	return true;
 }
 

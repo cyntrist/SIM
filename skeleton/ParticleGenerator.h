@@ -5,6 +5,8 @@
 class ParticleSystem;
 class Scene;
 
+constexpr double MIN_TIMER = 0.1;
+
 class ParticleGenerator
 {
 protected:
@@ -25,6 +27,11 @@ protected:
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
 
+	// Contador generacion
+	bool byCounter = true; // si se quiere tener en cuenta para que no se generen mas de x particulas por segundo
+	double counter = 0; // tiempo desde la ultima generacion
+	double minCounter = 10; // tiempo minimo entre generaciones
+
 public:
 	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn);
 	virtual ~ParticleGenerator() = default;
@@ -32,7 +39,7 @@ public:
 	void update(double t);
 	void setScene(Scene* sc) { scene = sc; }
 
-	virtual void generateParticle() = 0;
+	virtual void generateParticles(double t) = 0;
 	bool mayGenerate() const { return nGameObjects <= startNGameObjects; }
 
 	int getNumParticles() const { return nGameObjects; }
@@ -51,7 +58,7 @@ public:
 
 	~CascadaGen() {}
 
-	void generateParticle() override;
+	void generateParticles(double t) override;
 };
 
 // --- GENERADOR DE NIEBLA ---
@@ -63,7 +70,7 @@ public:
 
 	~NieblaGen() {}
 
-	void generateParticle() override;
+	void generateParticles(double t) override;
 };
 
 // --- GENERADOR DE PARTICULAS DE VARIAS MASAS ---
@@ -75,5 +82,5 @@ public:
 
 	~RandomParticleGen() {}
 
-	void generateParticle() override;
+	void generateParticles(double t) override;
 };

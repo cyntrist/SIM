@@ -1,6 +1,8 @@
 #include "ParticleGenerator.h"
 #include "Scene.h"
 #include "ParticleSystem.h"
+#include <algorithm>
+
 
 ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn) :
 	particleSystem(partsys), startNGameObjects(stNpart), origen(org), scene(scn)
@@ -12,7 +14,7 @@ ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* p
 void ParticleGenerator::update(double t)
 {
 	if (mayGenerate())
-		generateParticle();
+		generateParticles(t);
 }
 
 
@@ -21,13 +23,13 @@ void ParticleGenerator::onGameObjectDeath(GameObject* p)
 
 }
 
-void ParticleGenerator::generateParticle()
+void ParticleGenerator::generateParticles(double t)
 {
 	Log("NUEVA PARTÍCULA");
 }
 
 // --- GENERADOR DE CASCADA ---
-void CascadaGen::generateParticle()
+void CascadaGen::generateParticles(double t)
 {
 	// cantidad de particulas no generadas
 	int restParticles = (startNGameObjects / 2) - nGameObjects;
@@ -36,28 +38,36 @@ void CascadaGen::generateParticle()
 	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
 	std::normal_distribution<> YnormalDistribution(5, 2.0); // media|dispersion
 	std::normal_distribution<> ZnormalDistribution(10, 2.0); // media|dispersion
-	std::normal_distribution<> LFEnormalDistribution(2, 10.0); // media|dispersion
 	std::normal_distribution<> ORGnormalDistribution(origen.x, 10.0); // media|dispersion
+	std::normal_distribution<> distrib(15, 10); // Rango
 
 	Vector3 origen2; // origen de la nueva particula
 	Vector3 velocity(0,0,0); // velocidad para la nueva particula
-	float lifetime; // tiempo de vida para la nueva particula
 	int particlesGenerated = numPartsUniform(generator); // cantidad de particulas que se van a generar
 
 	for (int i = 0; i < particlesGenerated; i++)
 	{
+		if (byCounter)
+		{
+			counter += t;
+			if (counter <= minCounter)
+				continue;
+			counter = 0;
+		}
+
 		// aleatorizamos las variabes asignadas a las nuevas particulas
 		origen2 = origen;
 		origen2.x = ORGnormalDistribution(generator);
 		velocity.y = YnormalDistribution(generator);
 		velocity.z = ZnormalDistribution(generator);
-		lifetime = LFEnormalDistribution(generator);
+		float maxLifetime = distrib(generator);
+		//maxLifetime = 
 
 		// creamos la nueva particula
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
 		aux->setSize(0.5);
-		aux->setMaxLifetime(lifetime);
+		aux->setMaxLifetime(maxLifetime);
 		aux->toggleGrav();
 		aux->setGenerator(this);
 
@@ -68,12 +78,14 @@ void CascadaGen::generateParticle()
 		//particles.push_back(aux);
 		nGameObjects++;
 		nGameObjectsTotal++;
+
+
 	}
 }
 
 
 // --- GENERADOR DE NIEBLA ---
-void NieblaGen::generateParticle()
+void NieblaGen::generateParticles(double t)
 {
 	// cantidad de particulas no generadas
 	int restParticles = (startNGameObjects / 2) - nGameObjects;
@@ -123,7 +135,7 @@ void NieblaGen::generateParticle()
 }
 
 // --- GENERADOR DE PARTICULAS DE VARIAS MASAS ---
-void RandomParticleGen::generateParticle()
+void RandomParticleGen::generateParticles(double t)
 {
 	// cantidad de particulas no generadas
 	int restParticles = (startNGameObjects / 2) - nGameObjects;
