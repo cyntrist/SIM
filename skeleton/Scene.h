@@ -49,16 +49,9 @@ public:
 	void deleteSystem(System* sys);
 
 	virtual void setup() {}
-	virtual void onEnable() {}
-	virtual void onDisable()
-	{
-		for (auto syst : systems)
-			delete syst;
-		for (auto obj : gameObjects)
-			delete obj;
-		systems.clear();
-		gameObjects.clear();
-	}
+	virtual void onEnable();
+	virtual void onDisable();
+
 
 	void update(double t);
 	void addGameObject(GameObject* obj);

@@ -30,6 +30,22 @@ void Scene::deleteSystem(System* sys)
 	}
 }
 
+void Scene::onEnable()
+{
+	active = true;
+}
+
+void Scene::onDisable()
+{
+	active = false;
+	for (auto syst : systems)
+		delete syst;
+	for (auto obj : gameObjects)
+		delete obj;
+	systems.clear();
+	gameObjects.clear();
+}
+
 void Scene::addGameObject(GameObject* obj)
 {
 	gameObjects.push_back(obj);

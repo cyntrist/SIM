@@ -12,8 +12,8 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new ParticleScene()); // 1
 	//addScene(new WindScene()); // 2
 	//addScene(new WhirlScene()); // 3
-	addScene(new SpringScene()); // 4
-	addScene(new FloatScene()); // 5
+	//addScene(new SpringScene()); // 4
+	//addScene(new FloatScene()); // 5
 	setScene(0);
 }
 
@@ -39,15 +39,15 @@ void SceneManager::update(float t)
 
 void SceneManager::setScene(int id)
 {
-	for (auto* scene : scenes)
-		scene->show(false);
+	//for (auto* scene : scenes)
+	//	scene->show(false);
 
-	scenes[id]->onDisable();
+	scenes[actualScene]->onDisable();
 	actualScene = id;
 	scenes[id]->onEnable();
 	scenes[id]->show();
 
-	Log("SETTING SCENE TO No " + to_string(id));
+	Log("SETTING SCENE TO No " + to_string(actualScene));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
