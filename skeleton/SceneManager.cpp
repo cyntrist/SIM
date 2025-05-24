@@ -11,9 +11,9 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new Scene()); // 0
 	addScene(new ParticleScene()); // 1
 	addScene(new WindScene()); // 2
-	//addScene(new WhirlScene()); // 3
-	//addScene(new SpringScene()); // 4
-	//addScene(new FloatScene()); // 5
+	addScene(new WhirlScene()); // 3
+	addScene(new SpringScene()); // 4
+	addScene(new FloatScene()); // 5
 	setScene(0);
 }
 

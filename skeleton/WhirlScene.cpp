@@ -2,13 +2,41 @@
 
 void WhirlScene::setup()
 {
-	auto partsyst = new ParticleSystem(this);
-	addSystem(partsyst);
-	partsyst->addParticleGenerator(new RandomParticleGen(Vector3(0, 0, 0), 1000, partsyst, this));
 
-	auto fSys = new ForceSystem(this);
-	addSystem(fSys);
-	auto tgen = new WhirlwindGenerator({0, 0, 0}, this);
-	fSys->addForceGenerator(tgen);
-	tgen->setRadius(100);
+}
+
+void WhirlScene::onEnable()
+{
+	Scene::onEnable();
+
+	partSyst = new ParticleSystem(this);
+	addSystem(partSyst);
+	//partSyst->addParticleGenerator(
+	//	new RandomParticleGen(
+	//		Vector3(-100, 0, -100), 
+	//		1000,
+	//		partSyst, 
+	//		this
+	//	)
+	//);
+
+	partSyst->addParticleGenerator(
+		new RandomParticleGen(
+			Vector3(-100, 0, -100),
+			1000,
+			partSyst,
+			this
+		)
+	);
+
+	forceSyst = new ForceSystem(this);
+	addSystem(forceSyst);
+	whirlGen = new WhirlwindGenerator({ -150, 0, -150 }, this);
+	forceSyst->addForceGenerator(whirlGen);
+	whirlGen->setRadius(250);
+}
+
+void WhirlScene::onDisable()
+{
+	Scene::onDisable();
 }

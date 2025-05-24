@@ -68,14 +68,10 @@ public:
 class WhirlwindGenerator : public ForceGenerator
 {
 protected:
-	//coheficiente de rozamiento
-	float k = 1;
+	float k = 1; //coheficiente de rozamiento
 
 public:
-	WhirlwindGenerator(Vector3 org, Scene* scn) : ForceGenerator(org, scn)
-	{
-	};
-
+	WhirlwindGenerator(Vector3 org, Scene* scn) : ForceGenerator(org, scn) { }
 
 	Vector3 generateForce(GameObject& object) override;
 };

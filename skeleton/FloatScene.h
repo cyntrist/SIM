@@ -10,5 +10,7 @@ public:
 	};
 
 	void setup() override;
+	void onEnable() override;
+	void onDisable() override;
 
 };

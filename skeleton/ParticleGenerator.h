@@ -57,13 +57,13 @@ public:
 };
 
 // --- GENERADOR DE NIEBLA ---
-class NieblaGen : public ParticleGenerator
+class MistGenerator : public ParticleGenerator
 {
 public:
-	NieblaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
+	MistGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
 		org, nparts, partsys, scn) {}
 
-	~NieblaGen() {}
+	~MistGenerator() {}
 
 	void generateParticles(double t) override;
 };

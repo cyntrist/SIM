@@ -28,8 +28,8 @@ ForceGenerator::ForceGenerator(Vector3 org, Scene* scn) : origen(org), scene(scn
 
 ForceGenerator::~ForceGenerator()
 {
-	widget->setVisible(false);
-	//delete widget; 
+	if (widget != nullptr) 
+		widget->setVisible(false);
 }
 
 bool ForceGenerator::onRadius(GameObject* obj)

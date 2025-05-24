@@ -2,13 +2,20 @@
 
 void SpringScene::setup()
 {
+	
+}
+
+void SpringScene::onEnable()
+{
+	Scene::onEnable();
+
 	// SYSTEMS
 	auto fsys = new ForceSystem(this);
 	addSystem(fsys);
 
 	// --- MUELLES ---	
 	// explosion para probar
-	expls = new ExplosionGenerator({-20, 50, -10}, this);
+	expls = new ExplosionGenerator({ -20, 50, -10 }, this);
 	fsys->addForceGenerator(expls);
 	expls->setRadius(30);
 	expls->setPower(100);
@@ -19,44 +26,44 @@ void SpringScene::setup()
 	///
 
 	// ancla
-	auto anch = new Particle("anch", this, {-20, 75, 0});
+	auto anch = new Particle("anch", this, { -20, 75, 0 });
 	addGameObject(anch);
 	anch->setImmovible(true);
-	anch->setColor({0.01, 0.2, 0.02, 0});
+	anch->setColor({ 0.01, 0.2, 0.02, 0 });
 	anch->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
 
 	// particula a un ancla
-	auto part1 = new Particle("part1", this, {-20, 75, 0});
+	auto part1 = new Particle("part1", this, { -20, 75, 0 });
 	addGameObject(part1);
 	part1->toggleGrav();
-	part1->setColor({0.01, 0.2, 0.01, 1});
+	part1->setColor({ 0.01, 0.2, 0.01, 1 });
 	//part1->setFloor(20.5);
 
 	fsys->addForceGenerator(new SpringGenerator(anch->getPosition(), this, 10, 7, part1));
 
 	// cadena de particula
-	auto part2 = new Particle("part2", this, {-20, 60, 0});
+	auto part2 = new Particle("part2", this, { -20, 60, 0 });
 	addGameObject(part2);
 	part2->toggleGrav();
-	part2->setColor({0.05, 0.25, 0.1, 1});
+	part2->setColor({ 0.05, 0.25, 0.1, 1 });
 	//part2->setFloor(20.5);
 
 	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part2, part1));
 
 	// particula a otra particula
-	auto part3 = new Particle("part3", this, {-20, 50, 0});
+	auto part3 = new Particle("part3", this, { -20, 50, 0 });
 	addGameObject(part3);
 	part3->toggleGrav();
 	part3->setMass(2);
-	part3->setColor({0.1, 0.3, 0.1, 1});
+	part3->setColor({ 0.1, 0.3, 0.1, 1 });
 	//part3->setFloor(20.5);
 
 	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part3, part2));
 
-	auto part4 = new Particle("part4", this, {-20, 40, 0});
+	auto part4 = new Particle("part4", this, { -20, 40, 0 });
 	addGameObject(part4);
 	part4->toggleGrav();
-	part4->setColor({0.15, 0.4, 0.1, 1});
+	part4->setColor({ 0.15, 0.4, 0.1, 1 });
 	//part4->setFloor(20.5);
 	part4->setMass(5);
 
@@ -86,11 +93,16 @@ void SpringScene::setup()
 	fsys->addForceGenerator(sprngGen);
 
 
-	auto sueloM = new Particle("sueloM", this, {-00, -20, 0});
+	auto sueloM = new Particle("sueloM", this, { -00, -20, 0 });
 	addGameObject(sueloM);
 	sueloM->setImmovible(true);
-	sueloM->setColor({.01, .01, .05, 0});
+	sueloM->setColor({ .01, .01, .05, 0 });
 	sueloM->setShape(CreateShape(PxBoxGeometry(50, 0.2, 50)), 40);
+}
+
+void SpringScene::onDisable()
+{
+	Scene::onDisable();
 }
 
 void SpringScene::keyPressed(unsigned char key, const PxTransform& camera)

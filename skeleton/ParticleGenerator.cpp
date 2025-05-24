@@ -59,6 +59,7 @@ void CascadaGen::generateParticles(double t)
 		aux->setMaxLifetime(maxLifetime);
 		aux->toggleGrav();
 		aux->setGenerator(this);
+		aux->setColor(0.5, 0.5, 0.9, 1);
 
 		scene->addGameObject(aux); 
 
@@ -69,7 +70,7 @@ void CascadaGen::generateParticles(double t)
 
 
 // --- GENERADOR DE NIEBLA ---
-void NieblaGen::generateParticles(double t)
+void MistGenerator::generateParticles(double t)
 {
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
@@ -78,12 +79,11 @@ void NieblaGen::generateParticles(double t)
 	std::uniform_int_distribution<> posYUniform(0, 40); // numero de 0 a 20
 	std::normal_distribution<> Bdistribution(10, 0.8); // numero de 0 a restParticles
 
-	Vector3 origen2;
+	Vector3 origen2 = origen;
 	Vector3 velocity;
 	velocity.x = 0;
 	velocity.y = 0;
 	velocity.z = 0;
-	float lifetime;
 	int particlesGenerated = numPartsUniform(generator);
 
 	for (int i = 0; i < particlesGenerated; i++)
@@ -91,13 +91,14 @@ void NieblaGen::generateParticles(double t)
 		origen2.x = posXZUniform(generator);
 		origen2.y = posYUniform(generator);
 		origen2.z = posXZUniform(generator);
-		lifetime = Bdistribution(generator);
+		float lifetime = Bdistribution(generator);
 
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
 		aux->setSize(0.25);
 		aux->setMaxLifetime(lifetime);
 		aux->setGenerator(this);
+		aux->setColor(0.5, 0.7, 0.3, 1);
 
 		scene->addGameObject(aux); 
 		aux->toggleGrav();
@@ -122,7 +123,6 @@ void RandomParticleGen::generateParticles(double t)
 	velocity.x = 0;
 	velocity.y = 0;
 	velocity.z = 0;
-	float lifetime;
 	int particlesGenerated = numPartsUniform(generator);
 
 	for (int i = 0; i < particlesGenerated; i++)
@@ -132,7 +132,7 @@ void RandomParticleGen::generateParticles(double t)
 		origen2.y += posYUniform(generator);
 		origen2.z += posXZUniform(generator);
 
-		lifetime = lifeTimeUdistribution(generator);
+		float lifetime = lifeTimeUdistribution(generator);
 
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
@@ -141,6 +141,7 @@ void RandomParticleGen::generateParticles(double t)
 		aux->toggleGrav();
 		aux->setMass(massUdistribution(generator));
 		aux->setGenerator(this);
+		aux->setColor(0.9, 0.7, 0.2, 1);
 
 		scene->addGameObject(aux); 
 		nGameObjects++;

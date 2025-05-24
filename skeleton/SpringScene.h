@@ -14,6 +14,8 @@ public:
 	};
 
 	void setup() override;
+	void onEnable() override;
+	void onDisable() override;
 
 	void keyPressed(unsigned char key, const PxTransform& camera) override;
 };
