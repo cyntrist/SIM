@@ -10,11 +10,11 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 {
 	addScene(new Scene()); // 0
 	addScene(new ParticleScene()); // 1
-	addScene(new WindScene()); // 2
-	addScene(new WhirlScene()); // 3
+	//addScene(new WindScene()); // 2
+	//addScene(new WhirlScene()); // 3
 	addScene(new SpringScene()); // 4
 	addScene(new FloatScene()); // 5
-	setScene(4);
+	setScene(0);
 }
 
 SceneManager::~SceneManager()
@@ -57,6 +57,6 @@ void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 	for (const auto& s : scenes)
 		s->keyPressed(key, camera);
 
-	if (index > -1 && index < scenes.capacity())
+	if (index > -1 && index < scenes.capacity() && index != actualScene)
 		setScene(index);
 }

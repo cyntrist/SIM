@@ -2,12 +2,6 @@
 #include <PxPhysics.h>
 
 #include "ParticleScene.h"
-//#include "SceneNiebla.h"
-//#include "ScenaViento.h"
-//#include "ScenaTorbellino.h"
-//#include "ScenaExplosion.h"
-//#include "ScenaMuelles.h"
-//#include "ScenaSolidoRigido.h"
 
 #include <vector>
 class Scene;

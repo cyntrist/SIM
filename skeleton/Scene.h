@@ -1,6 +1,4 @@
 #pragma once
-#include <iostream>
-#include <unordered_map>
 #include <vector>
 #include "Global.h"
 #include "System.h"
@@ -22,7 +20,7 @@ protected:
 	PxScene* gScene = nullptr;
 
 public:
-	Scene()												{ setup(); }
+	Scene() = default;
 	Scene(Camera* cam, PxPhysics* gPhysics = nullptr, PxScene* gScene = nullptr);
 	virtual ~Scene() = default;
 
@@ -47,24 +45,30 @@ public:
 		setObjsVisible(active);
 	}
 
-	void addSystem(System* sys)
-	{
-		systems.push_back(sys);
-	}
+	void addSystem(System* sys);
+	void deleteSystem(System* sys);
 
 	virtual void setup() {}
 	virtual void onEnable() {}
-	virtual void onDisable() {}
+	virtual void onDisable()
+	{
+		for (auto syst : systems)
+			delete syst;
+		for (auto obj : gameObjects)
+			delete obj;
+		systems.clear();
+		gameObjects.clear();
+	}
 
-	void setObjsVisible(bool vis);
-	void addGameObject(GameObject* obj);
-	void deleteGameObjects();
 	void update(double t);
+	void addGameObject(GameObject* obj);
+	void deleteDeadObjects();
 
+	virtual void keyPressed(unsigned char key, const PxTransform& camera) { }
+	void setObjsVisible(bool vis);
 	void setActorVisible(PxRigidActor* actor, bool vis) const
 	{
 		vis ? gScene->addActor(*actor) : gScene->removeActor(*actor);
 	}
 
-	virtual void keyPressed(unsigned char key, const PxTransform& camera) { }
 };

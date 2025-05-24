@@ -9,7 +9,7 @@ void WindScene::setup()
 
 	auto fSys = new ForceSystem(this);
 	addSystem(fSys);
-	auto vgen = new VientoGenerador({0, 0, 0}, this, {0, 0, 0});
+	auto vgen = new WindGenerator({0, 0, 0}, this, {0, 0, 0});
 	fSys->addForceGenerator(vgen);
 	vgen->setRadius(100);
 }

@@ -22,11 +22,12 @@ protected:
 	PxTransform* pose = nullptr;
 	Vector4 color;
 	float size = 3;
-	float mass = 1;
+	double mass = 1;
 	Vector3 vel = {0, 0, 0};
 
 public:
-	GameObject(string nam, Scene* scn) : scene(scn), name(nam) {}
+	GameObject(string nam, Scene* scn, float size = 3, double mass = 1) 
+		: scene(scn), name(nam), size(size), mass(mass) {}
 
 	virtual ~GameObject()						{ DeregisterRenderItem(renderItem); }
 

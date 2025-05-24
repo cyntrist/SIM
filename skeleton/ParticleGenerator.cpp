@@ -3,8 +3,10 @@
 #include "ParticleSystem.h"
 
 ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn) :
-	particleSystem(partsys), startNGameObjects(stNpart), origen(org), scene(scn)
+	particleSystem(partsys), startNGameObjects(stNpart), origen(org)
 {
+	if (scene != nullptr)
+		Log("EXISTO");
 }
 
 
@@ -17,11 +19,7 @@ void ParticleGenerator::update(double t)
 
 void ParticleGenerator::onGameObjectDeath(GameObject* p)
 {
-	//if (generatedGameObjects.find(p) != generatedGameObjects.end())
-	//{
-	//	generatedGameObjects.erase(p);
-	//	nGameObjects--;
-	//}
+
 }
 
 void ParticleGenerator::generateParticle()

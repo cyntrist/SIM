@@ -9,12 +9,15 @@
 class ParticleSystem : public System
 {
 	std::vector<ParticleGenerator*> particleGenerators;
-	Scene* scene;
 
 public:
-	ParticleSystem(Scene* scene) : System(scene) { }
+	ParticleSystem(Scene* sc) : System(sc) { }
 
-	~ParticleSystem() = default;
+	~ParticleSystem() override
+	{
+		for (auto gen : particleGenerators)
+			delete gen;
+	};
 
 	bool update(double t) override
 	{

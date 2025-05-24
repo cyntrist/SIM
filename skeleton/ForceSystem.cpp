@@ -3,7 +3,12 @@
 
 ForceSystem::ForceSystem(Scene* scn) : System(scn) { }
 
-ForceSystem::~ForceSystem() { }
+ForceSystem::~ForceSystem()
+{
+	for (auto gen : forceGenerators)
+		delete gen;
+	forceGenerators.clear();
+}
 
 void ForceSystem::affectParticles(const vector<GameObject*>& gameObjects, double t)
 {

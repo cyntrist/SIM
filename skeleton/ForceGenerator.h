@@ -18,7 +18,7 @@ protected:
 
 public:
 	ForceGenerator(Vector3 org, Scene* scn);
-	virtual ~ForceGenerator() = 0;
+	virtual ~ForceGenerator() { delete widget;  };
 
 
 	virtual Vector3 generateForce(GameObject& object) = 0;
@@ -47,7 +47,7 @@ public:
 	Vector3 generateForce(GameObject& object) override;
 };
 
-class VientoGenerador : public ForceGenerator
+class WindGenerator : public ForceGenerator
 {
 protected:
 	//velocidad del viento
@@ -57,21 +57,22 @@ protected:
 	Vector3 k2 = {0, 0, 0};
 
 public:
-	VientoGenerador(Vector3 org, Scene* scn, Vector3 vVel = {0, 0, 0}) : ForceGenerator(org, scn), vientoVel(vVel)
+	WindGenerator(Vector3 org, Scene* scn, Vector3 vVel = {0, 0, 0}) : ForceGenerator(org, scn), vientoVel(vVel)
 	{
 	};
+
 
 	Vector3 generateForce(GameObject& object) override;
 };
 
-class TorbellinoGenerator : public ForceGenerator
+class WhirlwindGenerator : public ForceGenerator
 {
 protected:
 	//coheficiente de rozamiento
 	float k = 1;
 
 public:
-	TorbellinoGenerator(Vector3 org, Scene* scn) : ForceGenerator(org, scn)
+	WhirlwindGenerator(Vector3 org, Scene* scn) : ForceGenerator(org, scn)
 	{
 	};
 
@@ -96,7 +97,7 @@ public:
 	};
 
 	// Settea la potencia de la explosion
-	void setPotencia(float p) { k = p; };
+	void setPower(float p) { k = p; };
 
 	void startGenerate()
 	{
@@ -142,7 +143,7 @@ public:
 	Vector3 generateForce(GameObject& object) override;
 };
 
-class GomaGenerator : public ForceGenerator
+class RubberGenerator : public ForceGenerator
 {
 protected:
 	GameObject* object1 = nullptr;
@@ -156,7 +157,7 @@ public:
 	/// <param name="restLength"> Largo muelle reposo</param>
 	/// <param name="part2">Particula afectada</param>
 	/// <param name="part1">Particula(ancla)</param>
-	GomaGenerator(Scene* scn, float K, float restLength, GameObject* obj2, GameObject* obj1 = nullptr) :
+	RubberGenerator(Scene* scn, float K, float restLength, GameObject* obj2, GameObject* obj1 = nullptr) :
 		ForceGenerator({0, 0, 0}, scn), object1(obj1), object2(obj2), k(K), restingLength(restLength)
 	{
 	};

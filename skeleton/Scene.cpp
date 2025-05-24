@@ -3,7 +3,6 @@
 
 Scene::Scene(Camera* cam, PxPhysics* gPhysics, PxScene* gScene) : camera(cam), gPhysics(gPhysics), gScene(gScene), gameObjects()
 {
-	setup();
 }
 
 void Scene::setObjsVisible(bool vis)
@@ -12,12 +11,31 @@ void Scene::setObjsVisible(bool vis)
 		go->setVisible(vis);
 }
 
+void Scene::addSystem(System* sys)
+{
+		systems.push_back(sys);
+}
+
+void Scene::deleteSystem(System* sys)
+{
+	for (int i = 0; i < systems.size(); i++)
+	{
+		if (systems[i] == sys)
+		{
+			delete systems[i];
+			auto ref = find(systems.begin(), systems.end(), systems[i]);
+			systems.erase(ref);
+			i--;
+		}
+	}
+}
+
 void Scene::addGameObject(GameObject* obj)
 {
 	gameObjects.push_back(obj);
 }
 
-void Scene::deleteGameObjects()
+void Scene::deleteDeadObjects()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 	{
@@ -40,6 +58,8 @@ void Scene::update(double t)
 	{
 		ob->update(t);
 	}
+
+	deleteDeadObjects();
 
 	for (const auto s : systems)
 	{

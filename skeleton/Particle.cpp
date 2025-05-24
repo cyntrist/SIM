@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-constexpr int LOW_TRESH = 10000;
+constexpr int LOW_TRESH = 10;
 
 Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
 {
@@ -32,18 +32,10 @@ Particle::Particle(string nam, Scene* scn, Vector3 Pos) : GameObject(nam, scn)
 
 Particle::Particle(string nam, Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc,
                    float size, double dampener, double weight, double lifetime, double acttime)
-	: GameObject(nam, scn), acc(acc), dampener(dampener), size(size),
+	: GameObject(nam, scn, size, weight), acc(acc), dampener(dampener),
 	  lifetime(lifetime), maxLifetime(acttime)
 {
-	//mass = weight;
-	//this->vel = vel;
-	//this->pose = pose;
-	//renderItem = new RenderItem(CreateShape(
-	//	                            PxSphereGeometry(this->size)),
-	//                            &pose,
-	//                            Vector4(1, 1, 1, 1)
-	//);
-	//RegisterRenderItem(renderItem);
+
 }
 
 Particle::~Particle()

@@ -11,7 +11,7 @@ class ForceSystem : public System
 
 public:
 	ForceSystem(Scene* scn);
-	~ForceSystem();
+	~ForceSystem() override;
 
 	void affectParticles(const vector<GameObject*>& gameObjects, double t) override;
 

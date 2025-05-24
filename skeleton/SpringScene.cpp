@@ -11,7 +11,7 @@ void SpringScene::setup()
 	expls = new ExplosionGenerator({-20, 50, -10}, this);
 	fsys->addForceGenerator(expls);
 	expls->setRadius(30);
-	expls->setPotencia(100);
+	expls->setPower(100);
 
 
 	///
@@ -41,7 +41,7 @@ void SpringScene::setup()
 	part2->setColor({0.05, 0.25, 0.1, 1});
 	//part2->setFloor(20.5);
 
-	fsys->addForceGenerator(new GomaGenerator(this, 10, 7, part2, part1));
+	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part2, part1));
 
 	// particula a otra particula
 	auto part3 = new Particle("part3", this, {-20, 50, 0});
@@ -51,7 +51,7 @@ void SpringScene::setup()
 	part3->setColor({0.1, 0.3, 0.1, 1});
 	//part3->setFloor(20.5);
 
-	fsys->addForceGenerator(new GomaGenerator(this, 10, 7, part3, part2));
+	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part3, part2));
 
 	auto part4 = new Particle("part4", this, {-20, 40, 0});
 	addGameObject(part4);
@@ -60,7 +60,7 @@ void SpringScene::setup()
 	//part4->setFloor(20.5);
 	part4->setMass(5);
 
-	fsys->addForceGenerator(new GomaGenerator(this, 10, 7, part4, part3));
+	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part4, part3));
 
 
 	// --- ANCLA K PERSONALIZABLE ---

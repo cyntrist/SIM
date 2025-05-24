@@ -8,7 +8,7 @@ void WhirlScene::setup()
 
 	auto fSys = new ForceSystem(this);
 	addSystem(fSys);
-	auto tgen = new TorbellinoGenerator({0, 0, 0}, this);
+	auto tgen = new WhirlwindGenerator({0, 0, 0}, this);
 	fSys->addForceGenerator(tgen);
 	tgen->setRadius(100);
 }

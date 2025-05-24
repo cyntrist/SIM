@@ -1,6 +1,5 @@
 #pragma once
 #include "Particle.h"
-#include <unordered_map>
 #include <random>
 
 class ParticleSystem;
@@ -22,26 +21,24 @@ protected:
 	Vector4 startColor;
 
 	// Current particles
-	Scene* scene = nullptr;
+	Scene* scene;
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
-	//unordered_map<GameObject*, bool> generatedGameObjects;
-	vector<GameObject*> gameObjects;
 
 public:
 	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn);
+	virtual ~ParticleGenerator() = default;
 
+	void update(double t);
 	void setScene(Scene* sc) { scene = sc; }
-	virtual void generateParticle() = 0;
 
+	virtual void generateParticle() = 0;
 	bool mayGenerate() const { return nGameObjects <= startNGameObjects; }
 
 	int getNumParticles() const { return nGameObjects; }
 	void onGameObjectDeath(GameObject* p);
 
 	//void setVisibility(bool visibility);
-
-	void update(double t);
 };
 
 // --- GENERADOR DE CASCADA ---

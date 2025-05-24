@@ -1,9 +1,7 @@
 #pragma once
 #include "Particle.h"
-#include <unordered_map>
 #include "Global.h"
 
-using namespace std;
 class Scene;
 
 class System
@@ -14,18 +12,15 @@ protected:
 
 public:
 	System(Scene* scn) : scene(scn) { }
+	virtual ~System() { }
 
-	~System() { }
+	double getDelta() const { return delta; }
+	void setScene(Scene* sc) { scene = sc; }
+	virtual void affectParticles(const vector<GameObject*>& gameObjects, double t) { }
 
 	virtual bool update(double t)
 	{
 		delta = t;
 		return false;
-	}
-
-	double getDelta() const { return delta; }
-
-	virtual void affectParticles(const vector<GameObject*>& gameObjects, double t)
-	{
 	}
 };

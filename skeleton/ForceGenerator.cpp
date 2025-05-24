@@ -22,10 +22,6 @@ ForceGenerator::ForceGenerator(Vector3 org, Scene* scn) : origen(org), scene(scn
 	generateRadiusSphere();
 }
 
-ForceGenerator::~ForceGenerator()
-{
-}
-
 bool ForceGenerator::onRadius(GameObject* obj)
 {
 	if (obj == nullptr) return false;
@@ -48,7 +44,7 @@ Vector3 GravityGenerator::generateForce(GameObject& obj)
 
 
 // ------- GENERADOR DE VIENTO --------
-Vector3 VientoGenerador::generateForce(GameObject& obj)
+Vector3 WindGenerator::generateForce(GameObject& obj)
 {
 	Vector3 force(0, 0, 0);
 	// calculo de la fuerza en un viento no turbulento
@@ -58,7 +54,7 @@ Vector3 VientoGenerador::generateForce(GameObject& obj)
 }
 
 // ------- GENERADOR DE TORBELLINO -------
-Vector3 TorbellinoGenerator::generateForce(GameObject& obj)
+Vector3 WhirlwindGenerator::generateForce(GameObject& obj)
 {
 	Vector3 force(0, 0, 0),
 	        partPos = obj.getPosition();
@@ -110,7 +106,7 @@ Vector3 SpringGenerator::generateForce(GameObject& obj)
 }
 
 // ------ GOMA ELASTICA ------
-Vector3 GomaGenerator::generateForce(GameObject& obj)
+Vector3 RubberGenerator::generateForce(GameObject& obj)
 {
 	Vector3 position1 = object1->getPosition();
 	Vector3 force{0, 0, 0};

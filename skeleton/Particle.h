@@ -59,7 +59,6 @@ public:
 private:
 	Vector3 acc;
 	double dampener;
-	float size;
 	double lifetime;
 	double maxLifetime = -1;
 	Vector3 grav = Vector3(0, -9.8, 0);
