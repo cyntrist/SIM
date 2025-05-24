@@ -10,8 +10,12 @@ void ForceGenerator::generateRadiusSphere()
 
 	if (!widget)
 	{
-		widget = new Widget("RadioSphera", scene, origen, radius);
-		scene->addGameObject(widget);
+		if (widget == nullptr)
+		{
+			widget = new Widget("RadioSphera", scene, origen, radius);
+			scene->addGameObject(widget);
+		}
+		else widget->setVisible(true);
 	}
 
 	widget->changeShape(CreateShape(PxSphereGeometry(radius)));
@@ -24,6 +28,7 @@ ForceGenerator::ForceGenerator(Vector3 org, Scene* scn) : origen(org), scene(scn
 
 ForceGenerator::~ForceGenerator()
 {
+	widget->setVisible(false);
 	//delete widget; 
 }
 

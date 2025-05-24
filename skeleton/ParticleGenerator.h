@@ -27,11 +27,6 @@ protected:
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
 
-	//// Contador generacion
-	//bool byCounter = true; // si se quiere tener en cuenta para que no se generen mas de x particulas por segundo
-	//double counter = 0; // tiempo desde la ultima generacion
-	//double minCounter = 10; // tiempo minimo entre generaciones
-
 public:
 	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn);
 	virtual ~ParticleGenerator() = default;

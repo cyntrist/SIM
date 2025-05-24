@@ -9,14 +9,16 @@ void WindScene::onEnable()
 {
 	partSyst = new ParticleSystem(this);
 	addSystem(partSyst);
-	partSyst->addParticleGenerator(new RandomParticleGen(Vector3(0, 0, 0), 300, partSyst, this));
 
+	partGen = new RandomParticleGen(Vector3(-100, 50, -100), 300, partSyst, this);
+	partSyst->addParticleGenerator(partGen);
+	
 
-	//forceSyst = new ForceSystem(this);
-	//addSystem(forceSyst);
-	//windGen = new WindGenerator({ 0, 0, 0 }, this, { 0, 0, 0 });
-	//forceSyst->addForceGenerator(windGen);
-	//windGen->setRadius(100);
+	forceSyst = new ForceSystem(this);
+	addSystem(forceSyst);
+	auto windGen = new WindGenerator({ -100,0,-100 }, this, { 25,0,0 });
+	forceSyst->addForceGenerator(windGen);
+	windGen->setRadius(50);
 }
 
 void WindScene::onDisable()

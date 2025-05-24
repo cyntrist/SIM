@@ -42,6 +42,7 @@ public:
 	double getLifetime() const							{ return lifetime; }
 	double getMaxLifetime() const						{ return maxLifetime; }
 	Vector3 getGrav() const								{ return grav; }
+	bool getGravitable() const							{ return gravitable; }
 	ParticleGenerator* getGenerator() const				{ return generator; }
 
 	void toggleGrav()
