@@ -22,6 +22,11 @@ ForceGenerator::ForceGenerator(Vector3 org, Scene* scn) : origen(org), scene(scn
 	generateRadiusSphere();
 }
 
+ForceGenerator::~ForceGenerator()
+{
+	//delete widget; 
+}
+
 bool ForceGenerator::onRadius(GameObject* obj)
 {
 	if (obj == nullptr) return false;

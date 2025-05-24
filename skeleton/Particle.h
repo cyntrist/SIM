@@ -69,4 +69,5 @@ private:
 	vector<Vector3> forces;
 	float floor = 0;
 	ParticleGenerator* generator = nullptr;
+	bool eulerSemiImplicito = true;
 };

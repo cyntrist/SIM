@@ -47,13 +47,13 @@ void CascadaGen::generateParticles(double t)
 
 	for (int i = 0; i < particlesGenerated; i++)
 	{
-		if (byCounter)
-		{
-			counter += t;
-			if (counter <= minCounter)
-				continue;
-			counter = 0;
-		}
+		//if (byCounter)
+		//{
+		//	counter += t;
+		//	if (counter <= minCounter)
+		//		continue;
+		//	counter = 0;
+		//}
 
 		// aleatorizamos las variabes asignadas a las nuevas particulas
 		origen2 = origen;
@@ -61,12 +61,13 @@ void CascadaGen::generateParticles(double t)
 		velocity.y = YnormalDistribution(generator);
 		velocity.z = ZnormalDistribution(generator);
 		float maxLifetime = distrib(generator);
-		//maxLifetime = 
+		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
 		// creamos la nueva particula
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
 		aux->setSize(0.5);
+		aux->setMass(1);
 		aux->setMaxLifetime(maxLifetime);
 		aux->toggleGrav();
 		aux->setGenerator(this);

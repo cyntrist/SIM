@@ -18,7 +18,7 @@ protected:
 
 public:
 	ForceGenerator(Vector3 org, Scene* scn);
-	virtual ~ForceGenerator() { delete widget;  };
+	virtual ~ForceGenerator();
 
 
 	virtual Vector3 generateForce(GameObject& object) = 0;
