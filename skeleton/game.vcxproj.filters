@@ -49,15 +49,6 @@
     <ClCompile Include="ForceSystem.cpp">
       <Filter>Clases\Systems</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBodyActor.cpp">
-      <Filter>Clases\RigidBody</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBodyScene.cpp">
-      <Filter>Clases\RigidBody</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBodyStatic.cpp">
-      <Filter>Clases\RigidBody</Filter>
-    </ClCompile>
     <ClCompile Include="SpringScene.cpp">
       <Filter>Clases\Scenes</Filter>
     </ClCompile>
@@ -66,9 +57,6 @@
     </ClCompile>
     <ClCompile Include="WindScene.cpp">
       <Filter>Clases\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="RigidBodyDynamic.cpp">
-      <Filter>Clases\RigidBody</Filter>
     </ClCompile>
     <ClCompile Include="Widget.h">
       <Filter>Clases\Core</Filter>
@@ -132,18 +120,6 @@
     <ClInclude Include="ExplosionScene.h">
       <Filter>Clases\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="RigidBodyActor.h">
-      <Filter>Clases\RigidBody</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBodyDynamic.h">
-      <Filter>Clases\RigidBody</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBodyStatic.h">
-      <Filter>Clases\RigidBody</Filter>
-    </ClInclude>
-    <ClInclude Include="RigidBodyScene.h">
-      <Filter>Clases\RigidBody</Filter>
-    </ClInclude>
     <ClInclude Include="SpringScene.h">
       <Filter>Clases\Scenes</Filter>
     </ClInclude>
@@ -178,9 +154,6 @@
     </Filter>
     <Filter Include="Clases\Scenes">
       <UniqueIdentifier>{c1330035-2281-4ee3-bb18-c2b3d01899d6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Clases\RigidBody">
-      <UniqueIdentifier>{ea3aa709-e5f9-45ce-a056-7f977e15794c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

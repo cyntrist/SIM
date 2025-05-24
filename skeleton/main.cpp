@@ -16,7 +16,7 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
-std::string display_text = "This is a test";
+std::string display_text = "Cynthia Tristan Alvarez";
 
 
 using namespace physx;
