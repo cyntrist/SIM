@@ -12,7 +12,6 @@ protected:
 	ParticleSystem* particleSystem;
 
 	// Propiedades inicio
-	int startNGameObjects;
 	Vector3 origen;
 	Vector3 startVel;
 	float startLifetime;
@@ -22,6 +21,7 @@ protected:
 
 	// Current particles
 	Scene* scene;
+	int startNGameObjects;
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
 
@@ -36,6 +36,7 @@ public:
 	bool mayGenerate() const { return nGameObjects <= startNGameObjects; }
 
 	int getNumParticles() const { return nGameObjects; }
+	void addNumParticles(int n) { nGameObjects += n;  }
 	void onGameObjectDeath(GameObject* p);
 
 	//void setVisibility(bool visibility);

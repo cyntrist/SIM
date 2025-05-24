@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+#include "ParticleGenerator.h"
+
 constexpr int LOW_TRESH = 10;
 
 Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
@@ -51,6 +53,7 @@ bool Particle::update(double t)
 	if ((maxLifetime != -1 && lifetime > maxLifetime) || pose->p.y <= -LOW_TRESH)
 	{
 		kill();
+		generator->addNumParticles(-1);
 		return false;
 	}
 

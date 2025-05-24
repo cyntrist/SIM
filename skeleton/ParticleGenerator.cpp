@@ -59,6 +59,7 @@ void CascadaGen::generateParticle()
 		aux->setSize(0.5);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
+		aux->setGenerator(this);
 
 		// anadimos las particulas a la lista
 		//generatedGameObjects[aux] = true; // Aniaadir al mapa
@@ -110,6 +111,7 @@ void NieblaGen::generateParticle()
 		aux->setVel(velocity);
 		aux->setSize(0.25);
 		aux->setMaxLifetime(lifetime);
+		aux->setGenerator(this);
 
 		// añadimos las particulas a la lista
 		//generatedGameObjects[aux] = true; // Aniaadir al mapa
@@ -162,6 +164,7 @@ void RandomParticleGen::generateParticle()
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
 		aux->setMass(massUdistribution(generator));
+		aux->setGenerator(this);
 
 		// añadimos las particulas a la lista
 		//generatedGameObjects[aux] = true; // Aniaadir al mapa

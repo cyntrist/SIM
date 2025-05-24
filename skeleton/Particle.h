@@ -42,6 +42,7 @@ public:
 	double getLifetime() const							{ return lifetime; }
 	double getMaxLifetime() const						{ return maxLifetime; }
 	Vector3 getGrav() const								{ return grav; }
+	ParticleGenerator* getGenerator() const				{ return generator; }
 
 	void toggleGrav()
 	{
@@ -55,6 +56,7 @@ public:
 	void setGravitable(bool g)							{ gravitable = g; }
 	void setImmovible(bool i)							{ immovible = i; }
 	void setFloor(float h)								{ floor = h; }
+	void setGenerator(ParticleGenerator* gen)			{ generator = gen;  }
 
 private:
 	Vector3 acc;
@@ -66,4 +68,5 @@ private:
 	bool immovible = false;
 	vector<Vector3> forces;
 	float floor = 0;
+	ParticleGenerator* generator = nullptr;
 };
