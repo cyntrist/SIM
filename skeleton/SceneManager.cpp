@@ -47,35 +47,17 @@ void SceneManager::setScene(int id)
 	scenes[id]->onEnable();
 	scenes[id]->show();
 
-	Log("SCENE " + to_string(id));
+	Log("SETTING SCENE TO Nº " + to_string(id));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 {
-	int index = -1;
-	switch (toupper(key))
-	{
-	case '0':
-		index = 0;
-		break;
-	case'1':
-		index = 1;
-		break;
-	case'2':
-		index = 2;
-		break;
-	case'3':
-		index = 3;
-		break;
-	case'4':
-		index = 4;
-		break;
-	default:
-		for (const auto& s : scenes)
-			s->keyPressed(key, camera);
-		break;
-	}
+	const int index = toupper(key) - 48;
+	Log(to_string(key));
 
-	if (index != -1)
+	for (const auto& s : scenes)
+		s->keyPressed(key, camera);
+
+	if (index > -1 && index < scenes.capacity())
 		setScene(index);
 }

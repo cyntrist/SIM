@@ -14,7 +14,6 @@ class Scene
 {
 protected:
 	bool active = false;
-	//unordered_map<string, ObjInfo> gameObjects;
 	vector<System*> systems;
 	vector<GameObject*> gameObjects;
 
@@ -28,7 +27,6 @@ public:
 	virtual ~Scene() = default;
 
 	// getters
-	//unordered_map<string, ObjInfo> getObjects() const	{ return gameObjects; }
 	vector<GameObject*> getObjects() const				{ return gameObjects; }
 	vector<System*> getSystems() const					{ return systems; }
 	Camera* getCamera() const							{ return camera; }
