@@ -34,7 +34,7 @@ void CascadaGen::generateParticles(double t)
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
 	uniform_int_distribution<> numPartsUniform(0, restParticles); 
-	normal_distribution<> YnormalDistribution(5, 2.0); 
+	normal_distribution<> YnormalDistribution(20, 2.0); 
 	normal_distribution<> ZnormalDistribution(10, 2.0); 
 	normal_distribution<> ORGnormalDistribution(origen.x, 10.0); 
 	uniform_real_distribution<> lifetimeDistr2(5, 30); 
@@ -52,10 +52,10 @@ void CascadaGen::generateParticles(double t)
 		float maxLifetime = lifetimeDistr2(generator);
 		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
-		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
+		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2, 3);
 		aux->setVel(velocity);
-		aux->setSize(0.5);
-		aux->setMass(1);
+		aux->setSize(15);
+		aux->setMass(5);
 		aux->setMaxLifetime(maxLifetime);
 		aux->toggleGrav();
 		aux->setGenerator(this);
@@ -95,7 +95,7 @@ void MistGenerator::generateParticles(double t)
 
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
-		aux->setSize(0.25);
+		aux->setSize(5);
 		aux->setMaxLifetime(lifetime);
 		aux->setGenerator(this);
 		aux->setColor(0.5, 0.7, 0.3, 1);
@@ -136,7 +136,7 @@ void RandomParticleGen::generateParticles(double t)
 
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
-		aux->setSize(0.01);
+		aux->setSize(0.1);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
 		aux->setMass(massUdistribution(generator));

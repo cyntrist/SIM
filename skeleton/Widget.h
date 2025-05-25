@@ -7,9 +7,7 @@ public:
 	Widget(string nam, Scene* scn, Vector3 Pos = {0, 0, 0}, float siz = 1);
 	Widget(string nam, Scene* scn, Vector3 Pos = {0, 0, 0}, PxShape* shap = nullptr);
 
-	~Widget() override
-	{
-	};
+	~Widget() override = default;
 
 	void changeShape(PxShape* shap);
 

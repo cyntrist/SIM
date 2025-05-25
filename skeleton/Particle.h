@@ -7,7 +7,7 @@ class Particle : public GameObject
 {
 public:
 	Particle(const Particle& other);
-	Particle(string nam, Scene* scn, Vector3 Pos);
+	Particle(string nam, Scene* scn, Vector3 Pos, double siz = 5);
 	Particle(string nam, Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc = Vector3(0, 0, 0),
 	         float size = 1, double dampener = 0.98, double weight = 1, double lifetime = 10,
 	         double acttime = 0);
@@ -28,6 +28,8 @@ public:
 		color = col;
 	}
 
+
+	void setSize(float siz) override;
 	void setPose(PxTransform* p)						{ pose = p; }
 	void setAcc(const Vector3& a = {0, 0, 0}) { acc = a; }
 	void setDamp(double d = 0.98)						{ dampener = d; }
