@@ -29,7 +29,7 @@ public:
 	}
 
 
-	void setSize(float siz) override;
+	void setSize(float siz);
 	void setPose(PxTransform* p)						{ pose = p; }
 	void setAcc(const Vector3& a = {0, 0, 0}) { acc = a; }
 	void setDamp(double d = 0.98)						{ dampener = d; }
