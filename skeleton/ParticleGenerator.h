@@ -26,9 +26,12 @@ protected:
 	int startNGameObjects;
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
+	double minLife, maxLife;
+	float mass = 1, size = 5;
+	Vector4 color = Vector4(1,1,1,1);
 
 public:
-	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn);
+	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30);
 	virtual ~ParticleGenerator() = default;
 
 	void update(double t);
@@ -48,10 +51,8 @@ public:
 class CascadaGen : public ParticleGenerator
 {
 public:
-	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
-		org, nparts, partsys, scn) {}
-
-	~CascadaGen() {}
+	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
+	: ParticleGenerator(org, nparts, partsys, scn) {}
 
 	void generateParticles(double t) override;
 };
@@ -60,22 +61,16 @@ public:
 class MistGenerator : public ParticleGenerator
 {
 public:
-	MistGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
-		org, nparts, partsys, scn) {}
-
-	~MistGenerator() {}
+	MistGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
+		: ParticleGenerator(org, nparts, partsys, scn){};
 
 	void generateParticles(double t) override;
 };
 
-// --- GENERADOR DE PARTICULAS DE VARIAS MASAS ---
-class RandomParticleGen : public ParticleGenerator
+class RandomMassGenerator : public ParticleGenerator // 
 {
 public:
-	RandomParticleGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn) : ParticleGenerator(
-		org, nparts, partsys, scn) {}
-
-	~RandomParticleGen() {}
-
+	RandomMassGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
+	: ParticleGenerator(org, nparts, partsys, scn, min, max) {}
 	void generateParticles(double t) override;
 };

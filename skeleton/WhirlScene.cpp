@@ -12,7 +12,7 @@ void WhirlScene::onEnable()
 	partSyst = new ParticleSystem(this);
 	addSystem(partSyst);
 	//partSyst->addParticleGenerator(
-	//	new RandomParticleGen(
+	//	new RandomMassGenerator(
 	//		Vector3(-100, 0, -100), 
 	//		1000,
 	//		partSyst, 
@@ -21,11 +21,13 @@ void WhirlScene::onEnable()
 	//);
 
 	partSyst->addParticleGenerator(
-		new RandomParticleGen(
+		new RandomMassGenerator(
 			Vector3(-100, 0, -100),
 			1000,
 			partSyst,
-			this
+			this,
+			30,
+			60
 		)
 	);
 

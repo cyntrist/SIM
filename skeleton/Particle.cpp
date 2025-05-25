@@ -6,7 +6,7 @@
 
 constexpr int LOW_TRESH = 200;
 
-Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
+Particle::Particle(const Particle& other) : GameObject(other.scene)
 {
 	pose = new PxTransform(other.pose->p);
 	vel = other.vel;
@@ -20,7 +20,7 @@ Particle::Particle(const Particle& other) : GameObject(other.name, other.scene)
 	renderItem = new RenderItem(shape, pose, color);
 }
 
-Particle::Particle(string nam, Scene* scn, Vector3 Pos, double siz) : GameObject(nam, scn)
+Particle::Particle(Scene* scn, Vector3 Pos, double siz) : GameObject(scn)
 {
 	pose = new PxTransform(Pos);
 	vel = {0, 0, 0};
@@ -34,9 +34,9 @@ Particle::Particle(string nam, Scene* scn, Vector3 Pos, double siz) : GameObject
 	color = {0.5, 1, 1, 1.0};
 }
 
-Particle::Particle(string nam, Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc,
+Particle::Particle(Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc,
                    float size, double dampener, double weight, double lifetime, double acttime)
-	: GameObject(nam, scn, size, weight), acc(acc), dampener(dampener),
+	: GameObject(scn, size, weight), acc(acc), dampener(dampener),
 	  lifetime(lifetime), maxLifetime(acttime)
 {
 
@@ -85,11 +85,6 @@ bool Particle::integrate(double t)
 	}
 
 	return true;
-}
-
-void Particle::setSize(float siz)
-{
-	size = siz;
 }
 
 void Particle::applyForce()

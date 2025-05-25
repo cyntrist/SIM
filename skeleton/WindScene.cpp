@@ -10,7 +10,7 @@ void WindScene::onEnable()
 	partSyst = new ParticleSystem(this);
 	addSystem(partSyst);
 
-	partGen = new RandomParticleGen(Vector3(-100, 50, -100), 300, partSyst, this);
+	partGen = new RandomMassGenerator(Vector3(-100, 50, -100), 300, partSyst, this);
 	partSyst->addParticleGenerator(partGen);
 	
 

@@ -1,7 +1,7 @@
 #include "Widget.h"
 #include <iostream>
 
-Widget::Widget(string nam, Scene* scn, Vector3 Pos, float siz) : GameObject(nam, scn)
+Widget::Widget(string nam, Scene* scn, Vector3 Pos, float siz) : GameObject(scn)
 {
 	pose = new PxTransform(Pos);
 	size = siz;
@@ -10,7 +10,7 @@ Widget::Widget(string nam, Scene* scn, Vector3 Pos, float siz) : GameObject(nam,
 		renderItem = new RenderItem(CreateShape(PxSphereGeometry(siz)), pose, {1, 0.0, 0.0, 0.01});
 }
 
-Widget::Widget(string nam, Scene* scn, Vector3 Pos, PxShape* shap) : GameObject(nam, scn)
+Widget::Widget(string nam, Scene* scn, Vector3 Pos, PxShape* shap) : GameObject(scn)
 {
 	pose = new PxTransform(Pos);
 

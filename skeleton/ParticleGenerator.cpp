@@ -4,8 +4,10 @@
 #include <algorithm>
 
 
-ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn) :
-	particleSystem(partsys), startNGameObjects(stNpart), origen(org), scene(scn)
+ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn, 
+	double min, double max)
+	: origen(org), particleSystem(partsys), startNGameObjects(stNpart), scene(scn),
+	minLife(min), maxLife(max)
 {
 
 }
@@ -28,7 +30,6 @@ void ParticleGenerator::generateParticles(double t)
 	Log("NUEVA PARTÍCULA");
 }
 
-// --- GENERADOR DE CASCADA ---
 void CascadaGen::generateParticles(double t)
 {
 	int restParticles = startNGameObjects / 2 - nGameObjects;
@@ -37,7 +38,7 @@ void CascadaGen::generateParticles(double t)
 	normal_distribution<> YnormalDistribution(20, 2.0); 
 	normal_distribution<> ZnormalDistribution(10, 2.0); 
 	normal_distribution<> ORGnormalDistribution(origen.x, 10.0); 
-	uniform_real_distribution<> lifetimeDistr2(5, 30); 
+	uniform_real_distribution<> lifetimeDistr2(minLife, maxLife); 
 
 	Vector3 origen2;
 	Vector3 velocity(0,0,0); 
@@ -52,14 +53,14 @@ void CascadaGen::generateParticles(double t)
 		float maxLifetime = lifetimeDistr2(generator);
 		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
-		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2, 3);
+		auto aux = new Particle(scene, origen2, size);
 		aux->setVel(velocity);
-		aux->setSize(15);
-		aux->setMass(5);
+		//aux->setSize(size);
+		aux->setMass(mass);
 		aux->setMaxLifetime(maxLifetime);
 		aux->toggleGrav();
 		aux->setGenerator(this);
-		aux->setColor(0.5, 0.5, 0.9, 1);
+		aux->setColor(color);
 
 		scene->addGameObject(aux); 
 
@@ -68,16 +69,14 @@ void CascadaGen::generateParticles(double t)
 	}
 }
 
-
-// --- GENERADOR DE NIEBLA ---
 void MistGenerator::generateParticles(double t)
 {
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
-	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
-	std::uniform_int_distribution<> posXZUniform(-20, 20); // numero de -10 a 10
-	std::uniform_int_distribution<> posYUniform(0, 40); // numero de 0 a 20
-	std::normal_distribution<> Bdistribution(10, 0.8); // numero de 0 a restParticles
+	std::uniform_int_distribution<> numPartsUniform(0, restParticles);
+	std::uniform_int_distribution<> posXZUniform(-20, 20); 
+	std::uniform_int_distribution<> posYUniform(0, 40); 
+	std::normal_distribution<> Bdistribution(10, 0.8); 
 
 	Vector3 origen2 = origen;
 	Vector3 velocity;
@@ -93,12 +92,12 @@ void MistGenerator::generateParticles(double t)
 		origen2.z = posXZUniform(generator);
 		float lifetime = Bdistribution(generator);
 
-		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
+		auto aux = new Particle(scene, origen2, size);
 		aux->setVel(velocity);
-		aux->setSize(5);
+		//aux->setSize(size);
 		aux->setMaxLifetime(lifetime);
 		aux->setGenerator(this);
-		aux->setColor(0.5, 0.7, 0.3, 1);
+		aux->setColor(color);
 
 		scene->addGameObject(aux); 
 		aux->toggleGrav();
@@ -107,16 +106,15 @@ void MistGenerator::generateParticles(double t)
 	}
 }
 
-// --- GENERADOR DE PARTICULAS DE VARIAS MASAS ---
-void RandomParticleGen::generateParticles(double t)
+void RandomMassGenerator::generateParticles(double t)
 {
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
-	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
-	std::uniform_int_distribution<> posXZUniform(-20, 20); // numero de -40 a 40
-	std::uniform_int_distribution<> posYUniform(0, 50); // numero de 0 a 80
-	std::uniform_real_distribution<> lifeTimeUdistribution(20, 30); // numero de 0 a restParticles
-	std::normal_distribution<> massUdistribution(10, 3); // numero de 0 a restParticles
+	std::uniform_int_distribution<> numPartsUniform(0, restParticles); 
+	std::uniform_int_distribution<> posXZUniform(-20, 20); 
+	std::uniform_int_distribution<> posYUniform(0, 50); 
+	std::uniform_real_distribution<> lifeTimeUdistribution(minLife, maxLife); 
+	std::normal_distribution<> massUdistribution(10, 3); 
 
 	Vector3 origen2;
 	Vector3 velocity;
@@ -134,14 +132,14 @@ void RandomParticleGen::generateParticles(double t)
 
 		float lifetime = lifeTimeUdistribution(generator);
 
-		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
+		auto aux = new Particle(scene, origen2, size);
 		aux->setVel(velocity);
-		aux->setSize(0.1);
+		//aux->setSize(size);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
 		aux->setMass(massUdistribution(generator));
 		aux->setGenerator(this);
-		aux->setColor(0.9, 0.7, 0.2, 1);
+		aux->setColor(color);
 
 		scene->addGameObject(aux); 
 		nGameObjects++;

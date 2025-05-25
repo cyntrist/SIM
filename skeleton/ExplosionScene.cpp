@@ -4,7 +4,7 @@ void ExplosionScene::setup()
 {
 	auto partsyst = new ParticleSystem(this);
 	addSystem(partsyst);
-	partsyst->addParticleGenerator(new RandomParticleGen(Vector3(0, 0, 0), 1000, partsyst, this));
+	partsyst->addParticleGenerator(new RandomMassGenerator(Vector3(0, 0, 0), 1000, partsyst, this));
 
 
 	auto fSys = new ForceSystem(this);

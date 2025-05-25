@@ -29,7 +29,7 @@ void ParticleScene::onEnable()
 
 
 	partSyst->addParticleGenerator(
-		new RandomParticleGen(
+		new RandomMassGenerator(
 			Vector3(-200, 0, 0),
 			1000,
 			partSyst,

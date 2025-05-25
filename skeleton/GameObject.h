@@ -13,7 +13,6 @@ class GameObject
 {
 protected:
 	Scene* scene = nullptr;
-	string name;
 	bool alive = true;
 	bool visible = true;
 
@@ -26,15 +25,15 @@ protected:
 	Vector3 vel = {0, 0, 0};
 
 public:
-	GameObject(string nam, Scene* scn, float size = 3, double mass = 1) 
-		: scene(scn), name(nam), size(size), mass(mass) {}
+	GameObject(Scene* scn, float size = 3, float mass = 1) 
+		: scene(scn), size(size), mass(mass) {}
 
 	virtual ~GameObject()						{ DeregisterRenderItem(renderItem); }
 
-	virtual bool update(double t);
+	virtual bool update(double t)				{ return alive; }
 
-	void setName(const string& n)				{ name = n; }
-	string getName() const						{ return name; }
+	//void setName(const string& n)				{ name = n; }
+	//string getName() const						{ return name; }
 	bool isAlive() const						{ return alive; }
 	bool isVisible() const						{ return visible; }
 
@@ -52,7 +51,7 @@ public:
 	float getSize() const						{ return size; }
 	float getMass() const						{ return mass; }
 	Vector3 getVel()							{ return vel; }
-	string& getName()							{ return name; }
+	//string& getName()							{ return name; }
 
 	virtual void setPosition(const Vector3 pos) { pose->p = pos; }
 	virtual void setRotation(const PxQuat rot)	{ pose->q = rot; }
