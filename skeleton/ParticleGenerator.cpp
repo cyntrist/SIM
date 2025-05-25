@@ -114,6 +114,8 @@ void RandomMassGenerator::generateParticles(double t)
 	std::uniform_int_distribution<> posXZUniform(-20, 20); 
 	std::uniform_int_distribution<> posYUniform(0, 50); 
 	std::uniform_real_distribution<> lifeTimeUdistribution(minLife, maxLife); 
+	std::uniform_real_distribution<> sizeDistribution(4,5);
+	double size = sizeDistribution(generator);
 	std::normal_distribution<> massUdistribution(10, 3); 
 
 	Vector3 origen2;
@@ -137,7 +139,7 @@ void RandomMassGenerator::generateParticles(double t)
 		//aux->setSize(size);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
-		aux->setMass(massUdistribution(generator));
+		aux->setMass(5.0 + size);
 		aux->setGenerator(this);
 		aux->setColor(color);
 

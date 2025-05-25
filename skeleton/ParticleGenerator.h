@@ -47,22 +47,28 @@ public:
 	//void setVisibility(bool visibility);
 };
 
-// --- GENERADOR DE CASCADA ---
 class CascadaGen : public ParticleGenerator
 {
 public:
 	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
-	: ParticleGenerator(org, nparts, partsys, scn) {}
+	: ParticleGenerator(org, nparts, partsys, scn, min, max)
+	{
+		color = Vector4();
+		size = 2;
+	}
 
 	void generateParticles(double t) override;
 };
 
-// --- GENERADOR DE NIEBLA ---
 class MistGenerator : public ParticleGenerator
 {
 public:
 	MistGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
-		: ParticleGenerator(org, nparts, partsys, scn){};
+		: ParticleGenerator(org, nparts, partsys, scn, min, max)
+	{
+		color = Vector4();
+		size = 4;
+	};
 
 	void generateParticles(double t) override;
 };
@@ -71,6 +77,9 @@ class RandomMassGenerator : public ParticleGenerator //
 {
 public:
 	RandomMassGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
-	: ParticleGenerator(org, nparts, partsys, scn, min, max) {}
+	: ParticleGenerator(org, nparts, partsys, scn, min, max)
+	{
+		color = Vector4();
+	}
 	void generateParticles(double t) override;
 };
