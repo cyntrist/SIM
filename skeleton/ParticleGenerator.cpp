@@ -113,9 +113,9 @@ void RandomParticleGen::generateParticles(double t)
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
 	std::uniform_int_distribution<> numPartsUniform(0, restParticles); // numero de 0 a restParticles
-	std::uniform_int_distribution<> posXZUniform(-40, 40); // numero de -40 a 40
-	std::uniform_int_distribution<> posYUniform(0, 80); // numero de 0 a 80
-	std::uniform_real_distribution<> lifeTimeUdistribution(10, 15); // numero de 0 a restParticles
+	std::uniform_int_distribution<> posXZUniform(-20, 20); // numero de -40 a 40
+	std::uniform_int_distribution<> posYUniform(0, 50); // numero de 0 a 80
+	std::uniform_real_distribution<> lifeTimeUdistribution(20, 30); // numero de 0 a restParticles
 	std::normal_distribution<> massUdistribution(10, 3); // numero de 0 a restParticles
 
 	Vector3 origen2;
@@ -136,7 +136,7 @@ void RandomParticleGen::generateParticles(double t)
 
 		auto aux = new Particle("Object" + to_string(nGameObjectsTotal), scene, origen2);
 		aux->setVel(velocity);
-		//aux->setSize(0.25);
+		aux->setSize(0.01);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
 		aux->setMass(massUdistribution(generator));
