@@ -30,7 +30,7 @@ void ParticleGenerator::generateParticles(double t)
 	Log("NUEVA PARTÍCULA");
 }
 
-void CascadaGen::generateParticles(double t)
+void WaterfallGenerator::generateParticles(double t)
 {
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
@@ -61,6 +61,7 @@ void CascadaGen::generateParticles(double t)
 		aux->toggleGrav();
 		aux->setGenerator(this);
 		aux->setColor(color);
+		aux->setDamp(dampener);
 
 		scene->addGameObject(aux); 
 
@@ -98,6 +99,7 @@ void MistGenerator::generateParticles(double t)
 		aux->setMaxLifetime(lifetime);
 		aux->setGenerator(this);
 		aux->setColor(color);
+		aux->setDamp(dampener);
 
 		scene->addGameObject(aux); 
 		aux->toggleGrav();
@@ -114,7 +116,7 @@ void RandomMassGenerator::generateParticles(double t)
 	std::uniform_int_distribution<> posXZUniform(-20, 20); 
 	std::uniform_int_distribution<> posYUniform(0, 50); 
 	std::uniform_real_distribution<> lifeTimeUdistribution(minLife, maxLife); 
-	std::uniform_real_distribution<> sizeDistribution(4,5);
+	std::uniform_real_distribution<> sizeDistribution(2,5);
 	double size = sizeDistribution(generator);
 	std::normal_distribution<> massUdistribution(10, 3); 
 
@@ -139,9 +141,10 @@ void RandomMassGenerator::generateParticles(double t)
 		//aux->setSize(size);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
-		aux->setMass(5.0 + size);
+		aux->setMass(25.0 + 1000000 * size * size);
 		aux->setGenerator(this);
 		aux->setColor(color);
+		aux->setDamp(dampener);
 
 		scene->addGameObject(aux); 
 		nGameObjects++;

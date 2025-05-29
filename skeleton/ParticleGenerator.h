@@ -21,6 +21,7 @@ protected:
 	int nGameObjectsTotal = 0;
 	double minLife, maxLife;
 	float mass = 1, size = 5;
+	double dampener = 0.98;
 
 public:
 	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30);
@@ -40,6 +41,7 @@ public:
 	void setMaxLife(const double ml)	{ maxLife = ml; }
 	void setMass(const float m)			{ mass = m; }
 	void setSize(const float s)			{ size = s; }
+	void setDampener(const double d)	{ dampener = d; }
 	//void setVisibility(bool visibility);
 
 	/// getters
@@ -51,13 +53,14 @@ public:
 	double getMaxLife() const			{ return maxLife; }
 	float getMass() const				{ return mass; }
 	float getSize() const				{ return size; }
+	double getDampener() const			{ return dampener; }
 	int getNumParticles() const			{ return nGameObjects; }
 };
 
-class CascadaGen : public ParticleGenerator
+class WaterfallGenerator : public ParticleGenerator
 {
 public:
-	CascadaGen(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
+	WaterfallGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
 	: ParticleGenerator(org, nparts, partsys, scn, min, max)
 	{
 		color = Vector4(0,0,1,1);

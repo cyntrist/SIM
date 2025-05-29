@@ -26,7 +26,7 @@ Particle::Particle(Scene* scn, Vector3 Pos, double siz) : GameObject(scn)
 	pose = new PxTransform(Pos);
 	vel = {0, 0, 0};
 	acc = {0, 0, 0};
-	dampener = 0.8;
+	dampener = 0.98;
 	size = siz;
 	shape = CreateShape(PxSphereGeometry(size));
 	renderItem = new RenderItem(shape, pose, color);
