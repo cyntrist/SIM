@@ -140,14 +140,14 @@ Vector3 RubberGenerator::generateForce(GameObject& obj)
 }
 
 // ------ FLOTACION -----
-Vector3 FlotationGenerator::generateForce(GameObject& particle)
+Vector3 FlotationGenerator::generateForce(GameObject& object)
 {
-	float height = particle.getSize() * 2,
-	      h = particle.getPosition().y,
+	double height = object.getSize() * 2,
+	      h = object.getPosition().y,
 	      h0 = origen.y,
-	      immersed = 0,
-	      liquidDensity = k,
-	      volume = pow(particle.getSize() * 2, 3);
+	      immersed,
+	      density = k,
+	      volume = pow(object.getSize() * 2, 3);
 
 	if (h - h0 > height * 0.5)
 	{
@@ -165,10 +165,7 @@ Vector3 FlotationGenerator::generateForce(GameObject& particle)
 
 	Vector3 force{0, 0, 0};
 
+	force.y = density * volume * immersed * 9.8;
 
-	// calculo de la fuerza
-	force.y = liquidDensity * volume * immersed * 9.8;
-
-	// aplica la fueza a ambos extremos del muelle
 	return force;
 }

@@ -169,18 +169,17 @@ protected:
 	float k; // densidad del liquido
 
 public:
-	/// <param name="h"> superficie del liquido </param>
 	/// <param name="scn"> Scene</param>
+	/// <param name="h"> altura del liquido </param>
+	/// <param name="v"> volumen del liquido</param>
 	/// <param name="K"> densidad del liquido</param>
-	FlotationGenerator(float h, Scene* scn, float K) :
+	FlotationGenerator(Scene* scn, float h, float K) :
 		ForceGenerator({0, h, 0}, scn), k(K)
 	{
 	};
 
 
-	bool onRadius(GameObject* obj) override { if (obj) return obj->getPosition().y <= origen.y; };
-
+	bool onRadius(GameObject* obj) override { if (obj) return obj->getPosition().y <= origen.y; return false; }
 	Vector3 generateForce(GameObject& object) override;
 
-	void setDamping(GameObject* obj);
 };
