@@ -26,7 +26,7 @@ Particle::Particle(Scene* scn, Vector3 Pos, double siz) : GameObject(scn)
 	pose = new PxTransform(Pos);
 	vel = {0, 0, 0};
 	acc = {0, 0, 0};
-	dampener = 0.98;
+	dampener = 0.8;
 	size = siz;
 	shape = CreateShape(PxSphereGeometry(size));
 	renderItem = new RenderItem(shape, pose, color);
@@ -36,8 +36,8 @@ Particle::Particle(Scene* scn, Vector3 Pos, double siz) : GameObject(scn)
 }
 
 Particle::Particle(Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc,
-                   float size, double dampener, double weight, double lifetime, double acttime)
-	: GameObject(scn, size, weight), acc(acc), dampener(dampener),
+                   float size, double dampener, double mass, double lifetime, double acttime)
+	: GameObject(scn, size, mass), acc(acc), dampener(dampener),
 	  lifetime(lifetime), maxLifetime(acttime)
 {
 

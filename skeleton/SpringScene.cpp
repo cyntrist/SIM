@@ -15,10 +15,10 @@ void SpringScene::onEnable()
 
 	// --- MUELLES ---	
 	// explosion para probar
-	expls = new ExplosionGenerator({ -20, 50, -10 }, this);
-	fsys->addForceGenerator(expls);
-	expls->setRadius(30);
-	expls->setPower(100);
+	//expls = new ExplosionGenerator({ -20, 50, -10 }, this);
+	//fsys->addForceGenerator(expls);
+	//expls->setRadius(30);
+	//expls->setPower(100);
 
 
 	///
@@ -37,6 +37,7 @@ void SpringScene::onEnable()
 	addGameObject(part1);
 	part1->toggleGrav();
 	part1->setColor({ 0.01, 0.2, 0.01, 1 });
+	part1->setMass(3);
 	//part1->setFloor(20.5);
 
 	fsys->addForceGenerator(new SpringGenerator(anch->getPosition(), this, 10, 7, part1));
@@ -46,6 +47,7 @@ void SpringScene::onEnable()
 	addGameObject(part2);
 	part2->toggleGrav();
 	part2->setColor({ 0.05, 0.25, 0.1, 1 });
+	part2->setMass(4);
 	//part2->setFloor(20.5);
 
 	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part2, part1));
@@ -54,7 +56,7 @@ void SpringScene::onEnable()
 	auto part3 = new Particle(this, { -20, 50, 0 });
 	addGameObject(part3);
 	part3->toggleGrav();
-	part3->setMass(2);
+	part3->setMass(3);
 	part3->setColor({ 0.1, 0.3, 0.1, 1 });
 	//part3->setFloor(20.5);
 
@@ -65,7 +67,7 @@ void SpringScene::onEnable()
 	part4->toggleGrav();
 	part4->setColor({ 0.15, 0.4, 0.1, 1 });
 	//part4->setFloor(20.5);
-	part4->setMass(5);
+	part4->setMass(4);
 
 	fsys->addForceGenerator(new RubberGenerator(this, 10, 7, part4, part3));
 
@@ -86,7 +88,8 @@ void SpringScene::onEnable()
 	addGameObject(partD);
 	partD->toggleGrav();
 	partD->setColor(color4);
-	//partD->setMass(10);
+	partD->setMass(4);
+	
 	//partD->setFloor(20.5);
 
 	sprngGen = new SpringGenerator(anch2->getPosition(), this, 10, 10, partD);

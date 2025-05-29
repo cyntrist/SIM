@@ -9,7 +9,7 @@ public:
 	Particle(const Particle& other);
 	Particle(Scene* scn, Vector3 Pos, double siz = 5);
 	Particle(Scene* scn, Vector3 pos, Vector3 vel, Vector3 acc = Vector3(0, 0, 0),
-	         float size = 1, double dampener = 0.98, double weight = 1, double lifetime = 10,
+	         float size = 1, double dampener = 0.8, double mass = 1, double lifetime = 10,
 	         double acttime = 0);
 	~Particle() override;
 

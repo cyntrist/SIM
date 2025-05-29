@@ -9,7 +9,7 @@ class WindScene : public Scene
 	ParticleSystem* partSyst = nullptr;
 	ForceSystem* forceSyst = nullptr;
 
-	ParticleGenerator* partGen = nullptr;
+	RandomMassGenerator* partGen = nullptr;
 	WindGenerator* windGen = nullptr;
 
 public:

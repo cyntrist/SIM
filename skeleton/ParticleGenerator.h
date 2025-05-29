@@ -36,6 +36,8 @@ public:
 	/// setters
 	void setOrigen(const Vector3& o)	{ origen = o; }
 	void setColor(const Vector4& c)		{ color = c; }
+	void setColor(float r, float g, 
+		float b, float a)				{ color = Vector4(r,g,b,a); }
 	void setScene(Scene* sc)			{ scene = sc; }
 	void setMinLife(const double ml)	{ minLife = ml; }
 	void setMaxLife(const double ml)	{ maxLife = ml; }
@@ -85,11 +87,26 @@ public:
 
 class RandomMassGenerator : public ParticleGenerator // 
 {
+	float minSize = 2;
+	float maxSize = 6;
+
 public:
 	RandomMassGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
 	: ParticleGenerator(org, nparts, partsys, scn, min, max)
 	{
 		color = Vector4(1,0,0,1);
+	}
+	void generateParticles(double t) override;
+	void setSize(float min, float max) { minSize = min; maxSize = max; }
+};
+
+class EqualMassGenerator : public ParticleGenerator // 
+{
+public:
+	EqualMassGenerator(Vector3 org, int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
+		: ParticleGenerator(org, nparts, partsys, scn, min, max)
+	{
+		color = Vector4(1, 1, 0, 1);
 	}
 	void generateParticles(double t) override;
 };

@@ -113,10 +113,10 @@ void RandomMassGenerator::generateParticles(double t)
 	int restParticles = startNGameObjects / 2 - nGameObjects;
 
 	std::uniform_int_distribution<> numPartsUniform(0, restParticles); 
-	std::uniform_int_distribution<> posXZUniform(-20, 20); 
-	std::uniform_int_distribution<> posYUniform(0, 50); 
+	std::normal_distribution<> posXZUniform(0, 20); 
+	std::normal_distribution<> posYUniform(0, 20);
 	std::uniform_real_distribution<> lifeTimeUdistribution(minLife, maxLife); 
-	std::uniform_real_distribution<> sizeDistribution(2,5);
+	std::uniform_real_distribution<> sizeDistribution(minSize,maxSize);
 	double size = sizeDistribution(generator);
 	std::normal_distribution<> massUdistribution(10, 3); 
 
@@ -138,10 +138,9 @@ void RandomMassGenerator::generateParticles(double t)
 
 		auto aux = new Particle(scene, origen2, size);
 		aux->setVel(velocity);
-		//aux->setSize(size);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
-		aux->setMass(25.0 + 1000000 * size * size);
+		aux->setMass(size);
 		aux->setGenerator(this);
 		aux->setColor(color);
 		aux->setDamp(dampener);
@@ -151,3 +150,47 @@ void RandomMassGenerator::generateParticles(double t)
 		nGameObjectsTotal++;
 	}
 }
+
+void EqualMassGenerator::generateParticles(double t)
+{
+	{
+		int restParticles = startNGameObjects / 2 - nGameObjects;
+
+		std::uniform_int_distribution<> numPartsUniform(0, restParticles);
+		std::normal_distribution<> posXZUniform(0, 20);
+		std::normal_distribution<> posYUniform(0, 20);
+		std::uniform_real_distribution<> lifeTimeUdistribution(minLife, maxLife);
+
+		Vector3 origen2;
+		Vector3 velocity;
+		velocity.x = 0;
+		velocity.y = 0;
+		velocity.z = 0;
+		int particlesGenerated = numPartsUniform(generator);
+
+		for (int i = 0; i < particlesGenerated; i++)
+		{
+			origen2 = origen;
+			origen2.x += posXZUniform(generator);
+			origen2.y += posYUniform(generator);
+			origen2.z += posXZUniform(generator);
+
+			float lifetime = lifeTimeUdistribution(generator);
+
+			auto aux = new Particle(scene, origen2, size);
+			aux->setVel(velocity);
+			aux->setMaxLifetime(lifetime);
+			aux->toggleGrav();
+			aux->setMass(size);
+			aux->setGenerator(this);
+			aux->setColor(color);
+			aux->setDamp(dampener);
+
+			scene->addGameObject(aux);
+			nGameObjects++;
+			nGameObjectsTotal++;
+		}
+	}
+}
+
+

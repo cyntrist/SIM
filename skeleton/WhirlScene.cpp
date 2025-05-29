@@ -9,33 +9,34 @@ void WhirlScene::onEnable()
 {
 	Scene::onEnable();
 
+	Vector3 pos(-300, 0, -300);
+
+	/// PARTICULAS
 	partSyst = new ParticleSystem(this);
 	addSystem(partSyst);
-	//partSyst->addParticleGenerator(
-	//	new RandomMassGenerator(
-	//		Vector3(-100, 0, -100), 
-	//		1000,
-	//		partSyst, 
-	//		this
-	//	)
-	//);
 
-	partSyst->addParticleGenerator(
-		new RandomMassGenerator(
-			Vector3(-100, 0, -100),
-			1000,
-			partSyst,
-			this,
-			30,
-			60
-		)
+	auto rg = new EqualMassGenerator(
+		pos,
+		1000,
+		partSyst,
+		this,
+		30,
+		60
 	);
 
+	rg->setMinLife(20);
+	rg->setMaxLife(30);
+	rg->setMass(3);
+
+	partSyst->addParticleGenerator(rg);
+
+
+	/// FUERZAS
 	forceSyst = new ForceSystem(this);
 	addSystem(forceSyst);
-	whirlGen = new WhirlwindGenerator({ -150, 0, -150 }, this);
+	whirlGen = new WhirlwindGenerator(pos, this);
 	forceSyst->addForceGenerator(whirlGen);
-	whirlGen->setRadius(250);
+	whirlGen->setRadius(250000000);
 }
 
 void WhirlScene::onDisable()

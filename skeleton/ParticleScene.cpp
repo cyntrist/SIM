@@ -45,9 +45,9 @@ void ParticleScene::onEnable()
 	// configuracion de generadores
 	wg->setMinLife(10);
 	wg->setMaxLife(20);
-	wg->setDampener(0.8);
 	rg->setMinLife(5);
 	rg->setMaxLife(10);
+	rg->setDampener(0.98);
 
 	// asociacion sistema/generador
 	partSyst->addParticleGenerator(wg);
