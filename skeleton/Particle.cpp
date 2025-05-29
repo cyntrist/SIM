@@ -3,6 +3,7 @@
 #include <iostream>
 
 #include "ParticleGenerator.h"
+#include "Scene.h"
 
 constexpr int LOW_TRESH = 200;
 
@@ -52,7 +53,9 @@ bool Particle::update(double t)
 	if (!alive)
 		return false;
 
-	if ((maxLifetime != -1 && lifetime > maxLifetime) || pose->p.y <= -LOW_TRESH)
+	if ((maxLifetime != -1 && lifetime > maxLifetime) 
+		|| pose->p.y <= -scene->getLowerThreshold() 
+		|| pose->p.y >= scene->getUpperThreshold())
 	{
 		kill();
 		generator->addNumParticles(-1);

@@ -19,6 +19,9 @@ protected:
 	PxPhysics* gPhysics = nullptr;
 	PxScene* gScene = nullptr;
 
+	float lowerThreshold = 400;
+	float upperThreshold = 400;
+
 public:
 	Scene() = default;
 	Scene(Camera* cam, PxPhysics* gPhysics = nullptr, PxScene* gScene = nullptr);
@@ -31,6 +34,8 @@ public:
 	bool getActive() const								{ return active; }
 	PxPhysics* getPxPhysics() const						{ return gPhysics; }
 	PxScene* getPxScene() const							{ return gScene; }
+	float getLowerThreshold() const						{ return lowerThreshold; }
+	float getUpperThreshold() const						{ return upperThreshold; }
 
 	void show(bool s = true)
 	{
