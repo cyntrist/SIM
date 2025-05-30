@@ -72,7 +72,7 @@ public:
 		}
 
 		auto vel = iniVel;
-		auto sigma = 1.0;
+		auto sigma = 10.0;
 		normal_distribution<> xDist(0, sigma);
 		normal_distribution<> yDist(0, sigma);
 		normal_distribution<> zDist(0, sigma);
@@ -94,12 +94,12 @@ public:
 		if (first == nullptr || !first->isAlive())
 		{
 			first = nullptr;
-			if (gen->getNumParticles() <= 0)
+			if (gen->getNumParticles() <= 1)
 				generateFirstPart();
 			return true;
 		}
 
-		if (first->getVel().y <= 0 && first->isAlive())
+		if (first->isAlive() && first->getVel().y <= 0)
 		{
 			if (gen != nullptr && first != nullptr)
 			{

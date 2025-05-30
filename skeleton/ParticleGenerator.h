@@ -115,14 +115,15 @@ public:
 
 class FireworkGenerator : public ParticleGenerator // 
 {
+	bool bidim = false; // si es bidimensional
+	bool par = false; // para ir cambiando de dimension alternadamente
 
 public:
-	FireworkGenerator( int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
-		: ParticleGenerator(Vector3(0,0,0), nparts, partsys, scn, min, max)
+	FireworkGenerator( int nparts, ParticleSystem* partsys, Scene* scn, bool bi = false, double min = 20, double max = 30)
+		: ParticleGenerator(Vector3(0,0,0), nparts, partsys, scn, min, max), bidim(bi)
 	{
 		color = Vector4(0, 1, 0, 1);
 		size = 0.5;
-		//mass = 0.005;
 	}
 
 	void generateParticles(double t) override;

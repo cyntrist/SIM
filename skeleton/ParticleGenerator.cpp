@@ -190,8 +190,8 @@ void FireworkGenerator::generateParticles(double t)
 	auto sigma = 20.0;
 	normal_distribution<> xDist(0, sigma);
 	normal_distribution<> yDist(0, sigma);
-	normal_distribution<> ZnormalDistribution(0, sigma);
-	uniform_real_distribution<> lifetimeDistr2(minLife, maxLife);
+	normal_distribution<> zDist(0, sigma);
+	uniform_real_distribution<> lifeDist(minLife, maxLife);
 
 	int particlesGenerated = numPartsUniform(generator);
 	
@@ -200,8 +200,16 @@ void FireworkGenerator::generateParticles(double t)
 		Vector3 vel;
 		vel.x = xDist(generator);
 		vel.y = yDist(generator);
-		vel.z = ZnormalDistribution(generator);
-		float maxLifetime = lifetimeDistr2(generator);
+		vel.z = zDist(generator);
+		if (bidim)
+		{
+			if (par)
+				vel.z = 0;
+			else 
+				vel.x = 0;
+			par = !par;
+		}
+		float maxLifetime = lifeDist(generator);
 		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
 		generateParticle(origen, vel, maxLifetime, color, mass);
