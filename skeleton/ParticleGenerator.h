@@ -118,7 +118,7 @@ public:
 	FireworkGenerator( int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
 		: ParticleGenerator(Vector3(0,0,0), nparts, partsys, scn, min, max)
 	{
-		color = Vector4(0, 1, 1, 1);
+		color = Vector4(0, 1, 0, 1);
 	}
 
 	void generateParticles(double t) override;

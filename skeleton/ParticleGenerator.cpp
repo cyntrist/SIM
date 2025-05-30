@@ -176,6 +176,15 @@ void EqualMassGenerator::generateParticles(double t)
 
 	for (int i = 0; i < particlesGenerated; i++)
 	{
+		uniform_real_distribution<> rGen(0.5f, 1.1f);
+		uniform_real_distribution<> gGen(0.5f, 1.1f);
+		uniform_real_distribution<> bGen(0.5f, 1.1f);
+		float r = rGen(generator);
+		float g = gGen(generator);
+		float b = bGen(generator);
+
+		color = { r, g, b, 1.0 };
+
 		origen2 = origen;
 		origen2.x += posXZUniform(generator);
 		origen2.y += posYUniform(generator);
@@ -213,18 +222,9 @@ void FireworkGenerator::generateParticles(double t)
 	Vector3 origen2;
 	Vector3 velocity(0, 0, 0);
 	int particlesGenerated = numPartsUniform(generator);
-
+	
 	for (int i = 0; i < particlesGenerated; i++)
 	{
-		uniform_real_distribution<> rGen(0.0f, 1.0f);
-		uniform_real_distribution<> gGen(0.0f, 1.0f);
-		uniform_real_distribution<> bGen(0.0f, 1.0f);
-		float r = rGen(generator);
-		float g = gGen(generator);
-		float b = bGen(generator);
-
-		color = {r, g, b, 1.0 };
-
 		origen2 = origen;
 		origen2.x = ORGnormalDistribution(generator);
 		velocity.y = YnormalDistribution(generator);
