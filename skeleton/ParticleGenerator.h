@@ -121,6 +121,7 @@ public:
 		: ParticleGenerator(Vector3(0,0,0), nparts, partsys, scn, min, max)
 	{
 		color = Vector4(0, 1, 0, 1);
+		size = 0.5;
 	}
 
 	void generateParticles(double t) override;

@@ -19,13 +19,13 @@ void ParticleGenerator::update(double t)
 		generateParticles(t);
 }
 
-void ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, Vector4 c, float mass)
+void ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, Vector4 c, float m)
 {
 	auto aux = new Particle(scene, org, size);
 	aux->setVel(vel);
 	aux->setMaxLifetime(life);
 	aux->toggleGrav();
-	aux->setMass(mass);
+	aux->setMass(m);
 	aux->setGenerator(this);
 	if (color != Vector4(1,1,1,1))
 		aux->setColor(color);
@@ -192,32 +192,21 @@ void FireworkGenerator::generateParticles(double t)
 	normal_distribution<> ORGnormalDistribution(origen.x, 10.0);
 	uniform_real_distribution<> lifetimeDistr2(minLife, maxLife);
 
-	Vector3 origen2;
-	Vector3 velocity(0, 0, 0);
+	Vector3 org;
+	Vector3 vel(0, 0, 0);
 	int particlesGenerated = numPartsUniform(generator);
 	
 	for (int i = 0; i < particlesGenerated; i++)
 	{
-		origen2 = origen;
-		origen2.x = ORGnormalDistribution(generator);
-		velocity.y = YnormalDistribution(generator);
-		velocity.z = ZnormalDistribution(generator);
+		org = origen;
+		org.x = ORGnormalDistribution(generator);
+		vel.y = YnormalDistribution(generator);
+		vel.z = ZnormalDistribution(generator);
 		float maxLifetime = lifetimeDistr2(generator);
 		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
-		auto aux = new Particle(scene, origen2, size);
-		aux->setVel(velocity);
-		aux->setMass(mass);
-		aux->setMaxLifetime(maxLifetime);
-		aux->toggleGrav();
-		aux->setGenerator(this);
-		aux->setColor(color);
-		aux->setDamp(dampener);
 
-		scene->addGameObject(aux);
-
-		nGameObjects++;
-		nGameObjectsTotal++;
+		generateParticle(org, vel, maxLifetime, color, mass);
 	}
 }
 
