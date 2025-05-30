@@ -60,6 +60,9 @@ void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 	for (const auto& s : scenes)
 		s->keyPressed(key, camera);
 
-	if (index > -1 && index < scenes.capacity() && index != actualScene)
+	if (index >= scenes.size())
+		return;
+
+	if (index > -1 && index != actualScene)
 		setScene(index);
 }

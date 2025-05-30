@@ -7,24 +7,33 @@ void ExplosionScene::setup()
 
 void ExplosionScene::onEnable()
 {
+	Vector3 pos(-200, 0, -200);
+
 	Scene::onEnable();
 	partSyst = new ParticleSystem(this);
 	addSystem(partSyst);
-	partSyst->addParticleGenerator(
-		new RandomMassGenerator(
-			Vector3(0, 0, 0), 
-			1000, 
-			partSyst,
-			this
-		)
+	auto partGen = new RandomMassGenerator(
+		pos,
+		1000,
+		partSyst,
+		this
 	);
+	partGen->setMinLife(10);
+	partGen->setMaxLife(20);
+	partSyst->addParticleGenerator(partGen);
 
 
 	forceSyst = new ForceSystem(this);
 	addSystem(forceSyst);
-	explosionGen = new ExplosionGenerator({ 0,0,0 }, this);
+
+	auto whirlGen = new WhirlwindGenerator(pos, this);
+	forceSyst->addForceGenerator(whirlGen);
+	whirlGen->setRadius(250000);
+
+	explosionGen = new ExplosionGenerator(pos, this);
 	forceSyst->addForceGenerator(explosionGen);
-	explosionGen->setRadius(50);
+	explosionGen->setRadius(500000);
+	explosionGen->setPower(5000);
 }
 
 void ExplosionScene::onDisable()

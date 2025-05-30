@@ -21,6 +21,7 @@ public:
 	virtual Vector3 generateForce(GameObject& object) = 0;
 	virtual bool onRadius(GameObject* obj);
 	virtual void update(double delta) {}
+	float getRadius() const { return radius; }
 	void setRadius(float rad);
 	void setActive(const bool act) { active = act; }
 	void setColor(float r, float g, float b, float a) const
