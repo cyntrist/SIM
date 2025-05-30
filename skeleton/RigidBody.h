@@ -48,6 +48,21 @@ public:
 	~DynamicRigidBody() override;
 
 	//setters
+	void setPosition(PxVec3 pos = { 0,0,0 }) override
+	{
+		RigidBody::setPosition(pos);
+		actor->setGlobalPose(*pose);
+	}
+	void setShape(PxShape* shp, float siz = 1) override
+	{
+		GameObject::setShape(shp, siz);
+		actor->attachShape(*shape);
+	}
+	void setVisible(bool vis = true) override
+	{
+		GameObject::setVisible(vis);
+		scene->setActorVisible(actor, vis);
+	}
 	void setDensity(float d) { density = d; }
 	void setRotation(PxQuat rot) override
 	{

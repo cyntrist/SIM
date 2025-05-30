@@ -10,15 +10,15 @@ void RigidBodyScene::onEnable()
 	suelo->setPosition({ 0,-100,0 });
 	addGameObject(suelo);
 
-	//RBDynamic* box1 = new RBDynamic("caja", this, gPhysics, gScene);
-	//caja->setPosition({ 0,0,0 });
-	//caja->setDensity(1);
-	//addGameObject(caja);
+	DynamicRigidBody* box1 = new DynamicRigidBody(this, gPhysics, gScene);
+	box1->setPosition({ 5,20,0 });
+	box1->setDensity(1);
+	addGameObject(box1);
 
-	//RBDynamic* box2 = new RBDynamic("caja2", this, gPhysics, gScene);
-	//caja2->setPosition({ 0,20,0 });
-	//caja2->setDensity(100);
-	//addGameObject(caja2);
+	DynamicRigidBody* box2 = new DynamicRigidBody(this, gPhysics, gScene);
+	box2->setPosition({ -5,50,0 });
+	box2->setDensity(100);
+	addGameObject(box2);
 
 
 }
