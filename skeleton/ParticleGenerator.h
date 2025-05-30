@@ -16,7 +16,7 @@ protected:
 	Vector3 origen;
 	Vector4 color = Vector4(1,1,1,1);
 	Scene* scene;
-	int startNGameObjects;
+	int maxGameObjects;
 	int nGameObjects = 0;
 	int nGameObjectsTotal = 0;
 	double minLife, maxLife;
@@ -29,14 +29,14 @@ public:
 
 	virtual void update(double t);
 	virtual void generateParticles(double t) = 0;
-	virtual bool mayGenerate() const			{ return nGameObjects <= startNGameObjects; }
+	virtual bool mayGenerate() const	{ return nGameObjects <= maxGameObjects; }
 	void addNumParticles(int n)			{ nGameObjects += n;  }
 	void generateParticle(Vector3 org, Vector3 vel, double life, 
 		Vector4 c = Vector4(1, 1, 1, 1), float mass = 1);
 	void onGameObjectDeath(GameObject* p);
 
 	/// setters
-	void setOrigen(const Vector3& o)	{ origen = o; }
+	void setOrigen(Vector3 o)			{ origen = o; }
 	void setColor(const Vector4& c)		{ color = c; }
 	void setColor(float r, float g, 
 		float b, float a)				{ color = Vector4(r,g,b,a); }
@@ -122,6 +122,7 @@ public:
 	{
 		color = Vector4(0, 1, 0, 1);
 		size = 0.5;
+		//mass = 0.005;
 	}
 
 	void generateParticles(double t) override;

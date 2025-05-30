@@ -42,13 +42,16 @@ public:
 
 class FireworkSystem : public ParticleSystem
 {
+	default_random_engine generator;
+
 	Particle* first = nullptr;
 	FireworkGenerator* gen = nullptr;
-	Vector3 origin;
-	Vector3 firstVel = {0, 40, 0};
+	Vector3 origin, nextOrigin;
+	Vector3 iniVel = {0, 40, 0};
 
 public:
-	FireworkSystem(Scene* scn, Vector3 orgn) : ParticleSystem(scn), origin(orgn)
+	FireworkSystem(Scene* scn, Vector3 orgn, Vector3 vel = {0, 40, 0})
+	: ParticleSystem(scn), origin(orgn), nextOrigin(orgn), iniVel(vel)
 	{
 		generateFirstPart();
 	}
@@ -58,7 +61,7 @@ public:
 		delete gen;
 	}
 
-	void setGen(FireworkGenerator* fw) { gen = fw; }
+	void setGenerator(FireworkGenerator* fw) { gen = fw; }
 
 	void generateFirstPart()
 	{
@@ -68,12 +71,20 @@ public:
 			return;
 		}
 
+		auto vel = iniVel;
+		auto sigma = 1.0;
+		normal_distribution<> xDist(0, sigma);
+		normal_distribution<> yDist(0, sigma);
+		normal_distribution<> zDist(0, sigma);
+		vel.x += xDist(generator);
+		vel.y += yDist(generator);
+		vel.z += zDist(generator);
+
 		first = new Particle(scene, origin, 2);
-		first->setVel(firstVel);
+		first->setVel(vel);
 		first->setMass(0.5);
 		first->toggleGrav();
 		first->setColor(Vector4(1,1,1,1));
-		//first->setGenerator(gen);
 
 		scene->addGameObject(first);
 	}
@@ -82,19 +93,25 @@ public:
 	{
 		if (first == nullptr || !first->isAlive())
 		{
-			generateFirstPart();
+			first = nullptr;
+			if (gen->getNumParticles() <= 0)
+				generateFirstPart();
 			return true;
 		}
 
-		if (first->getVel().y <= 0)
+		if (first->getVel().y <= 0 && first->isAlive())
 		{
-			first->kill();
-			if (gen != nullptr)
+			if (gen != nullptr && first != nullptr)
+			{
+				gen->setOrigen(nextOrigin);
 				gen->generateParticles(t);
+			}
+			first->kill();
 			return true;
 		} 
 
 		first->update(t);
+		nextOrigin = first->getPosition();
 
 		return true;
 	};

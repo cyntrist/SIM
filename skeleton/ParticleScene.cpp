@@ -30,7 +30,7 @@ void ParticleScene::onEnable()
 		this
 	);
 	auto rg = new RandomMassGenerator(
-		Vector3(-200, 0, 0),
+		Vector3(-200, 20, 0),
 		1000,
 		partSyst,
 		this
@@ -48,11 +48,13 @@ void ParticleScene::onEnable()
 	rg->setMinLife(5);
 	rg->setMaxLife(10);
 	rg->setDampener(0.98);
+	fw->setMinLife(2);
+	fw->setMaxLife(3);
 
 	// asociacion sistema/generador
 	partSyst->addParticleGenerator(wg);
 	partSyst->addParticleGenerator(rg);
-	firewSyst->setGen(fw);
+	firewSyst->setGenerator(fw);
 }
 
 void ParticleScene::onDisable()

@@ -6,7 +6,7 @@
 
 ParticleGenerator::ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn, 
 	double min, double max)
-	: origen(org), particleSystem(partsys), startNGameObjects(stNpart), scene(scn),
+	: origen(org), particleSystem(partsys), maxGameObjects(stNpart), scene(scn),
 	minLife(min), maxLife(max)
 {
 
@@ -32,7 +32,7 @@ void ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, 
 	aux->setDamp(dampener);
 
 	scene->addGameObject(aux);
-	nGameObjects++;
+	addNumParticles(1);
 	nGameObjectsTotal++;
 }
 
@@ -46,7 +46,7 @@ void ParticleGenerator::generateParticles(double t) { }
 /// <param name="t"></param>
 void WaterfallGenerator::generateParticles(double t)
 {
-	int restParticles = startNGameObjects / 2 - nGameObjects;
+	int restParticles = maxGameObjects / 2 - nGameObjects;
 
 	uniform_int_distribution<> numPartsUniform(0, restParticles); 
 	normal_distribution<> YnormalDistribution(20, 2.0); 
@@ -77,7 +77,7 @@ void WaterfallGenerator::generateParticles(double t)
 /// <param name="t"></param>
 void MistGenerator::generateParticles(double t)
 {
-	int restParticles = startNGameObjects / 2 - nGameObjects;
+	int restParticles = maxGameObjects / 2 - nGameObjects;
 
 	std::uniform_int_distribution<> numPartsUniform(0, restParticles);
 	std::uniform_int_distribution<> posXZUniform(-20, 20); 
@@ -103,7 +103,7 @@ void MistGenerator::generateParticles(double t)
 /// @param t 
 void RandomMassGenerator::generateParticles(double t)
 {
-	int restParticles = startNGameObjects / 2 - nGameObjects;
+	int restParticles = maxGameObjects / 2 - nGameObjects;
 
 	std::uniform_int_distribution<> numPartsUniform(0, restParticles); 
 	std::normal_distribution<> posXZUniform(0, 20); 
@@ -147,7 +147,7 @@ void RandomMassGenerator::generateParticles(double t)
 /// <param name="t"></param>
 void EqualMassGenerator::generateParticles(double t)
 {
-	int restParticles = startNGameObjects / 2 - nGameObjects;
+	int restParticles = maxGameObjects / 2 - nGameObjects;
 
 	std::uniform_int_distribution<> numPartsUniform(0, restParticles);
 	std::normal_distribution<> posXZUniform(0, 20);
@@ -184,29 +184,27 @@ void EqualMassGenerator::generateParticles(double t)
 /// FUEGO ARTIFICIAL
 void FireworkGenerator::generateParticles(double t)
 {
-	int restParticles = startNGameObjects / 2 - nGameObjects;
+	int restParticles = maxGameObjects / 2 - nGameObjects;
 
 	uniform_int_distribution<> numPartsUniform(0, restParticles);
-	normal_distribution<> YnormalDistribution(20, 2.0);
-	normal_distribution<> ZnormalDistribution(10, 2.0);
-	normal_distribution<> ORGnormalDistribution(origen.x, 10.0);
+	auto sigma = 20.0;
+	normal_distribution<> xDist(0, sigma);
+	normal_distribution<> yDist(0, sigma);
+	normal_distribution<> zDist(0, sigma);
 	uniform_real_distribution<> lifetimeDistr2(minLife, maxLife);
 
-	Vector3 org;
-	Vector3 vel(0, 0, 0);
 	int particlesGenerated = numPartsUniform(generator);
 	
 	for (int i = 0; i < particlesGenerated; i++)
 	{
-		org = origen;
-		org.x = ORGnormalDistribution(generator);
-		vel.y = YnormalDistribution(generator);
-		vel.z = ZnormalDistribution(generator);
+		Vector3 vel;
+		vel.x = xDist(generator);
+		vel.y = yDist(generator);
+		vel.z = zDist(generator);
 		float maxLifetime = lifetimeDistr2(generator);
 		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
-
-		generateParticle(org, vel, maxLifetime, color, mass);
+		generateParticle(origen, vel, maxLifetime, color, mass);
 	}
 }
 

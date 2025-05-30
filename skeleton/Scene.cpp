@@ -58,6 +58,7 @@ void Scene::deleteDeadObjects()
 		if (!gameObjects[i]->isAlive())
 		{
 			delete gameObjects[i];
+			gameObjects[i] = nullptr;
 			auto ref = find(gameObjects.begin(), gameObjects.end(), gameObjects[i]);
 			gameObjects.erase(ref);
 			i--;
