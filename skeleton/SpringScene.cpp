@@ -8,22 +8,16 @@ void SpringScene::setup()
 void SpringScene::onEnable()
 {
 	Scene::onEnable();
-
 	// SYSTEMS
 	auto fsys = new ForceSystem(this);
 	addSystem(fsys);
 
-	// --- MUELLES ---	
-	// explosion para probar
-	//expls = new ExplosionGenerator({ -20, 50, -10 }, this);
-	//fsys->addForceGenerator(expls);
-	//expls->setRadius(30);
-	//expls->setPower(100);
+	expls = new ExplosionGenerator({ -20, 50, -10 }, this);
+	fsys->addForceGenerator(expls);
+	expls->setRadius(30);
+	expls->setPower(100);
 
-
-	///
 	/// MUELLES
-	///
 
 	// ancla
 	auto anch = new Particle(this, { -20, 75, 0 });
@@ -113,7 +107,7 @@ void SpringScene::keyPressed(unsigned char key, const PxTransform& camera)
 	switch (key)
 	{
 	case 'e':
-		if (expls != nullptr) expls->startGenerate();
+		if (expls != nullptr) expls->startGenerating();
 		break;
 	case 'z':
 		sprngGen->setK(1);

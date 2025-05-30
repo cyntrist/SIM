@@ -5,6 +5,8 @@
 
 void ForceGenerator::generateRadiusSphere()
 {
+	if (!active) return;
+
 	if (radius <= 0)
 		return;
 
@@ -12,7 +14,7 @@ void ForceGenerator::generateRadiusSphere()
 	{
 		if (widget == nullptr)
 		{
-			widget = new Widget("RadioSphera", scene, origen, radius);
+			widget = new Widget(scene, origen, radius);
 			scene->addGameObject(widget);
 		}
 		else widget->setVisible(true);
@@ -56,10 +58,8 @@ Vector3 GravityGenerator::generateForce(GameObject& obj)
 // ------- GENERADOR DE VIENTO --------
 Vector3 WindGenerator::generateForce(GameObject& obj)
 {
-	Vector3 force(0, 0, 0);
 	// calculo de la fuerza en un viento no turbulento
-	force = k1 * (vientoVel - obj.getVel()) + k2;
-
+	Vector3 force = k1 * (vientoVel - obj.getVel()) + k2;
 	return force;
 }
 
@@ -84,36 +84,24 @@ Vector3 ExplosionGenerator::generateForce(GameObject& obj)
 	Vector3 force(0, 0, 0);
 
 	if (simuleTime < 0 || simuleTime >= 4 * tau) return force;
-
-
-	// distancia al centro de la explosion
-	float r = (obj.getPosition() - origen).magnitude();
+	
+	float r = (obj.getPosition() - origen).magnitude(); // distancia al centro de la explosion
 	// si la distancia es menor que el radio la fuerza es 0
 	if (r >= radius) return force; // creo que esto no hace falta, porque si entra al metodo es porque r<radious
 
-	force = ((k / r * r) * (obj.getPosition() - origen)) * exp(-simuleTime / tau);
-
-
+	force = k / r * r * (obj.getPosition() - origen) * exp(-simuleTime / tau);
 	return force;
 }
 
 // ------- MUELLES -------
 Vector3 SpringGenerator::generateForce(GameObject& obj)
 {
-	Vector3 force{0, 0, 0};
+	Vector3 dir = origen - obj.getPosition(); // posicion del ancla - la del objeto (vector de la fuerza)
+	float actLength = dir.magnitude(); // longitud actual de la fuerza muelle
+	dir.normalize(); // direccion de la fuerza
+	float diffLength = actLength - restingLength; // deformacion del muelle
+	Vector3 force = dir * k * diffLength; // calculo de la fuerza
 
-	// largura actual del muelle
-	Vector3 dir = origen - obj.getPosition();
-	float actuallenth = dir.magnitude();
-	dir.normalize();
-
-	// deformacion del muelle
-	float difflenth = actuallenth - restingLength;
-
-	// calculo de la fuerza
-	force = dir * k * difflenth;
-
-	//cout << force.y << endl;
 	return force;
 }
 

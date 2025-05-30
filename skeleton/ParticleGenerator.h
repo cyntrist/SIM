@@ -27,9 +27,9 @@ public:
 	ParticleGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30);
 	virtual ~ParticleGenerator() = default;
 
-	void update(double t);
+	virtual void update(double t);
 	virtual void generateParticles(double t) = 0;
-	bool mayGenerate() const			{ return nGameObjects <= startNGameObjects; }
+	virtual bool mayGenerate() const			{ return nGameObjects <= startNGameObjects; }
 	void addNumParticles(int n)			{ nGameObjects += n;  }
 	void onGameObjectDeath(GameObject* p);
 
@@ -109,4 +109,19 @@ public:
 		color = Vector4(1, 1, 0, 1);
 	}
 	void generateParticles(double t) override;
+};
+
+class FireworkGenerator : public ParticleGenerator // 
+{
+
+public:
+	FireworkGenerator( int nparts, ParticleSystem* partsys, Scene* scn, double min = 20, double max = 30)
+		: ParticleGenerator(Vector3(0,0,0), nparts, partsys, scn, min, max)
+	{
+		color = Vector4(0, 1, 1, 1);
+	}
+
+	void generateParticles(double t) override;
+	void update(double t) override;
+	bool mayGenerate() const override;
 };

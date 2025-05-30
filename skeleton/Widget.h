@@ -4,8 +4,8 @@
 class Widget : public GameObject
 {
 public:
-	Widget(string nam, Scene* scn, Vector3 Pos = {0, 0, 0}, float siz = 1);
-	Widget(string nam, Scene* scn, Vector3 Pos = {0, 0, 0}, PxShape* shap = nullptr);
+	Widget(Scene* scn, Vector3 pos = {0, 0, 0}, float siz = 1);
+	Widget(Scene* scn, Vector3 pos = {0, 0, 0}, PxShape* shap = nullptr);
 
 	~Widget() override = default;
 

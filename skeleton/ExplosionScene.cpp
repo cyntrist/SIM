@@ -2,17 +2,34 @@
 
 void ExplosionScene::setup()
 {
-	auto partsyst = new ParticleSystem(this);
-	addSystem(partsyst);
-	partsyst->addParticleGenerator(new RandomMassGenerator(Vector3(0, 0, 0), 1000, partsyst, this));
+
+}
+
+void ExplosionScene::onEnable()
+{
+	Scene::onEnable();
+	partSyst = new ParticleSystem(this);
+	addSystem(partSyst);
+	partSyst->addParticleGenerator(
+		new RandomMassGenerator(
+			Vector3(0, 0, 0), 
+			1000, 
+			partSyst,
+			this
+		)
+	);
 
 
-	auto fSys = new ForceSystem(this);
-	addSystem(fSys);
-	auto egen = new ExplosionGenerator({ 0,0,0 }, this);
-	fSys->addForceGenerator(egen);
-	egen->setRadius(50);
-	explosionGen = egen;
+	forceSyst = new ForceSystem(this);
+	addSystem(forceSyst);
+	explosionGen = new ExplosionGenerator({ 0,0,0 }, this);
+	forceSyst->addForceGenerator(explosionGen);
+	explosionGen->setRadius(50);
+}
+
+void ExplosionScene::onDisable()
+{
+	Scene::onDisable();
 }
 
 void ExplosionScene::keyPressed(unsigned char key, const PxTransform& camera)
@@ -20,7 +37,7 @@ void ExplosionScene::keyPressed(unsigned char key, const PxTransform& camera)
 	switch (key)
 	{
 	case 'e':
-		explosionGen->startGenerate();
+		if (explosionGen != nullptr) explosionGen->startGenerating();
 	default:
 		break;
 	}

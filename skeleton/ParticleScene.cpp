@@ -15,9 +15,12 @@ void ParticleScene::setup()
 void ParticleScene::onEnable()
 {
 	Scene::onEnable(); // inicialización de escena
-	lowerThreshold = 10000;
+	lowerThreshold = 400;
+	upperThreshold = 400;
 	partSyst = new ParticleSystem(this); // inicialicacion de sistema
+	firewSyst = new FireworkSystem(this, Vector3(20,0,-80)); // inicialicacion de sistema
 	addSystem(partSyst);
+	addSystem(firewSyst);
 
 	// inicialicacion de generadores
 	auto wg = new WaterfallGenerator(
@@ -33,14 +36,11 @@ void ParticleScene::onEnable()
 		this
 	);
 
-	//partSyst->addParticleGenerator(
-	//	new MistGenerator(
-	//		Vector3(-150, 0, -50),
-	//		500,
-	//		partSyst,
-	//		this
-	//	)
-	//);
+	auto fw = new FireworkGenerator(
+		1000,
+		firewSyst,
+		this
+	);
 
 	// configuracion de generadores
 	wg->setMinLife(10);
@@ -52,6 +52,7 @@ void ParticleScene::onEnable()
 	// asociacion sistema/generador
 	partSyst->addParticleGenerator(wg);
 	partSyst->addParticleGenerator(rg);
+	firewSyst->setGen(fw);
 }
 
 void ParticleScene::onDisable()

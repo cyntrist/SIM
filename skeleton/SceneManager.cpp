@@ -1,4 +1,6 @@
 ﻿#include "SceneManager.h"
+
+#include "ExplosionScene.h"
 #include "FloatScene.h"
 #include "RenderUtils.hpp"
 #include "Scene.h"
@@ -14,6 +16,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new WhirlScene()); // 3
 	addScene(new SpringScene()); // 4
 	addScene(new FloatScene()); // 5
+	addScene(new ExplosionScene(nullptr)); // 6
 	setScene(0);
 }
 

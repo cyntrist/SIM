@@ -58,7 +58,8 @@ bool Particle::update(double t)
 		|| pose->p.y >= scene->getUpperThreshold())
 	{
 		kill();
-		generator->addNumParticles(-1);
+		if (generator != nullptr)
+			generator->addNumParticles(-1);
 		return false;
 	}
 

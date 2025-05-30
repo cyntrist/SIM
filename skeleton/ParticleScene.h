@@ -4,10 +4,12 @@
 class ParticleSystem;
 class ForceSystem;
 class WindGenerator;
+class FireworkSystem;
 
 class ParticleScene : public Scene
 {
 	ParticleSystem* partSyst = nullptr;
+	FireworkSystem* firewSyst = nullptr;
 
 public:
 	ParticleScene(Camera* cam = nullptr);
