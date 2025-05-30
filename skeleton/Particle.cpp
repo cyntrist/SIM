@@ -60,8 +60,8 @@ bool Particle::update(double t)
 		kill();
 		if (generator != nullptr)
 		{
-			if (color == Vector4(0,1,0,1))
-				Log(to_string(generator->getNumParticles()));
+			//if (color == Vector4(0,1,0,1))
+				//Log(to_string(generator->getNumParticles()));
 			generator->addNumParticles(-1);
 		}
 		return false;
