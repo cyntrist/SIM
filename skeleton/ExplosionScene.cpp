@@ -8,6 +8,9 @@ void ExplosionScene::setup()
 void ExplosionScene::onEnable()
 {
 	Vector3 pos(-200, 0, -200);
+	lowerThreshold = 1000000;
+	upperThreshold = 1000000;
+
 
 	Scene::onEnable();
 	partSyst = new ParticleSystem(this);
@@ -32,8 +35,8 @@ void ExplosionScene::onEnable()
 
 	explosionGen = new ExplosionGenerator(pos, this);
 	forceSyst->addForceGenerator(explosionGen);
-	explosionGen->setRadius(500000);
-	explosionGen->setPower(5000);
+	explosionGen->setRadius(250000);
+	explosionGen->setPower(500);
 }
 
 void ExplosionScene::onDisable()

@@ -6,8 +6,8 @@
 class ExplosionScene : public Scene
 {
 	ExplosionGenerator* explosionGen = nullptr;
-	ParticleSystem* partSyst;
-	ForceSystem* forceSyst;
+	ParticleSystem* partSyst = nullptr;
+	ForceSystem* forceSyst = nullptr;
 
 public:
 	ExplosionScene(Camera* cam) : Scene(cam) {};

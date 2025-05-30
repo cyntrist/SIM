@@ -93,7 +93,7 @@ public:
 		if (simuleTime <= 4 * tau)
 		{
 			simuleTime += delta;
-			setRadius(ve * simuleTime);
+			//setRadius(ve * simuleTime);
 		}
 	}
 
