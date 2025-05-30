@@ -62,7 +62,7 @@ Vector3 GravityGenerator::generateForce(GameObject& obj)
 Vector3 WindGenerator::generateForce(GameObject& obj)
 {
 	// calculo de la fuerza en un viento no turbulento
-	Vector3 force = k1 * (vientoVel - obj.getVelocity()) + k2;
+	Vector3 force = k1 * (vientoVel - obj.getVel()) + k2;
 	return force;
 }
 
@@ -78,7 +78,7 @@ Vector3 WhirlwindGenerator::generateForce(GameObject& obj)
 		(partPos.x - origen.x) * sentido
 );
 
-	force -= obj.getVelocity();
+	force -= obj.getVel();
 
 	return force;
 }

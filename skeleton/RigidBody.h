@@ -70,18 +70,18 @@ public:
 		pose->q = rot;
 		actor->setGlobalPose(*pose);
 	}
-	void setMass(float mas) override
-	{
-		actor->setMass(mas);
-		mass = mas;
-	}
+	//void setMass(float mas) override
+	//{
+	//	actor->setMass(mas);
+	//	mass = mas;
+	//}
 
 	// getters
 	PxRigidActor* getActor() override { return actor; }
 	Vector3 getPosition() override { return actor->getGlobalPose().p; }
-	Vector3 getVelocity() override { return actor->getLinearVelocity(); }
 	PxQuat getRotation() override { return actor->getGlobalPose().q; }
-	float getMass() const override { return actor->getMass(); }
+	//Vector3 getVelocity() override { return actor->getLinearVelocity(); }
+	//float getMass() const override { return actor->getMass(); }
 
 	void addForce(float x, float y, float z) override { actor->addForce({ x,y,z }); }
 };

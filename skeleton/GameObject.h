@@ -50,7 +50,7 @@ public:
 	virtual PxQuat getRotation()				{ return pose->q; }
 	virtual float getSize() const				{ return size; }
 	virtual float getMass() const				{ return mass; }
-	virtual Vector3 getVelocity()				{ return vel; }
+	virtual Vector3 getVel()					{ return vel; }
 	//string& getName()							{ return name; }
 
 	virtual void setPosition(const Vector3 pos) { pose->p = pos; }
