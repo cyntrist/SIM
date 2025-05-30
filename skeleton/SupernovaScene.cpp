@@ -1,15 +1,15 @@
-#include "ExplosionScene.h"
+#include "SupernovaScene.h"
 
-void ExplosionScene::setup()
+void SupernovaScene::setup()
 {
 
 }
 
-void ExplosionScene::onEnable()
+void SupernovaScene::onEnable()
 {
-	Vector3 pos(-200, 0, -200);
-	lowerThreshold = 1000000;
-	upperThreshold = 1000000;
+	Vector3 pos(-200, 5, -220);
+	lowerThreshold = 10000;
+	upperThreshold = 10000;
 
 
 	Scene::onEnable();
@@ -17,14 +17,15 @@ void ExplosionScene::onEnable()
 	addSystem(partSyst);
 	auto partGen = new RandomMassGenerator(
 		pos,
-		1000,
+		3000,
 		partSyst,
 		this
 	);
 	partGen->setMinLife(10);
 	partGen->setMaxLife(20);
+	partGen->setColor(0,0,0,1);
+	partGen->setSize(2, 15);
 	partSyst->addParticleGenerator(partGen);
-
 
 	forceSyst = new ForceSystem(this);
 	addSystem(forceSyst);
@@ -32,19 +33,20 @@ void ExplosionScene::onEnable()
 	auto whirlGen = new WhirlwindGenerator(pos, this);
 	forceSyst->addForceGenerator(whirlGen);
 	whirlGen->setRadius(250000);
+	whirlGen->setClockwise(true);
 
 	explosionGen = new ExplosionGenerator(pos, this);
 	forceSyst->addForceGenerator(explosionGen);
 	explosionGen->setRadius(250000);
-	explosionGen->setPower(500);
+	explosionGen->setPower(700);
 }
 
-void ExplosionScene::onDisable()
+void SupernovaScene::onDisable()
 {
 	Scene::onDisable();
 }
 
-void ExplosionScene::keyPressed(unsigned char key, const PxTransform& camera)
+void SupernovaScene::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	switch (key)
 	{

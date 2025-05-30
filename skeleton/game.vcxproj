@@ -254,10 +254,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="callbacks.cpp" />
-    <ClCompile Include="ExplosionScene.cpp" />
+    <ClCompile Include="SupernovaScene.cpp" />
     <ClCompile Include="FloatScene.cpp" />
     <ClCompile Include="ForceGenerator.cpp" />
-    <ClCompile Include="ForceSystem.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
@@ -267,10 +266,11 @@
     <ClCompile Include="Render\Camera.cpp" />
     <ClCompile Include="Render\Render.cpp" />
     <ClCompile Include="GameObject.h" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RigidBodyScene.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpringScene.cpp" />
-    <ClCompile Include="Vector3D.cpp" />
     <ClCompile Include="WhirlScene.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="Widget.h" />
@@ -279,7 +279,7 @@
   <ItemGroup>
     <ClInclude Include="callbacks.hpp" />
     <ClInclude Include="core.hpp" />
-    <ClInclude Include="ExplosionScene.h" />
+    <ClInclude Include="SupernovaScene.h" />
     <ClInclude Include="FloatScene.h" />
     <ClInclude Include="ForceGenerator.h" />
     <ClInclude Include="ForceSystem.h" />
@@ -291,6 +291,8 @@
     <ClInclude Include="RenderUtils.hpp" />
     <ClInclude Include="Render\Camera.h" />
     <ClInclude Include="Render\Render.h" />
+    <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RigidBodyScene.h" />
     <ClInclude Include="Scene.h" />
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpringScene.h" />

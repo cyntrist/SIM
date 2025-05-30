@@ -70,12 +70,13 @@ Vector3 WindGenerator::generateForce(GameObject& obj)
 Vector3 WhirlwindGenerator::generateForce(GameObject& obj)
 {
 	Vector3 partPos = obj.getPosition();
-
+	int sentido = clockwise ? -1 : 1;
 	//calculo de la fuerza en torbellino
 	Vector3 force = k * Vector3(
-		-(partPos.z - origen.z),
+		-(partPos.z - origen.z) * sentido,
 		50 - (partPos.y - origen.y),
-		partPos.x - origen.x);
+		(partPos.x - origen.x) * sentido
+);
 
 	force -= obj.getVel();
 

@@ -2,13 +2,10 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Render\Camera.cpp">
-      <Filter>Render</Filter>
+      <Filter>Plantilla\Render</Filter>
     </ClCompile>
     <ClCompile Include="Render\Render.cpp">
-      <Filter>Render</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3D.cpp">
-      <Filter>Clases</Filter>
+      <Filter>Plantilla\Render</Filter>
     </ClCompile>
     <ClCompile Include="ParticleGenerator.cpp">
       <Filter>Clases\Generators</Filter>
@@ -17,13 +14,13 @@
       <Filter>Clases\Generators</Filter>
     </ClCompile>
     <ClCompile Include="callbacks.cpp">
-      <Filter>Base</Filter>
+      <Filter>Plantilla\Base</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-      <Filter>Base</Filter>
+      <Filter>Plantilla\Base</Filter>
     </ClCompile>
     <ClCompile Include="RenderUtils.cpp">
-      <Filter>Base</Filter>
+      <Filter>Plantilla\Base</Filter>
     </ClCompile>
     <ClCompile Include="Particle.cpp">
       <Filter>Clases\Core</Filter>
@@ -43,11 +40,8 @@
     <ClCompile Include="GameObject.cpp">
       <Filter>Clases\Core</Filter>
     </ClCompile>
-    <ClCompile Include="ExplosionScene.cpp">
+    <ClCompile Include="SupernovaScene.cpp">
       <Filter>Clases\Scenes</Filter>
-    </ClCompile>
-    <ClCompile Include="ForceSystem.cpp">
-      <Filter>Clases\Systems</Filter>
     </ClCompile>
     <ClCompile Include="SpringScene.cpp">
       <Filter>Clases\Scenes</Filter>
@@ -67,13 +61,19 @@
     <ClCompile Include="FloatScene.cpp">
       <Filter>Clases\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Clases\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
-      <Filter>Render</Filter>
+      <Filter>Plantilla\Render</Filter>
     </ClInclude>
     <ClInclude Include="Render\Render.h">
-      <Filter>Render</Filter>
+      <Filter>Plantilla\Render</Filter>
     </ClInclude>
     <ClInclude Include="Vector3D.h">
       <Filter>Clases</Filter>
@@ -91,18 +91,15 @@
       <Filter>Clases\Systems</Filter>
     </ClInclude>
     <ClInclude Include="RenderUtils.hpp">
-      <Filter>Base</Filter>
+      <Filter>Plantilla\Base</Filter>
     </ClInclude>
     <ClInclude Include="callbacks.hpp">
-      <Filter>Base</Filter>
+      <Filter>Plantilla\Base</Filter>
     </ClInclude>
     <ClInclude Include="core.hpp">
-      <Filter>Base</Filter>
+      <Filter>Plantilla\Base</Filter>
     </ClInclude>
     <ClInclude Include="Particle.h">
-      <Filter>Clases\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Scene.h">
       <Filter>Clases\Core</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
@@ -111,13 +108,10 @@
     <ClInclude Include="ParticleScene.h">
       <Filter>Clases\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>Clases\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Global.h">
       <Filter>Clases\Core</Filter>
     </ClInclude>
-    <ClInclude Include="ExplosionScene.h">
+    <ClInclude Include="SupernovaScene.h">
       <Filter>Clases\Scenes</Filter>
     </ClInclude>
     <ClInclude Include="SpringScene.h">
@@ -132,11 +126,20 @@
     <ClInclude Include="FloatScene.h">
       <Filter>Clases\Scenes</Filter>
     </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Clases\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyScene.h">
+      <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>Clases\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Clases\Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Render">
-      <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Clases">
       <UniqueIdentifier>{569930dc-a55b-4116-bc73-24ccfc2463ed}</UniqueIdentifier>
     </Filter>
@@ -146,14 +149,20 @@
     <Filter Include="Clases\Systems">
       <UniqueIdentifier>{f0cf1eee-778a-4e4b-99c0-be00c6f635e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Base">
-      <UniqueIdentifier>{515fb699-8363-45a6-ac9b-e8c6fb6a2611}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Clases\Core">
       <UniqueIdentifier>{54028a3f-6e7b-4ebf-8076-d136e366cd87}</UniqueIdentifier>
     </Filter>
     <Filter Include="Clases\Scenes">
       <UniqueIdentifier>{c1330035-2281-4ee3-bb18-c2b3d01899d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plantilla">
+      <UniqueIdentifier>{c875ef17-b42d-4fda-8c3b-1f6d8affe667}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plantilla\Render">
+      <UniqueIdentifier>{d04b4f9f-5a69-465e-8070-25c6d0bcd3c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Plantilla\Base">
+      <UniqueIdentifier>{515fb699-8363-45a6-ac9b-e8c6fb6a2611}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

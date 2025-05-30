@@ -1,8 +1,8 @@
 ﻿#include "SceneManager.h"
 
-#include "ExplosionScene.h"
+#include "SupernovaScene.h"
 #include "FloatScene.h"
-#include "RenderUtils.hpp"
+#include "RigidBodyScene.h"
 #include "Scene.h"
 #include "SpringScene.h"
 #include "WhirlScene.h"
@@ -16,7 +16,8 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new WhirlScene()); // 3
 	addScene(new SpringScene()); // 4
 	addScene(new FloatScene()); // 5
-	addScene(new ExplosionScene(nullptr)); // 6
+	addScene(new SupernovaScene()); // 6
+	addScene(new RigidBodyScene()); // 7
 	setScene(0);
 }
 
@@ -50,7 +51,7 @@ void SceneManager::setScene(int id)
 	scenes[id]->onEnable();
 	scenes[id]->show();
 
-	Log("SETTING SCENE TO No " + to_string(actualScene));
+	Log("SETTING SCENE TO " + to_string(actualScene));
 }
 
 void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)

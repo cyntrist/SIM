@@ -3,17 +3,33 @@
 #include "System.h"
 #include "ForceGenerator.h"
 
-using namespace std;
-
 class ForceSystem : public System
 {
 	vector<ForceGenerator*> forceGenerators;
 
 public:
-	ForceSystem(Scene* scn);
-	~ForceSystem() override;
+	ForceSystem(Scene* scn) : System(scn) {}
 
-	void affectParticles(const vector<GameObject*>& gameObjects, double t) override;
+	~ForceSystem() override
+	{
+		for (auto gen : forceGenerators)
+			delete gen;
+		forceGenerators.clear();
+	}
 
-	void addForceGenerator(ForceGenerator* forcGen);
+	void affectParticles(const vector<GameObject*>& gameObjects, double t) override
+	{
+		for (auto g : gameObjects)
+			for (auto f : forceGenerators)
+				if (f->onRadius(g))
+					g->addForce(f->generateForce(*g));
+
+		for (auto g : forceGenerators)
+			g->update(t);
+	}
+
+	void addForceGenerator(ForceGenerator* forcGen)
+	{
+		forceGenerators.push_back(forcGen);
+	}
 };

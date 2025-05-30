@@ -3,14 +3,14 @@
 #include "ParticleSystem.h"
 #include "ForceSystem.h"
 
-class ExplosionScene : public Scene
+class SupernovaScene : public Scene
 {
 	ExplosionGenerator* explosionGen = nullptr;
 	ParticleSystem* partSyst = nullptr;
 	ForceSystem* forceSyst = nullptr;
 
 public:
-	ExplosionScene(Camera* cam) : Scene(cam) {};
+	SupernovaScene(Camera* cam = nullptr) : Scene(cam) {};
 
 	void setup() override;
 	void onEnable() override;

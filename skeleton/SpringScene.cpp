@@ -22,6 +22,11 @@ void SpringScene::onEnable()
 	expl2->setRadius(40);
 	expl2->setPower(200);
 
+	expl1->setStatic(true);
+	expl2->setStatic(true);
+
+
+
 	/// MUELLES
 
 	// ancla

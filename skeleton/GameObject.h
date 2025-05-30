@@ -21,7 +21,7 @@ protected:
 	PxTransform* pose = nullptr;
 	Vector4 color;
 	float size = 3;
-	double mass = 1;
+	float mass = 1;
 	Vector3 vel = {0, 0, 0};
 
 public:
