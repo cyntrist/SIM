@@ -5,7 +5,8 @@
 
 class SpringScene : public Scene
 {
-	ExplosionGenerator* expls = nullptr;
+	ExplosionGenerator* expl1 = nullptr;
+	ExplosionGenerator* expl2 = nullptr;
 	SpringGenerator* sprngGen = nullptr;
 
 public:

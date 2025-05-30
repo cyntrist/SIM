@@ -1,24 +1,26 @@
 #include "Widget.h"
 #include <iostream>
 
-Widget::Widget(Scene* scn, Vector3 pos, float siz) : GameObject(scn)
+Widget::Widget(Scene* scn, Vector3 pos, float siz, Vector4 c) : GameObject(scn)
 {
 	pose = new PxTransform(pos);
 	size = siz;
+	color = c;
 
 	if (siz > 0) renderItem = new RenderItem(CreateShape(
 		PxSphereGeometry(siz)), 
 		pose, 
-		{0, 0, 1, 0.01}
+		color
 	);
 }
 
-Widget::Widget(Scene* scn, Vector3 pos, PxShape* shap) : GameObject(scn)
+Widget::Widget(Scene* scn, Vector3 pos, PxShape* shap, Vector4 c) : GameObject(scn)
 {
 	pose = new PxTransform(pos);
+	color = c;
 
 	if (shap != nullptr)
-		renderItem = new RenderItem(shap, pose, { 0, 0.0, 1.0, 0.01 });
+		renderItem = new RenderItem(shap, pose, color);
 	else
 		Log("ERROR CREATING WIDGET");
 }
@@ -26,7 +28,7 @@ Widget::Widget(Scene* scn, Vector3 pos, PxShape* shap) : GameObject(scn)
 void Widget::changeShape(PxShape* shap)
 {
 	if (renderItem == nullptr)
-		renderItem = new RenderItem(shap, pose, {1, 0.0, 0.0, 0.01});
+		renderItem = new RenderItem(shap, pose, color);
 	else
 		renderItem->shape = shap;
 }

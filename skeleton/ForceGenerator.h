@@ -15,7 +15,7 @@ protected:
 	void generateRadiusSphere();
 
 public:
-	ForceGenerator(Vector3 org, Scene* scn);
+	ForceGenerator(Vector3 org, Scene* scn, bool active = true);
 	virtual ~ForceGenerator();
 
 	virtual Vector3 generateForce(GameObject& object) = 0;
@@ -23,6 +23,12 @@ public:
 	virtual void update(double delta) {}
 	void setRadius(float rad);
 	void setActive(const bool act) { active = act; }
+	void setColor(float r, float g, float b, float a) const
+	{
+		widget->setColor(Vector4(r, g, b, a));
+		widget->changeShape(CreateShape(PxSphereGeometry(radius)));
+	}
+	void showWidget(bool show) const { if (widget != nullptr) widget->setVisible(show); }
 };
 
 class GravityGenerator : public ForceGenerator
@@ -74,13 +80,15 @@ protected:
 	float simuleTime = 0;
 
 public:
-	ExplosionGenerator(Vector3 org, Scene* scn) : ForceGenerator(org, scn) { simuleTime = 0; }
+	ExplosionGenerator(Vector3 org, Scene* scn, bool act = true)
+	: ForceGenerator(org, scn, act) { simuleTime = 0; }
 
 	void setPower(float p) { k = p; }
-	void startGenerating() { simuleTime = 0; }
+	void startGenerating();
 
 	void update(double delta) override
 	{
+		if (!active) return;
 		if (simuleTime <= 4 * tau)
 		{
 			simuleTime += delta;

@@ -55,7 +55,6 @@ public:
 
 	~FireworkSystem() override
 	{
-		delete first;
 		delete gen;
 	}
 

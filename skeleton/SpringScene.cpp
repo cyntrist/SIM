@@ -12,10 +12,15 @@ void SpringScene::onEnable()
 	auto fsys = new ForceSystem(this);
 	addSystem(fsys);
 
-	expls = new ExplosionGenerator({ -20, 50, -10 }, this);
-	fsys->addForceGenerator(expls);
-	expls->setRadius(30);
-	expls->setPower(100);
+	expl1 = new ExplosionGenerator({ -10, 40, -10 }, this, false);
+	fsys->addForceGenerator(expl1);
+	expl1->setRadius(40);
+	expl1->setPower(200);
+
+	expl2 = new ExplosionGenerator({ -25, 40, 10 }, this, false);
+	fsys->addForceGenerator(expl2);
+	expl2->setRadius(40);
+	expl2->setPower(200);
 
 	/// MUELLES
 
@@ -106,8 +111,15 @@ void SpringScene::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	switch (key)
 	{
+	case 'q':
+		if (expl2 != nullptr) expl2->startGenerating();
+		break;
 	case 'e':
-		if (expls != nullptr) expls->startGenerating();
+		if (expl1 != nullptr) expl1->startGenerating();
+		break;
+	case 'h':
+		if (expl1 != nullptr) expl1->showWidget(false);
+		if (expl2 != nullptr) expl2->showWidget(false);
 		break;
 	case 'z':
 		sprngGen->setK(1);

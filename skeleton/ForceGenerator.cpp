@@ -10,7 +10,7 @@ void ForceGenerator::generateRadiusSphere()
 	if (radius <= 0)
 		return;
 
-	if (!widget)
+	if (!widget || !widget->isVisible())
 	{
 		if (widget == nullptr)
 		{
@@ -23,9 +23,9 @@ void ForceGenerator::generateRadiusSphere()
 	widget->changeShape(CreateShape(PxSphereGeometry(radius)));
 }
 
-ForceGenerator::ForceGenerator(Vector3 org, Scene* scn) : origen(org), scene(scn)
+ForceGenerator::ForceGenerator(Vector3 org, Scene* scn, bool act) : origen(org), scene(scn), active(act)
 {
-	generateRadiusSphere();
+	if (act) generateRadiusSphere();
 }
 
 ForceGenerator::~ForceGenerator()
@@ -48,14 +48,17 @@ void ForceGenerator::setRadius(float rad)
 	generateRadiusSphere();
 }
 
-// ------- GENERADOR DE GRAVEDAD --------
+
+
+
+
+/// GRAVEDAD
 Vector3 GravityGenerator::generateForce(GameObject& obj)
 {
 	return gravity * obj.getMass();
 }
 
-
-// ------- GENERADOR DE VIENTO --------
+/// VIENTO
 Vector3 WindGenerator::generateForce(GameObject& obj)
 {
 	// calculo de la fuerza en un viento no turbulento
@@ -63,7 +66,7 @@ Vector3 WindGenerator::generateForce(GameObject& obj)
 	return force;
 }
 
-// ------- GENERADOR DE TORBELLINO -------
+/// TORBELLINO
 Vector3 WhirlwindGenerator::generateForce(GameObject& obj)
 {
 	Vector3 partPos = obj.getPosition();
@@ -79,11 +82,18 @@ Vector3 WhirlwindGenerator::generateForce(GameObject& obj)
 	return force;
 }
 
+/// EXPLOSION
+void ExplosionGenerator::startGenerating()
+{
+	active = true;
+	simuleTime = 0;
+}
+
 Vector3 ExplosionGenerator::generateForce(GameObject& obj)
 {
 	Vector3 force(0, 0, 0);
 
-	if (simuleTime < 0 || simuleTime >= 4 * tau) return force;
+	if (!active || simuleTime < 0 || simuleTime >= 4 * tau) return force;
 	
 	float r = (obj.getPosition() - origen).magnitude(); // distancia al centro de la explosion
 	// si la distancia es menor que el radio la fuerza es 0
@@ -93,7 +103,7 @@ Vector3 ExplosionGenerator::generateForce(GameObject& obj)
 	return force;
 }
 
-// ------- MUELLES -------
+/// MUELLES
 Vector3 SpringGenerator::generateForce(GameObject& obj)
 {
 	Vector3 dir = origen - obj.getPosition(); // posicion del ancla - la del objeto (vector de la fuerza)
@@ -105,7 +115,7 @@ Vector3 SpringGenerator::generateForce(GameObject& obj)
 	return force;
 }
 
-// ------ GOMA ELASTICA ------
+/// GOMAS
 Vector3 RubberGenerator::generateForce(GameObject& obj)
 {
 	Vector3 position1 = object1->getPosition();
@@ -127,7 +137,7 @@ Vector3 RubberGenerator::generateForce(GameObject& obj)
 	return force;
 }
 
-// ------ FLOTACION -----
+/// FLOTACION
 Vector3 FlotationGenerator::generateForce(GameObject& object)
 {
 	double height = object.getSize() * 2,
