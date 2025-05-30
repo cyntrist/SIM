@@ -15,7 +15,7 @@ void ParticleScene::setup()
 void ParticleScene::onEnable()
 {
 	Scene::onEnable(); // inicialización de escena
-	lowerThreshold = 400;
+	lowerThreshold = 500;
 	upperThreshold = 400;
 	partSyst = new ParticleSystem(this); // inicialicacion de sistema
 	firewSyst = new FireworkSystem(this, Vector3(20,0,-80)); // inicialicacion de sistema
@@ -43,8 +43,8 @@ void ParticleScene::onEnable()
 	);
 
 	// configuracion de generadores
-	wg->setMinLife(10);
-	wg->setMaxLife(20);
+	wg->setMinLife(5);
+	wg->setMaxLife(15);
 	rg->setMinLife(5);
 	rg->setMaxLife(10);
 	rg->setDampener(0.98);

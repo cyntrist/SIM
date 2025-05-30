@@ -31,6 +31,8 @@ public:
 	virtual void generateParticles(double t) = 0;
 	virtual bool mayGenerate() const			{ return nGameObjects <= startNGameObjects; }
 	void addNumParticles(int n)			{ nGameObjects += n;  }
+	void generateParticle(Vector3 org, Vector3 vel, double life, 
+		Vector4 c = Vector4(1, 1, 1, 1), float mass = 1);
 	void onGameObjectDeath(GameObject* p);
 
 	/// setters
