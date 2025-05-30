@@ -48,16 +48,16 @@ public:
 
 	virtual Vector3 getPosition()				{ return pose->p; }
 	virtual PxQuat getRotation()				{ return pose->q; }
-	float getSize() const						{ return size; }
-	float getMass() const						{ return mass; }
-	Vector3 getVel()							{ return vel; }
+	virtual float getSize() const				{ return size; }
+	virtual float getMass() const				{ return mass; }
+	virtual Vector3 getVelocity()				{ return vel; }
 	//string& getName()							{ return name; }
 
 	virtual void setPosition(const Vector3 pos) { pose->p = pos; }
 	virtual void setRotation(const PxQuat rot)	{ pose->q = rot; }
-	void setSize(float siz)						{ size = siz; }
-	void setMass(float mas)						{ mass = mas; }
-	void setVel(const Vector3& vel)				{ this->vel = vel; }
+	virtual void setSize(float siz)				{ size = siz; }
+	virtual void setMass(float mas)				{ mass = mas; }
+	virtual void setVel(const Vector3& vel)		{ this->vel = vel; }
 
 	virtual void setShape(PxShape* shp, float siz)
 	{

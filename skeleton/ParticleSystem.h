@@ -99,7 +99,7 @@ public:
 			return true;
 		}
 
-		if (first->isAlive() && first->getVel().y <= 0)
+		if (first->isAlive() && first->getVelocity().y <= 0)
 		{
 			if (gen != nullptr && first != nullptr)
 			{

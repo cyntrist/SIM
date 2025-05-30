@@ -5,10 +5,10 @@ class RigidBodyScene : public Scene
 {
 
 public:
-	RigidBodyScene(Camera* cam = nullptr) : Scene(cam)
+	RigidBodyScene(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn)
 	{
-	};
-	void setup() override {};
+	}
+	void setup() override {}
 	void onEnable() override;
 	void onDisable() override;
 };

@@ -68,5 +68,4 @@ public:
 	{
 		vis ? gScene->addActor(*actor) : gScene->removeActor(*actor);
 	}
-
 };

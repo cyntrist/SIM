@@ -17,7 +17,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new SpringScene()); // 4
 	addScene(new FloatScene()); // 5
 	addScene(new SupernovaScene()); // 6
-	addScene(new RigidBodyScene()); // 7
+	addScene(new RigidBodyScene(gphys, gscn)); // 7
 	setScene(0);
 }
 
