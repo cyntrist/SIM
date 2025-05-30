@@ -113,24 +113,21 @@ void RandomMassGenerator::generateParticles(double t)
 	double size = sizeDistribution(generator);
 	std::normal_distribution<> massUdistribution(10, 3); 
 
-	Vector3 origen2;
-	Vector3 velocity;
-	velocity.x = 0;
-	velocity.y = 0;
-	velocity.z = 0;
+	Vector3 org;
+	Vector3 vel(0, 0, 0);
 	int particlesGenerated = numPartsUniform(generator);
 
 	for (int i = 0; i < particlesGenerated; i++)
 	{
-		origen2 = origen;
-		origen2.x += posXZUniform(generator);
-		origen2.y += posYUniform(generator);
-		origen2.z += posXZUniform(generator);
+		org = origen;
+		org.x += posXZUniform(generator);
+		org.y += posYUniform(generator);
+		org.z += posXZUniform(generator);
 
 		float lifetime = lifeTimeUdistribution(generator);
 
-		auto aux = new Particle(scene, origen2, size);
-		aux->setVel(velocity);
+		auto aux = new Particle(scene, org, size);
+		aux->setVel(vel);
 		aux->setMaxLifetime(lifetime);
 		aux->toggleGrav();
 		aux->setMass(size);
@@ -141,7 +138,6 @@ void RandomMassGenerator::generateParticles(double t)
 		scene->addGameObject(aux); 
 		nGameObjects++;
 		nGameObjectsTotal++;
-		generateParticle(org, vel, lifetime, color, size);
 	}
 }
 
