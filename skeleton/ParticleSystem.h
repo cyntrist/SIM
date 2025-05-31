@@ -113,5 +113,5 @@ public:
 		nextOrigin = first->getPosition();
 
 		return true;
-	};
+	}
 };

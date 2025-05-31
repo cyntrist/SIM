@@ -271,6 +271,7 @@
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="SpringScene.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="WhirlScene.cpp" />
     <ClCompile Include="Widget.cpp" />
     <ClCompile Include="Widget.h" />
@@ -297,6 +298,7 @@
     <ClInclude Include="SceneManager.h" />
     <ClInclude Include="SpringScene.h" />
     <ClInclude Include="System.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Vector3D.h" />
     <ClInclude Include="WhirlScene.h" />
     <ClInclude Include="WindScene.h" />

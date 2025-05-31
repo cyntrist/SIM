@@ -67,6 +67,9 @@
     <ClCompile Include="RigidBodyScene.cpp">
       <Filter>Clases\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Clases\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -137,6 +140,9 @@
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Clases\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Clases\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
