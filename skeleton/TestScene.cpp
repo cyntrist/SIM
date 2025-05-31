@@ -10,10 +10,11 @@ void TestScene::onEnable()
 	Scene::onEnable();
 
 
-	StaticRigidBody* suelo = new StaticRigidBody(this, gPhysics, gScene);
-	suelo->setShape(CreateShape(PxBoxGeometry(10, 2, 10)), 10);
-	suelo->setPosition({ 0,50,0 });
-	addGameObject(suelo);
+	srb = new StaticRigidBody(this, gPhysics, gScene);
+	srb->setShape(CreateShape(PxBoxGeometry(10, 2, 10)), 10);
+	srb->setPosition({ 0,50,0 });
+	srb->setRotation(PxQuat(99));
+	addGameObject(srb);
 
 
 	//DynamicRigidBody* box1 = new DynamicRigidBody(this, gPhysics, gScene);
@@ -25,4 +26,21 @@ void TestScene::onEnable()
 void TestScene::onDisable()
 {
 	Scene::onDisable();
+}
+
+void TestScene::keyPressed(unsigned char key, const PxTransform& camera)
+{
+	Scene::keyPressed(key, camera);
+
+	switch (key)
+	{
+	case 'q':
+		if (srb != nullptr) srb->setRotation(PxQuat(0.5));
+		break;
+	case 'e':
+		if (srb != nullptr) srb->setRotation(PxQuat(-0.5));
+		break;
+	default:
+		break;
+	}
 }
