@@ -51,7 +51,7 @@ class FireworkSystem : public ParticleSystem
 
 public:
 	FireworkSystem(Scene* scn, Vector3 orgn, Vector3 vel = {0, 40, 0})
-	: ParticleSystem(scn), origin(orgn), nextOrigin(orgn), iniVel(vel)
+	: ParticleSystem(scn), origin(orgn), nextOrigin(orgn), iniVel(vel), generator(69)
 	{
 		generateFirstPart();
 	}
