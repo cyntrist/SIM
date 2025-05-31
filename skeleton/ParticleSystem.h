@@ -47,7 +47,7 @@ class FireworkSystem : public ParticleSystem
 	Particle* first = nullptr;
 	FireworkGenerator* gen = nullptr;
 	Vector3 origin, nextOrigin;
-	Vector3 iniVel = {0, 40, 0};
+	Vector3 iniVel = {0, 60, 0};
 
 public:
 	FireworkSystem(Scene* scn, Vector3 orgn, Vector3 vel = {0, 40, 0})
@@ -68,7 +68,7 @@ public:
 	{
 		if (first != nullptr)
 		{
-			first->kill();
+			delete first;
 			return;
 		}
 
@@ -83,7 +83,7 @@ public:
 
 		first = new Particle(scene, origin, 2);
 		first->setVel(vel);
-		first->setMass(1);
+		first->setMass(50);
 		first->toggleGrav();
 		first->setColor(Vector4(1,1,1,1));
 	}
@@ -92,7 +92,6 @@ public:
 	{
 		if (first == nullptr || !first->isAlive())
 		{
-			first = nullptr;
 			if (gen->getNumParticles() <= 1)
 				generateFirstPart();
 			return true;
