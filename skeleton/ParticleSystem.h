@@ -58,6 +58,7 @@ public:
 
 	~FireworkSystem() override
 	{
+		delete first;
 		delete gen;
 	}
 
@@ -82,11 +83,9 @@ public:
 
 		first = new Particle(scene, origin, 2);
 		first->setVel(vel);
-		first->setMass(0.5);
+		first->setMass(1);
 		first->toggleGrav();
 		first->setColor(Vector4(1,1,1,1));
-
-		scene->addGameObject(first);
 	}
 
 	bool update(double t) override
@@ -106,7 +105,8 @@ public:
 				gen->setOrigen(nextOrigin);
 				gen->generateParticles(t);
 			}
-			first->kill();
+			delete first;
+			first = nullptr;
 			return true;
 		} 
 
