@@ -8,6 +8,7 @@ class TestScene : public Scene
 {
 	StaticRigidBody* srb = nullptr;
 	DynamicRigidBody* drb = nullptr;
+	double stepAngle = 0.05;
 
 public:
 	TestScene(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn) {}

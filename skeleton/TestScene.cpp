@@ -9,17 +9,10 @@ void TestScene::onEnable()
 {
 	Scene::onEnable();
 
-	//srb = new StaticRigidBody(this, gPhysics, gScene);
-	//srb->setShape(CreateShape(PxBoxGeometry(10, 2, 10)), 10);
-	//srb->setPosition({ 0,50,0 });
-	//srb->setRotation(PxQuat(0.5));
-	//addGameObject(srb);
-
 	drb = new DynamicRigidBody(this, gPhysics, gScene);
 	drb->setPosition({ 5,20,0 });
 	drb->setDensity(1);
-	drb->setKinematic(true);
-	drb->setRotation(10);
+	drb->setKinematic(true); 
 	addGameObject(drb);
 }
 
@@ -32,13 +25,15 @@ void TestScene::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	Scene::keyPressed(key, camera);
 
-	switch (key)
+	auto k = std::tolower(key);
+
+	switch (k)
 	{
 	case 'q':
-		if (drb != nullptr) drb->setRotation(0.05);
+		if (drb != nullptr) drb->setRotation(stepAngle);
 		break;
 	case 'e':
-		if (drb != nullptr) drb->setRotation(-0.05);
+		if (drb != nullptr) drb->setRotation(-stepAngle);
 		break;
 	default:
 		break;
