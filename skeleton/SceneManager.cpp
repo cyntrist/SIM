@@ -74,33 +74,4 @@ void SceneManager::specialKeyPressed(int key, const PxTransform& camera)
 {
 	for (const auto& s : scenes)
 		s->specialKeyPressed(key, camera);
-
-
-	auto states = glutGetModifiers();
-	////auto action = lookupTable[states << 8 | key];
-
-	//switch (states)
-	//{
-	//case GLUT_ACTIVE_SHIFT:
-	//	Log("SHIFT");
-	//	break;
-	//default:
-	//	break;
-	//}
-
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		Log("UP");
-		break;
-	case GLUT_KEY_DOWN:
-		Log("DOWN");
-		break;
-	case GLUT_KEY_LEFT:
-		Log("LEFT");
-		break;
-	case GLUT_KEY_RIGHT:
-		Log("RIGHT");
-		break;
-	}
 }
