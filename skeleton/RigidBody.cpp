@@ -21,8 +21,8 @@ StaticRigidBody::~StaticRigidBody()
 	delete renderItem;
 }
 
-DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
-	PxVec3 vol, PxVec3 pos)
+DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, 
+	bool kin, PxVec3 vol, PxVec3 pos)
 	: RigidBody(scn)
 {
 	density = 1.f;
@@ -31,6 +31,7 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	actor->setLinearVelocity({ 0,0,0 });
 	actor->setAngularVelocity({ 0,0,0 });
 	actor->setMassSpaceInertiaTensor(vol);
+	setKinematic(kin);
 	PxRigidBodyExt::updateMassAndInertia(*actor, density);
 	size = 1;
 	shape = CreateShape(PxBoxGeometry(vol));

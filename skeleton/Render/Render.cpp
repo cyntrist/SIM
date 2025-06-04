@@ -251,6 +251,14 @@ namespace Snippets
 		glutInitWindowSize(512, 512);
 		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 		int mainHandle = glutCreateWindow(name);
+
+		//SetWindowLong(
+		//	(HWND)mainHandle, 
+		//	GWL_STYLE, 
+		//	GetWindowLong((HWND)mainHandle, GWL_STYLE) | WS_MAXIMIZE
+		//);
+		//ShowWindowAsync((HWND)mainHandle, SW_SHOWMAXIMIZED);
+
 		glutSetWindow(mainHandle);
 		glutReshapeFunc(reshapeCallback);
 

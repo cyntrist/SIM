@@ -12,22 +12,23 @@ void Level::onEnable()
 	Scene::onEnable();
 
 	PxVec3 volumen = { 15, 2, 10 };
+	float x = 40, y = 10, z = 50;
 
-	auto drb1 = new DynamicRigidBody(this, gPhysics, gScene, volumen);
-	drb1->setPosition({ -40,10,50 });
-	drb1->setKinematic(true);
+	auto drb1 = new DynamicRigidBody(
+		this, gPhysics, gScene, true, volumen, { -x,y,z }
+	);
 	drbs.push_back(drb1);
 	addGameObject(drb1);
 
-	auto drb2 = new DynamicRigidBody(this, gPhysics, gScene, volumen);
-	drb2->setPosition({ 0,10,50 });
-	drb2->setKinematic(true);
+	auto drb2 = new DynamicRigidBody(
+		this, gPhysics, gScene, true, volumen, { 0,y,z }
+	);
 	drbs.push_back(drb2);
 	addGameObject(drb2);
 
-	auto drb3 = new DynamicRigidBody(this, gPhysics, gScene, volumen);
-	drb3->setPosition({40,10,50 });
-	drb3->setKinematic(true);
+	auto drb3 = new DynamicRigidBody(
+		this, gPhysics, gScene, true, volumen, { x,y,z }
+	);
 	drbs.push_back(drb3);
 	addGameObject(drb3);
 
@@ -88,7 +89,8 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 		break;
 	}
 
-	cDrb = PxClamp(cDrb, size_t{}, drbs.size() - 1);
+	int max = drbs.size() - 1;
+	cDrb = PxClamp(cDrb,0, max);
 	for (auto& b : drbs)
 		b->setColor(nColor);
 
