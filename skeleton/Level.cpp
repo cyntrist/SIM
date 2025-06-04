@@ -24,6 +24,7 @@ void Level::onDisable()
 	Scene::onDisable();
 }
 
+
 void Level::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	Scene::keyPressed(key, camera);
@@ -47,6 +48,10 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 {
 	Scene::specialKeyPressed(key, camera);
 
+	int modifiers = glutGetModifiers();
+
+	if (modifiers & GLUT_ACTIVE_SHIFT) 
+		Log("SHIFT Y OTRA TECLA");
 
 	switch (key)
 	{
