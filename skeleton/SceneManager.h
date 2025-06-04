@@ -23,4 +23,5 @@ public:
 	void addScene(Scene* scn);
 	void setScene(int id);
 	void keyPressed(unsigned char key, const PxTransform& camera);
+	void specialKeyPressed(int key, const PxTransform& camera);
 };

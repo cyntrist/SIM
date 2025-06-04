@@ -66,30 +66,6 @@ void initPhysics(bool interactive)
 	sceneDesc.simulationEventCallback = &gContactReportCallback;
 	gScene = gPhysics->createScene(sceneDesc);
 
-	/// /// /// /// /// /// /// /// /// /// /// /// /// /// /// ///
-
-	//currentScene = new Scene();
-	//auto system = new ParticleSystem(currentScene);
-	//auto p1 = new ParticleGenerator(Vector3(0, 0, 0), Vector3(0, 10, 0), 1000);
-	//auto p2 = new ParticleGenerator(Vector3(100, 0, 0), Vector3(0, 20, 0), 1000);
-	//auto p3 = new ParticleGenerator(Vector3(50, 0, -100), Vector3(0, 30, 0), 1000);
-	//p2->setMode(Mode::FUEGOS);
-	//p3->setMode(Mode::HUMO);
-	//system->addParticleGenerator(p1);
-	//system->addParticleGenerator(p2);
-	//system->addParticleGenerator(p3);
-	////system->addParticleGenerator(new ParticleGenerator());
-	////system->addParticleGenerator(new ParticleGenerator());
-	//currentScene->addGameObject(system);
-
-	/*x = {10.0, 0.0, 0.0};
-	y = {0.0, 10.0, 0.0};
-	z = {0.0, 0.0, 10.0};
-
-	xRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &x, {1.0, 0.0, 0.0, 1.0});
-	yRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &y, {0.0, 1.0, 0.0, 1.0});
-	zRenderItem = new RenderItem(CreateShape(PxSphereGeometry(1)), &z, {0.0, 0.0, 1.0, 1.0});*/
-
 	sm = new SceneManager(gPhysics, gScene);
 }
 
@@ -141,6 +117,32 @@ void keyPress(unsigned char key, Camera* camera)
 	PX_UNUSED(camera);
 
 	sm->keyPressed(key, camera->getTransform());
+}
+
+void specialKeyPress(int key, Camera* camera)
+{
+	PX_UNUSED(camera);
+
+	//switch (key)
+	//{
+	//case GLUT_ACTIVE_SHIFT:
+	//	Log("SHIFT");
+	//	break;
+	//case GLUT_KEY_UP:
+	//	Log("UP");
+	//	break;
+	//case GLUT_KEY_DOWN:
+	//	Log("DOWN");
+	//	break;
+	//case GLUT_KEY_LEFT:
+	//	Log("LEFT");
+	//	break;
+	//case GLUT_KEY_RIGHT:
+	//	Log("RIGHT");
+	//	break;
+	//}
+
+	sm->specialKeyPressed(key, camera->getTransform());
 }
 
 void onCollision(PxActor* actor1, PxActor* actor2)

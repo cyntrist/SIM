@@ -67,7 +67,7 @@
     <ClCompile Include="RigidBodyScene.cpp">
       <Filter>Clases\Scenes</Filter>
     </ClCompile>
-    <ClCompile Include="TestScene.cpp">
+    <ClCompile Include="Level.cpp">
       <Filter>Clases\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -141,7 +141,7 @@
     <ClInclude Include="Scene.h">
       <Filter>Clases\Core</Filter>
     </ClInclude>
-    <ClInclude Include="TestScene.h">
+    <ClInclude Include="Level.h">
       <Filter>Clases\Scenes</Filter>
     </ClInclude>
   </ItemGroup>

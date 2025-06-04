@@ -5,7 +5,7 @@
 #include "RigidBodyScene.h"
 #include "Scene.h"
 #include "SpringScene.h"
-#include "TestScene.h"
+#include "Level.h"
 #include "WhirlScene.h"
 #include "WindScene.h"
 
@@ -19,7 +19,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new FloatScene()); // 5
 	addScene(new SupernovaScene()); // 6
 	addScene(new RigidBodyScene(gphys, gscn)); // 7
-	addScene(new TestScene(gphys, gscn)); // 7
+	addScene(new Level(gphys, gscn)); // 7
 	setScene(0);
 }
 
@@ -68,4 +68,39 @@ void SceneManager::keyPressed(unsigned char key, const PxTransform& camera)
 
 	if (index > -1 && index != actualScene)
 		setScene(index);
+}
+
+void SceneManager::specialKeyPressed(int key, const PxTransform& camera)
+{
+	for (const auto& s : scenes)
+		s->specialKeyPressed(key, camera);
+
+
+	auto states = glutGetModifiers();
+	////auto action = lookupTable[states << 8 | key];
+
+	//switch (states)
+	//{
+	//case GLUT_ACTIVE_SHIFT:
+	//	Log("SHIFT");
+	//	break;
+	//default:
+	//	break;
+	//}
+
+	switch (key)
+	{
+	case GLUT_KEY_UP:
+		Log("UP");
+		break;
+	case GLUT_KEY_DOWN:
+		Log("DOWN");
+		break;
+	case GLUT_KEY_LEFT:
+		Log("LEFT");
+		break;
+	case GLUT_KEY_RIGHT:
+		Log("RIGHT");
+		break;
+	}
 }

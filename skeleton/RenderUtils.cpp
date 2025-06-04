@@ -5,6 +5,8 @@
 #include "core.hpp"
 #include "RenderUtils.hpp"
 
+#include "Global.h"
+
 
 using namespace physx;
 
@@ -12,6 +14,7 @@ extern void initPhysics(bool interactive);
 extern void stepPhysics(bool interactive, double t);	
 extern void cleanupPhysics(bool interactive);
 extern void keyPress(unsigned char key, Camera* camera);
+extern void specialKeyPress(int key, Camera* camera);
 extern PxPhysics* gPhysics;
 extern PxMaterial* gMaterial;
 
@@ -59,6 +62,11 @@ void keyboardCallback(unsigned char key, int x, int y)
 
 	if(!sCamera->handleKey(key, x, y))
 		keyPress(key, sCamera);
+}
+
+void specialKeyboardCallback(int key, int x, int y)
+{
+	specialKeyPress(key, sCamera);
 }
 
 void mouseCallback(int button, int state, int x, int y)
@@ -147,6 +155,7 @@ void renderLoop()
 	glutKeyboardFunc(keyboardCallback);
 	glutMouseFunc(mouseCallback);
 	glutMotionFunc(motionCallback);
+	glutSpecialFunc(specialKeyboardCallback);
 	motionCallback(0,0);
 
 	atexit(exitCallback);

@@ -63,10 +63,10 @@ public:
 	void deleteDeadObjects();
 
 	virtual void keyPressed(unsigned char key, const PxTransform& camera) { }
+	virtual void specialKeyPressed(int key, const PxTransform& camera) { }
 	void setObjsVisible(bool vis);
 	void setActorVisible(PxRigidActor* actor, bool vis) const
 	{
 		vis ? gScene->addActor(*actor) : gScene->removeActor(*actor);
 	}
-
 };
