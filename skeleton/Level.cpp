@@ -11,20 +11,32 @@ void Level::onEnable()
 {
 	Scene::onEnable();
 
-	auto drb = new DynamicRigidBody(this, gPhysics, gScene);
-	drb->setPosition({ 0,20,0 });
-	drb->setDensity(1);
-	drb->setKinematic(true);
-	drb->setColor(Vector4(1,1,1,1));
-	drbs.push_back(drb);
-	addGameObject(drb);
+	auto drb1 = new DynamicRigidBody(this, gPhysics, gScene);
+	drb1->setPosition({ -25,10,50 });
+	drb1->setKinematic(true);
+	drb1->setColor(Vector4(0.5,0.5,0.5,1));
+	drbs.push_back(drb1);
+	addGameObject(drb1);
+
+	auto drb2 = new DynamicRigidBody(this, gPhysics, gScene);
+	drb2->setPosition({ 0,10,50 });
+	drb2->setKinematic(true);
+	drb2->setColor(Vector4(0.5, 0.5, 0.5, 1));
+	drbs.push_back(drb2);
+	addGameObject(drb2);
+
+	auto drb3 = new DynamicRigidBody(this, gPhysics, gScene);
+	drb3->setPosition({ 25,10,50 });
+	drb3->setKinematic(true);
+	drb3->setColor(Vector4(0.5, 0.5, 0.5, 1));
+	drbs.push_back(drb3);
+	addGameObject(drb3);
 }
 
 void Level::onDisable()
 {
 	Scene::onDisable();
 }
-
 
 void Level::keyPressed(unsigned char key, const PxTransform& camera)
 {
@@ -62,10 +74,10 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 	switch (key)
 	{
 	case GLUT_KEY_UP:
-		Log("UP");
+		cDrb++;
 		break;
 	case GLUT_KEY_DOWN:
-		Log("DOWN");
+		cDrb--;
 		break;
 	case GLUT_KEY_LEFT:
 		if (drbs[cDrb] != nullptr) drbs[cDrb]->setRotation(-angle);
@@ -74,4 +86,6 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 		if (drbs[cDrb] != nullptr) drbs[cDrb]->setRotation(angle);
 		break;
 	}
+
+	cDrb = min(max(cDrb, 0), drbs.size()-1);
 }

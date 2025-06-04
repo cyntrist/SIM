@@ -57,7 +57,6 @@ public:
 	virtual void onEnable();
 	virtual void onDisable();
 
-
 	virtual void update(double t);
 	void addGameObject(GameObject* obj);
 	void deleteDeadObjects();

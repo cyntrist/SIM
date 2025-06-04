@@ -51,7 +51,8 @@ class DynamicRigidBody : public RigidBody
 	double angle = 0;
 
 public:
-	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene);
+	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, 
+		PxVec3 vol = { 10, 10, 10}, PxVec3 pos = { 0, 0, 0});
 	~DynamicRigidBody() override;
 
 	//setters
