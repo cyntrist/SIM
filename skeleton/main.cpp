@@ -140,31 +140,6 @@ void keyPress(unsigned char key, Camera* camera)
 {
 	PX_UNUSED(camera);
 
-	//switch (toupper(key))
-	//{
-	//case 'E':
-	//	{
-	//		auto p = new Particle(
-	//			camera->getTransform().p + camera->getDir() * 20,
-	//			camera->getDir() * 20,
-	//			Vector3(
-	//				camera->getDir().x,
-	//				camera->getDir().y - 9.8f,
-	//				camera->getDir().z
-	//			)
-	//		);
-	//		mParticles.push_back(p);
-	//	}
-	//	break;
-	////case ' ':	break;
-	//case ' ':
-	//	{
-	//		break;
-	//	}
-	//default:
-	//	break;
-	//}
-
 	sm->keyPressed(key, camera->getTransform());
 }
 
