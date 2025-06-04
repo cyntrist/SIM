@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include <PxPhysicsAPI.h>
-
+#include <cmath>
 #include "Scene.h"
 
 class RigidBody : public GameObject
@@ -36,12 +36,19 @@ public:
 		GameObject::setVisible(vis);
 		scene->setActorVisible(actor, vis);
 	}
+	void setRotation(PxQuat rot) override
+	{
+		*pose = actor->getGlobalPose();
+		pose->q = rot;
+		actor->setGlobalPose(*pose);
+	}
 };
 
 class DynamicRigidBody : public RigidBody
 {
 	PxRigidDynamic* actor = nullptr;
-	float density = 1.5;
+	float density = 1;
+	double angle = 0;
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene);
@@ -64,16 +71,34 @@ public:
 		scene->setActorVisible(actor, vis);
 	}
 	void setDensity(float d) { density = d; }
-	void setRotation(PxQuat rot) override
+	//void setRotation(PxQuat rot) override
+	//{
+	//	*pose = actor->getGlobalPose();
+	//	pose->q = rot;
+	//	actor->setGlobalPose(*pose);
+	//}
+	void setRotation(double rot, PxVec3 axis = { 0, 0, 1})
 	{
-		*pose = actor->getGlobalPose();
-		pose->q = rot;
-		actor->setGlobalPose(*pose);
+		angle += rot;
+
+		PxTransform c = actor->getGlobalPose();
+		PxQuat q(angle, axis); 
+		PxTransform newPose(c.p, q);
+
+		actor->setGlobalPose(newPose);
+		actor->setKinematicTarget(newPose);
+
+		if (!pose->isValid()) 
+			std::cerr << "Transform inválido\n";
 	}
 	void setMass(float mas) override
 	{
 		actor->setMass(mas);
 		mass = mas;
+	}
+	void setKinematic(bool k)
+	{
+		actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, k);
 	}
 
 	// getters

@@ -9,18 +9,18 @@ void TestScene::onEnable()
 {
 	Scene::onEnable();
 
+	//srb = new StaticRigidBody(this, gPhysics, gScene);
+	//srb->setShape(CreateShape(PxBoxGeometry(10, 2, 10)), 10);
+	//srb->setPosition({ 0,50,0 });
+	//srb->setRotation(PxQuat(0.5));
+	//addGameObject(srb);
 
-	srb = new StaticRigidBody(this, gPhysics, gScene);
-	srb->setShape(CreateShape(PxBoxGeometry(10, 2, 10)), 10);
-	srb->setPosition({ 0,50,0 });
-	srb->setRotation(PxQuat(99));
-	addGameObject(srb);
-
-
-	//DynamicRigidBody* box1 = new DynamicRigidBody(this, gPhysics, gScene);
-	//box1->setPosition({ 5,20,0 });
-	//box1->setDensity(1);
-	//addGameObject(box1);
+	drb = new DynamicRigidBody(this, gPhysics, gScene);
+	drb->setPosition({ 5,20,0 });
+	drb->setDensity(1);
+	drb->setKinematic(true);
+	drb->setRotation(10);
+	addGameObject(drb);
 }
 
 void TestScene::onDisable()
@@ -35,10 +35,10 @@ void TestScene::keyPressed(unsigned char key, const PxTransform& camera)
 	switch (key)
 	{
 	case 'q':
-		if (srb != nullptr) srb->setRotation(PxQuat(0.5));
+		if (drb != nullptr) drb->setRotation(0.05);
 		break;
 	case 'e':
-		if (srb != nullptr) srb->setRotation(PxQuat(-0.5));
+		if (drb != nullptr) drb->setRotation(-0.05);
 		break;
 	default:
 		break;
