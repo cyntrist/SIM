@@ -11,14 +11,14 @@
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
-	addScene(new Scene()); // 0
-	addScene(new ParticleScene()); // 1
-	addScene(new WindScene()); // 2
-	addScene(new WhirlScene()); // 3
-	addScene(new SpringScene()); // 4
-	addScene(new FloatScene()); // 5
-	addScene(new SupernovaScene()); // 6
-	addScene(new RigidBodyScene(gphys, gscn)); // 7
+	//addScene(new Scene()); // 0
+	//addScene(new ParticleScene()); // 1
+	//addScene(new WindScene()); // 2
+	//addScene(new WhirlScene()); // 3
+	//addScene(new SpringScene()); // 4
+	//addScene(new FloatScene()); // 5
+	//addScene(new SupernovaScene()); // 6
+	//addScene(new RigidBodyScene(gphys, gscn)); // 7
 	addScene(new Level(gphys, gscn)); // 7
 	setScene(0);
 }

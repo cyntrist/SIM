@@ -123,25 +123,6 @@ void specialKeyPress(int key, Camera* camera)
 {
 	PX_UNUSED(camera);
 
-	//switch (key)
-	//{
-	//case GLUT_ACTIVE_SHIFT:
-	//	Log("SHIFT");
-	//	break;
-	//case GLUT_KEY_UP:
-	//	Log("UP");
-	//	break;
-	//case GLUT_KEY_DOWN:
-	//	Log("DOWN");
-	//	break;
-	//case GLUT_KEY_LEFT:
-	//	Log("LEFT");
-	//	break;
-	//case GLUT_KEY_RIGHT:
-	//	Log("RIGHT");
-	//	break;
-	//}
-
 	sm->specialKeyPressed(key, camera->getTransform());
 }
 
