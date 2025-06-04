@@ -35,7 +35,7 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	size = 1;
 	shape = CreateShape(PxBoxGeometry(vol));
 	actor->attachShape(*shape);
-	renderItem = new RenderItem(shape, actor, { 0.87,0.87,0.87,1 });
+	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 }
 
 DynamicRigidBody::~DynamicRigidBody()

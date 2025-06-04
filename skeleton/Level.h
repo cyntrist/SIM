@@ -9,6 +9,8 @@ class Level : public Scene
 	std::vector<DynamicRigidBody*> drbs; // vector of dynamic rigid bodies
 	size_t cDrb = 0; // current dynamic rigid body
 	double stepAngle = 0.05;
+	PxVec4 sColor = { 1, 0.8, 0.1, 1 },
+		nColor = { 0.5, 0.5, 0.5, 1 };
 
 public:
 	Level(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn) {}
