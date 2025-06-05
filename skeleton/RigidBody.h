@@ -1,15 +1,16 @@
 ﻿#pragma once
 #include "GameObject.h"
 #include <PxPhysicsAPI.h>
-#include <cmath>
 #include "Scene.h"
+
+enum Shape { BOX, SPHERE, CAPSULE };
 
 class RigidBody : public GameObject
 {
 public:
 	RigidBody(Scene* scn) : GameObject(scn) {}
 
-	virtual PxRigidActor* getActor() { return nullptr; };
+	virtual PxRigidActor* getActor() { return nullptr; }
 };
 
 class StaticRigidBody : public RigidBody
@@ -52,7 +53,7 @@ class DynamicRigidBody : public RigidBody
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
-		PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0});
+		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0});
 	~DynamicRigidBody() override;
 
 	//setters

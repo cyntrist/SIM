@@ -15,19 +15,19 @@ void Level::onEnable()
 	float x = 40, y = 10, z = 50;
 
 	auto drb1 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, volumen, { -x,y,z }
+		this, gPhysics, gScene, true, BOX, volumen, { -x,y,z }
 	);
 	drbs.push_back(drb1);
 	addGameObject(drb1);
 
 	auto drb2 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, volumen, { 0,y,z }
+		this, gPhysics, gScene, true, BOX, volumen, { 0,y,z }
 	);
 	drbs.push_back(drb2);
 	addGameObject(drb2);
 
 	auto drb3 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, volumen, { x,y,z }
+		this, gPhysics, gScene, true, BOX, volumen, { x,y,z }
 	);
 	drbs.push_back(drb3);
 	addGameObject(drb3);

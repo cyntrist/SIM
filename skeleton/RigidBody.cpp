@@ -4,14 +4,14 @@ StaticRigidBody::StaticRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScen
 	: RigidBody(scn)
 {
 	PxVec3 pos(0, 0, 0);
-	PxVec3 volume = { size,size,size };
+	PxVec3 volume = {size, size, size};
 
 	pose = new PxTransform(pos);
 	actor = gPhysics->createRigidStatic(*pose);
 	shape = CreateShape(PxBoxGeometry(volume));
 	actor->attachShape(*shape);
 
-	renderItem = new RenderItem(shape, actor, { 0.7,0.7,0.7,1 });
+	renderItem = new RenderItem(shape, actor, {0.7, 0.7, 0.7, 1});
 }
 
 StaticRigidBody::~StaticRigidBody()
@@ -21,20 +21,33 @@ StaticRigidBody::~StaticRigidBody()
 	delete renderItem;
 }
 
-DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, 
-	bool kin, PxVec3 vol, PxVec3 pos)
+DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
+                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos)
 	: RigidBody(scn)
 {
 	density = 1.f;
 	pose = new PxTransform(pos);
 	actor = gPhysics->createRigidDynamic(*pose);
-	actor->setLinearVelocity({ 0,0,0 });
-	actor->setAngularVelocity({ 0,0,0 });
+	actor->setLinearVelocity({0, 0, 0});
+	actor->setAngularVelocity({0, 0, 0});
 	actor->setMassSpaceInertiaTensor(vol);
 	setKinematic(kin);
 	PxRigidBodyExt::updateMassAndInertia(*actor, density);
 	size = 1;
-	shape = CreateShape(PxBoxGeometry(vol));
+
+	switch (sh)
+	{
+	case BOX:
+		shape = CreateShape(PxBoxGeometry(vol));
+		break;
+	case SPHERE:
+		shape = CreateShape(PxSphereGeometry(vol.x));
+		break;
+	case CAPSULE:
+		shape = CreateShape(PxCapsuleGeometry(vol.x, vol.y));
+		break;
+	}
+
 	actor->attachShape(*shape);
 	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 }
