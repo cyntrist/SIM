@@ -54,6 +54,7 @@ namespace Snippets
 
 	bool Camera::handleKey(unsigned char key, int x, int y, float speed)
 	{
+		speed = 0;
 		PX_UNUSED(x);
 		PX_UNUSED(y);
 

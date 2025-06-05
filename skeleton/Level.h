@@ -15,7 +15,11 @@ class Level : public Scene
 		nColor = { 0.5, 0.5, 0.5, 1 };
 
 public:
-	Level(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn) {}
+	Level(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn)
+	{
+		lowerThreshold = 100;
+		upperThreshold = 100;
+	}
 	~Level() override;
 
 	void setup() override {}

@@ -46,7 +46,7 @@ void Level::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	Scene::keyPressed(key, camera);
 
-	auto k = std::tolower(key);
+	/*auto k = std::tolower(key);
 
 	switch (k)
 	{
@@ -58,7 +58,7 @@ void Level::keyPressed(unsigned char key, const PxTransform& camera)
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 void Level::specialKeyPressed(int key, const PxTransform& camera)
@@ -91,7 +91,7 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 		break;
 	}
 
-	int max = drbs.size() - 1;
+	int max = drbs.size() - 1ull;
 	cDrb = PxClamp(cDrb,0, max);
 	for (auto& b : drbs)
 		b->setColor(nColor);

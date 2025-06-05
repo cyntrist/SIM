@@ -70,6 +70,9 @@
     <ClCompile Include="Level.cpp">
       <Filter>Clases\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="RigidBodyGenerator.cpp">
+      <Filter>Clases\Generators</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Render\Camera.h">
@@ -143,6 +146,12 @@
     </ClInclude>
     <ClInclude Include="Level.h">
       <Filter>Clases\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyGenerator.h">
+      <Filter>Clases\Generators</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodySystem.h">
+      <Filter>Clases\Systems</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
