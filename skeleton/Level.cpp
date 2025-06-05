@@ -32,6 +32,8 @@ void Level::onEnable()
 	drbs.push_back(drb3);
 	addGameObject(drb3);
 
+
+
 	drbs[cDrb]->setColor(sColor);
 }
 
