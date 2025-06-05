@@ -73,12 +73,6 @@ public:
 		scene->setActorVisible(actor, vis);
 	}
 	void setDensity(float d) { density = d; }
-	//void setRotation(PxQuat rot) override
-	//{
-	//	*pose = actor->getGlobalPose();
-	//	pose->q = rot;
-	//	actor->setGlobalPose(*pose);
-	//}
 	void setRotation(double rot, PxVec3 axis = { 0, 0, 1})
 	{
 		angle += rot;
@@ -90,8 +84,8 @@ public:
 		actor->setGlobalPose(newPose);
 		actor->setKinematicTarget(newPose);
 
-		if (!pose->isValid()) 
-			std::cerr << "Transform inválido\n";
+		if (!pose->isValid())
+			Log("Transform erroneo");
 	}
 	void setMass(float mas) override
 	{
