@@ -19,8 +19,6 @@ void RigidBodyScene::onEnable()
 	box2->setPosition({ -5,50,0 });
 	box2->setDensity(100);
 	addGameObject(box2);
-
-
 }
 
 void RigidBodyScene::onDisable()

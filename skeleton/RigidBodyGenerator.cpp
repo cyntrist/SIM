@@ -1,14 +1,47 @@
 ﻿#include "RigidBodyGenerator.h"
 
-RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, RigidBodySystem* partsys, Scene* scn, double min,
-                                       double max)
+#include "Level.h"
+
+RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
+                                       RigidBodySystem* partsys, Level* scn, double min, double max)
+    : gphys(gphys), gscn(gscn), origen(org), system(partsys), maxGameObjects(stNpart),
+	level(scn), minLife(min), maxLife(max)
 {
 }
 
 void RigidBodyGenerator::update(double t)
 {
+    if (mayGenerate())
+        generateBody(t);
 }
 
-void RigidBodyGenerator::generateParticle(Vector3 org, Vector3 vel, double life, Vector4 c, float mass)
+void RigidBodyGenerator::generateBody(double t)
 {
+    Log("Estoy generando");
+    PxVec3 volumen = { 1, 1, 1 };
+    float x = 0, y = 0, z = 0;
+
+    auto drb1 = new DynamicRigidBody(
+        scene, gphys, gscn, false, SPHERE, volumen, { -x,y,z }
+    );
+    drb1->setColor(color);
+    drb1->setDensity(density);
+    drb1->setMass(10);
+    drb1->setVisible(true);
+    scene->addGameObject(drb1);
+    addNumBodies(1);
+    //level->generateBody();
+}
+
+bool RigidBodyGenerator::mayGenerate()
+{
+    if (nGameObjects >= maxGameObjects) 
+        return false;
+    counter += 1;
+    if (counter >= timer)
+    {
+        counter = 0;
+        return true;
+    }
+    return false;
 }

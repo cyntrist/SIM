@@ -27,4 +27,7 @@ public:
 	void onDisable() override;
 	void keyPressed(unsigned char key, const PxTransform& camera) override;
 	void specialKeyPressed(int key, const PxTransform& camera) override;
+	virtual void setGriddles();
+	virtual void setSystems();
+	virtual void generateBody();
 };

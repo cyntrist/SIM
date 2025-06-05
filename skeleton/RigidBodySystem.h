@@ -1,15 +1,18 @@
 ﻿#pragma once
 #include "System.h"
+#include "RigidBodyGenerator.h"
 
-class RigidBodyGenerator;
-
-class RigidBodySystem : System
+class RigidBodySystem : public System
 {
 protected:
 	std::vector<RigidBodyGenerator*> rigidGenerators;
-
+	PxPhysics* gphys;
+	PxScene* gscn;
+	Level* level;
+		
 public:
-	RigidBodySystem(Scene* sc) : System(sc) {}
+	RigidBodySystem(Scene* sc, PxPhysics* gphys, PxScene* gscn, Level* level)
+	: System(sc), gphys(gphys), gscn(gscn), level(level) {}
 
 	~RigidBodySystem() override
 	{
@@ -24,13 +27,13 @@ public:
 		return true;
 	}
 
-	void addParticleGenerator(RigidBodyGenerator* gen)
+	void addRBGenerator(RigidBodyGenerator* gen)
 	{
 		rigidGenerators.push_back(gen);
 		gen->setScene(scene);
 	}
 
-	void destroyParticleGenerator(int i)
+	void destroyRBGenerator(int i)
 	{
 		rigidGenerators.erase(std::find(rigidGenerators.begin(), rigidGenerators.end(),
 			rigidGenerators[i]));

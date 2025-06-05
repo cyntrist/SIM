@@ -2,7 +2,6 @@
 #include "Particle.h"
 #include <random>
 
-class RigidBodySystem;
 class ParticleSystem;
 class Scene;
 
