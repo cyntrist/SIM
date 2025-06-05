@@ -35,10 +35,6 @@ void ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, 
 	nGameObjectsTotal++;
 }
 
-void ParticleGenerator::onGameObjectDeath(GameObject* p)
-{
-}
-
 void ParticleGenerator::generateParticles(double t)
 {
 }
@@ -227,4 +223,33 @@ void FireworkGenerator::update(double t)
 bool FireworkGenerator::mayGenerate() const
 {
 	return true;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, ParticleSystem* partsys, Scene* scn, double min,
+	double max)
+{
+
+}
+
+void RigidBodyGenerator::update(double t)
+{
+}
+
+void RigidBodyGenerator::generateParticle(Vector3 org, Vector3 vel, double life, Vector4 c, float mass)
+{
 }
