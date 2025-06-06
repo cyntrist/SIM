@@ -1,4 +1,8 @@
 ﻿#include "RigidBody.h"
+#include "RigidBodyGenerator.h"
+
+#define GROUP_NON_COLLIDING_DYNAMIC  (1 << 0)
+#define GROUP_ALL                    0xFFFF
 
 StaticRigidBody::StaticRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene)
 	: RigidBody(scn)
@@ -22,8 +26,9 @@ StaticRigidBody::~StaticRigidBody()
 }
 
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
-                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel)
-	: RigidBody(scn)
+                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
+									double life, double maxLife)
+	: RigidBody(scn), lifetime(life), maxLifetime(maxLife)
 {
 	density = 1.f;
 	pose = new PxTransform(pos);
@@ -57,4 +62,29 @@ DynamicRigidBody::~DynamicRigidBody()
 	DeregisterRenderItem(renderItem);
 	delete pose;
 	delete renderItem;
+}
+
+bool DynamicRigidBody::update(double t)
+{
+	if (!alive)
+		return false;
+
+	if ((maxLifetime != -1 && lifetime > maxLifetime)
+		|| pose->p.y <= -scene->getLowerThreshold()
+		|| pose->p.y >= scene->getUpperThreshold())
+	{
+		kill();
+		if (generator != nullptr)
+		{
+			//if (color == Vector4(0,1,0,1))
+				//Log(to_string(generator->getNumParticles()));
+			generator->addNumParticles(-1);
+		}
+		return false;
+	}
+
+	//applyForce();
+	//integrate(t);
+	lifetime += t;
+	return true;
 }

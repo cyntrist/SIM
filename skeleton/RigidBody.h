@@ -3,6 +3,8 @@
 #include <PxPhysicsAPI.h>
 #include "Scene.h"
 
+class RigidBodyGenerator;
+
 enum Shape { BOX, SPHERE, CAPSULE };
 
 class RigidBody : public GameObject
@@ -48,13 +50,17 @@ public:
 class DynamicRigidBody : public RigidBody
 {
 	PxRigidDynamic* actor = nullptr;
+	PxScene* gScene = nullptr;
 	float density = 1;
 	double angle = 0;
+	double lifetime = -1;
+	double maxLifetime = -1;
+	RigidBodyGenerator* generator = nullptr;
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
 		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0},
-		PxVec3 vel = { 0, 0, 0 });
+		PxVec3 vel = { 0, 0, 0 }, double lifetime = -1, double maxLifetime = -1);
 	~DynamicRigidBody() override;
 
 	//setters
@@ -113,6 +119,6 @@ public:
 	PxQuat getRotation() override { return actor->getGlobalPose().q; }
 	Vector3 getVel() override { return actor->getLinearVelocity(); }
 	float getMass() const override { return actor->getMass(); }
-
+	bool update(double t) override;
 	void addForce(float x, float y, float z) override { actor->addForce({ x,y,z }); }
 };

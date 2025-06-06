@@ -81,7 +81,7 @@ void Level::setGriddles()
 	);
 	drbs.push_back(drb2);
 	addGameObject(drb2);
-
+	drb2->setVisible(false);
 	auto drb3 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {x, y, z}
 	);
