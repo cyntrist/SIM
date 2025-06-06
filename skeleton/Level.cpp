@@ -13,7 +13,7 @@ void Level::onEnable()
 {
 	Scene::onEnable();
 	setGriddles();
-	//setSystems();
+	setSystems();
 	//generateBody();
 }
 
@@ -92,19 +92,19 @@ void Level::setGriddles()
 
 void Level::setSystems()
 {
-	system = new RigidBodySystem(this, gPhysics, gScene, this); 
-	addSystem(system);
+	rbSys = new RigidBodySystem(this, gPhysics, gScene, this); 
+	addSystem(rbSys);
 
 	auto rbg = new RigidBodyGenerator(
-		{0, 0, 0},
-		1,
+		{40, 25, 50},
+		50,
 		gPhysics,
 		gScene,
-		system,
+		rbSys,
 		this
 	);
 
-	system->addRBGenerator(rbg);
+	rbSys->addRBGenerator(rbg);
 }
 
 void Level::generateBody()

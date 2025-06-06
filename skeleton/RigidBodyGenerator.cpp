@@ -19,16 +19,16 @@ void RigidBodyGenerator::generateBody(double t)
 {
     Log("Estoy generando");
     PxVec3 volumen = { 1, 1, 1 };
-    float x = 0, y = 0, z = 0;
 
     auto drb1 = new DynamicRigidBody(
-        scene, gphys, gscn, false, SPHERE, volumen, { -x,y,z }
+        scene, gphys, gscn, false, SPHERE, volumen, origen, velocity
     );
     drb1->setColor(color);
     drb1->setDensity(density);
     drb1->setMass(10);
     drb1->setVisible(true);
     scene->addGameObject(drb1);
+
     addNumBodies(1);
     //level->generateBody();
 }

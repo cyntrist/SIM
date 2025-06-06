@@ -53,10 +53,20 @@ class DynamicRigidBody : public RigidBody
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
-		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0});
+		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0},
+		PxVec3 vel = { 0, 0, 0 });
 	~DynamicRigidBody() override;
 
 	//setters
+	void setLinearVelocity(PxVec3 vel = { 0, 0, 0 })
+	{
+		RigidBody::setVel(vel);
+		actor->setLinearVelocity(vel);
+	}
+	void setAngularVelocity(PxVec3 vel = { 0, 0, 0 })
+	{
+		actor->setAngularVelocity(vel);
+	}
 	void setPosition(PxVec3 pos = { 0,0,0 }) override
 	{
 		RigidBody::setPosition(pos);

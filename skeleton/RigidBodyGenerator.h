@@ -15,7 +15,7 @@ class RigidBodyGenerator
 	std::default_random_engine generator;
 
 	Vector3 origen = {0, 0, 0};
-	Vector3 velocity = Vector3(0, 10, 0);
+	Vector3 velocity = Vector3(-12, 12, 0);
 	Vector4 color = Vector4(1, 1, 1, 1);
 	int maxGameObjects = 100;
 	int nGameObjects = 0;
@@ -24,7 +24,7 @@ class RigidBodyGenerator
 	float mass = 1, size = 5;
 	double dampener = 0.98;
 
-	double counter = 0, timer = 10;
+	double counter = 0, timer = 100;
 
 public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, RigidBodySystem* partsys, Level* scn,

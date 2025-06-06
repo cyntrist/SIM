@@ -22,13 +22,13 @@ StaticRigidBody::~StaticRigidBody()
 }
 
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
-                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos)
+                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel)
 	: RigidBody(scn)
 {
 	density = 1.f;
 	pose = new PxTransform(pos);
 	actor = gPhysics->createRigidDynamic(*pose);
-	actor->setLinearVelocity({0, 0, 0});
+	actor->setLinearVelocity(vel);
 	actor->setAngularVelocity({0, 0, 0});
 	actor->setMassSpaceInertiaTensor(vol);
 	setKinematic(kin);

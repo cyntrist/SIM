@@ -1,13 +1,15 @@
 ﻿#pragma once
 
 #include "Scene.h"
+class ForceSystem;
 class RigidBodySystem;
 class StaticRigidBody;
 class DynamicRigidBody;
 
 class Level : public Scene
 {
-	RigidBodySystem* system = nullptr;
+	RigidBodySystem* rbSys = nullptr;
+	ForceSystem* fSys = nullptr;
 	std::vector<DynamicRigidBody*> drbs; // vector of dynamic rigid bodies
 	int cDrb = 0; // current dynamic rigid body
 	double stepAngle = 0.05;
