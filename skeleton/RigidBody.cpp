@@ -1,9 +1,6 @@
 ﻿#include "RigidBody.h"
 #include "RigidBodyGenerator.h"
 
-#define GROUP_NON_COLLIDING_DYNAMIC  (1 << 0)
-#define GROUP_ALL                    0xFFFF
-
 StaticRigidBody::StaticRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene)
 	: RigidBody(scn)
 {
@@ -26,9 +23,11 @@ StaticRigidBody::~StaticRigidBody()
 }
 
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
-	bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel, 
-	double life, double maxLife, PxMaterial* mat)
-	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), gMaterial(mat)
+                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
+                                   double life, double maxLife, RigidBodyGenerator* rbg, PxU32 group,
+	PxMaterial* mat)
+	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), generator(rbg),
+	  gMaterial(mat)
 {
 	switch (sh)
 	{
@@ -45,6 +44,7 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 
 	density = 1.f;
 	pose = new PxTransform(pos);
+	setGroup(group);
 	actor = gPhysics->createRigidDynamic(*pose);
 	actor->setLinearVelocity(vel);
 	actor->setAngularVelocity({0, 0, 0});
@@ -90,13 +90,15 @@ bool DynamicRigidBody::update(double t)
 void DynamicRigidBody::addForce(float x, float y, float z)
 {
 	RigidBody::addForce(x, y, z);
-	actor->addForce({ x,y,z }); 
+	actor->addForce({x, y, z});
 }
 
-void DynamicRigidBody::setGroup()
+void DynamicRigidBody::setGroup(PxU32 group)
 {
+	gScene->lockWrite();
 	PxFilterData filterData;
-	filterData.word0 = GROUP_NON_COLLIDING_DYNAMIC;  // grupo al que pertenece
-	filterData.word1 = ~GROUP_NON_COLLIDING_DYNAMIC; // colisiona con todo menos su grupo
+	filterData.word0 = group;
+	filterData.word1 = ~group;
 	shape->setSimulationFilterData(filterData);
+	gScene->unlockWrite();
 }

@@ -23,19 +23,17 @@ void RigidBodyGenerator::generateBody(double t)
         scene, gphys, gscn,
         false, SPHERE, volumen, 
         origen, velocity,
-        0, 30
+        0, 30,
+        this, eDROPS
     );
     
     drb1->setColor(color);
     drb1->setDensity(density);
     drb1->setMass(10);
     drb1->setVisible(true);
-    drb1->setGroup();
     
     scene->addGameObject(drb1);
-
     addNumBodies(1);
-    //level->generateBody();
 }
 
 bool RigidBodyGenerator::mayGenerate()

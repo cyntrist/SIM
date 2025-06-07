@@ -16,6 +16,7 @@ class RigidBodyGenerator
 
 	Vector3 origen = {0, 0, 0};
 	Vector3 velocity = Vector3(-12, 12, 0);
+	//Vector3 velocity = Vector3(0, 6, 0);
 	Vector4 color = Vector4(1, 1, 1, 1);
 	int maxGameObjects = 100;
 	int nGameObjects = 0;

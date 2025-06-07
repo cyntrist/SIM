@@ -7,6 +7,13 @@ class RigidBodyGenerator;
 
 enum Shape { BOX, SPHERE, CAPSULE };
 
+enum Group
+{
+	eDROPS = (1 << 0),
+	eGRIDDLES = (1 << 1),
+	eALL = (1 << 2)
+};
+
 class RigidBody : public GameObject
 {
 public:
@@ -62,9 +69,9 @@ class DynamicRigidBody : public RigidBody
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
-		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0},
+		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1 }, PxVec3 pos = { 0, 0, 0 },
 		PxVec3 vel = { 0, 0, 0 }, double lifetime = -1, double maxLifetime = -1,
-		PxMaterial* mat = nullptr);
+		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, PxMaterial* mat = nullptr);
 	~DynamicRigidBody() override;
 
 	//setters
@@ -116,7 +123,7 @@ public:
 	{
 		actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, k);
 	}
-	void setGroup();
+	void setGroup(PxU32 group);
 
 	// getters
 	PxRigidActor* getActor() override { return actor; }
