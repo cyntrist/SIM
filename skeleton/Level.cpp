@@ -1,7 +1,7 @@
 ﻿#include "Level.h"
 #include "RigidBody.h"
 #include "RigidBodyGenerator.h"
-#include  "RigidBodySystem.h"
+#include "RigidBodySystem.h"
 
 Level::~Level()
 {
@@ -14,7 +14,6 @@ void Level::onEnable()
 	Scene::onEnable();
 	setGriddles();
 	setSystems();
-	//generateBody();
 }
 
 void Level::onDisable()
@@ -91,16 +90,15 @@ void Level::setGriddles()
 	auto drb1 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {-x, y, z}
 	);
-	griddles.push_back(drb1);
-
 	auto drb2 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {0, y, z}
 	);
-	griddles.push_back(drb2);
-
 	auto drb3 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {x, y, z}
 	);
+
+	griddles.push_back(drb1);
+	griddles.push_back(drb2);
 	griddles.push_back(drb3);
 
 	addGameObject(drb1);
