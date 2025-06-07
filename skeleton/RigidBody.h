@@ -51,17 +51,20 @@ class DynamicRigidBody : public RigidBody
 {
 	PxRigidDynamic* actor = nullptr;
 	PxScene* gScene = nullptr;
+	PxMaterial* gMaterial = nullptr;
 	float density = 1;
 	double angle = 0;
 	double lifetime = -1;
 	double maxLifetime = -1;
 	RigidBodyGenerator* generator = nullptr;
 	vector<Vector3> forces;
+	Shape sh;
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
 		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1}, PxVec3 pos = { 0, 0, 0},
-		PxVec3 vel = { 0, 0, 0 }, double lifetime = -1, double maxLifetime = -1);
+		PxVec3 vel = { 0, 0, 0 }, double lifetime = -1, double maxLifetime = -1,
+		PxMaterial* mat = nullptr);
 	~DynamicRigidBody() override;
 
 	//setters
@@ -113,6 +116,7 @@ public:
 	{
 		actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, k);
 	}
+	void setGroup();
 
 	// getters
 	PxRigidActor* getActor() override { return actor; }

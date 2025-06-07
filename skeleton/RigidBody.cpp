@@ -26,10 +26,23 @@ StaticRigidBody::~StaticRigidBody()
 }
 
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
-	bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
-	double life, double maxLife)
-	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife)
+	bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel, 
+	double life, double maxLife, PxMaterial* mat)
+	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), gMaterial(mat)
 {
+	switch (sh)
+	{
+	case BOX:
+		shape = CreateShape(PxBoxGeometry(vol), mat);
+		break;
+	case SPHERE:
+		shape = CreateShape(PxSphereGeometry(vol.x), mat);
+		break;
+	case CAPSULE:
+		shape = CreateShape(PxCapsuleGeometry(vol.x, vol.y), mat);
+		break;
+	}
+
 	density = 1.f;
 	pose = new PxTransform(pos);
 	actor = gPhysics->createRigidDynamic(*pose);
@@ -39,19 +52,6 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	setKinematic(kin);
 	PxRigidBodyExt::updateMassAndInertia(*actor, density);
 	size = 1;
-
-	switch (sh)
-	{
-	case BOX:
-		shape = CreateShape(PxBoxGeometry(vol));
-		break;
-	case SPHERE:
-		shape = CreateShape(PxSphereGeometry(vol.x));
-		break;
-	case CAPSULE:
-		shape = CreateShape(PxCapsuleGeometry(vol.x, vol.y));
-		break;
-	}
 
 	actor->attachShape(*shape);
 	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
@@ -91,4 +91,12 @@ void DynamicRigidBody::addForce(float x, float y, float z)
 {
 	RigidBody::addForce(x, y, z);
 	actor->addForce({ x,y,z }); 
+}
+
+void DynamicRigidBody::setGroup()
+{
+	PxFilterData filterData;
+	filterData.word0 = GROUP_NON_COLLIDING_DYNAMIC;  // grupo al que pertenece
+	filterData.word1 = ~GROUP_NON_COLLIDING_DYNAMIC; // colisiona con todo menos su grupo
+	shape->setSimulationFilterData(filterData);
 }

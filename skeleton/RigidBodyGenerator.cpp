@@ -30,6 +30,8 @@ void RigidBodyGenerator::generateBody(double t)
     drb1->setDensity(density);
     drb1->setMass(10);
     drb1->setVisible(true);
+    drb1->setGroup();
+    
     scene->addGameObject(drb1);
 
     addNumBodies(1);

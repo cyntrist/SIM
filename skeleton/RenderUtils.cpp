@@ -195,6 +195,6 @@ PxShape* CreateShape(const PxGeometry& geo, const PxMaterial* mat)
 	if (mat == nullptr)
 		mat = gMaterial; // Default material
 
-	PxShape* shape = gPhysics->createShape(geo, *mat);
+	PxShape* shape = gPhysics->createShape(geo, *mat, true);
 	return shape;
 }
