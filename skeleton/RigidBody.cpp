@@ -82,7 +82,6 @@ bool DynamicRigidBody::update(double t)
 	}
 
 	//applyForce();
-	//integrate(t);
 	lifetime += t;
 	return true;
 }
