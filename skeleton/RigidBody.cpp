@@ -75,11 +75,7 @@ bool DynamicRigidBody::update(double t)
 	{
 		kill();
 		if (generator != nullptr)
-		{
-			//if (color == Vector4(0,1,0,1))
-				//Log(to_string(generator->getNumParticles()));
-			generator->addNumParticles(-1);
-		}
+			generator->addNumBodies(-1);
 		return false;
 	}
 
@@ -87,4 +83,10 @@ bool DynamicRigidBody::update(double t)
 	//integrate(t);
 	lifetime += t;
 	return true;
+}
+
+void DynamicRigidBody::addForce(float x, float y, float z)
+{
+	RigidBody::addForce(x, y, z);
+	actor->addForce({ x,y,z }); 
 }

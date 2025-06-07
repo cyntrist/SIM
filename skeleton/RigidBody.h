@@ -56,6 +56,7 @@ class DynamicRigidBody : public RigidBody
 	double lifetime = -1;
 	double maxLifetime = -1;
 	RigidBodyGenerator* generator = nullptr;
+	vector<Vector3> forces;
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
@@ -120,5 +121,5 @@ public:
 	Vector3 getVel() override { return actor->getLinearVelocity(); }
 	float getMass() const override { return actor->getMass(); }
 	bool update(double t) override;
-	void addForce(float x, float y, float z) override { actor->addForce({ x,y,z }); }
+	void addForce(float x, float y, float z) override;
 };

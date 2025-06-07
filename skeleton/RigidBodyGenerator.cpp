@@ -21,8 +21,12 @@ void RigidBodyGenerator::generateBody(double t)
     PxVec3 volumen = { 1, 1, 1 };
 
     auto drb1 = new DynamicRigidBody(
-        scene, gphys, gscn, false, SPHERE, volumen, origen, velocity
+        scene, gphys, gscn,
+        false, SPHERE, volumen, 
+        origen, velocity,
+        0, 30
     );
+    
     drb1->setColor(color);
     drb1->setDensity(density);
     drb1->setMass(10);
