@@ -5,7 +5,7 @@
 
 Level::~Level()
 {
-	for (const auto& b : drbs)
+	for (const auto& b : griddles)
 		delete b;
 }
 
@@ -19,7 +19,25 @@ void Level::onEnable()
 
 void Level::onDisable()
 {
-	Scene::onDisable();
+	active = false;
+	for (auto syst : systems)
+	{
+		delete syst;
+		syst = nullptr;
+	}
+	for (auto obj : gameObjects)
+	{
+		delete obj;
+		obj = nullptr;
+	}
+	//for (auto griddle : griddles)
+	//{
+	//	delete griddle;
+	//	griddle = nullptr;
+	//}
+	systems.clear();
+	gameObjects.clear();
+	griddles.clear();
 }
 
 void Level::keyPressed(unsigned char key, const PxTransform& camera)
@@ -50,19 +68,19 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 		cDrb--;
 		break;
 	case GLUT_KEY_LEFT:
-		if (drbs[cDrb] != nullptr) drbs[cDrb]->setRotation(-angle);
+		if (griddles[cDrb] != nullptr) griddles[cDrb]->setRotation(-angle);
 		break;
 	case GLUT_KEY_RIGHT:
-		if (drbs[cDrb] != nullptr) drbs[cDrb]->setRotation(angle);
+		if (griddles[cDrb] != nullptr) griddles[cDrb]->setRotation(angle);
 		break;
 	}
 
-	int max = drbs.size() - 1ull;
+	int max = griddles.size() - 1ull;
 	cDrb = PxClamp(cDrb, 0, max);
-	for (auto& b : drbs)
+	for (auto& b : griddles)
 		b->setColor(nColor);
 
-	drbs[cDrb]->setColor(sColor);
+	griddles[cDrb]->setColor(sColor);
 }
 
 void Level::setGriddles()
@@ -73,21 +91,23 @@ void Level::setGriddles()
 	auto drb1 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {-x, y, z}
 	);
-	drbs.push_back(drb1);
-	addGameObject(drb1);
+	griddles.push_back(drb1);
 
 	auto drb2 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {0, y, z}
 	);
-	drbs.push_back(drb2);
-	addGameObject(drb2);
-	drb2->setVisible(false);
+	griddles.push_back(drb2);
+
 	auto drb3 = new DynamicRigidBody(
 		this, gPhysics, gScene, true, BOX, volumen, {x, y, z}
 	);
-	drbs.push_back(drb3);
+	griddles.push_back(drb3);
+
+	addGameObject(drb1);
+	addGameObject(drb2);
 	addGameObject(drb3);
-	drbs[cDrb]->setColor(sColor);
+
+	griddles[cDrb]->setColor(sColor);
 }
 
 void Level::setSystems()
@@ -118,4 +138,9 @@ void Level::generateBody()
 	drb1->setVisible(true);
 	drb1->setMass(10);
 	addGameObject(drb1);
+}
+
+void Level::update(double t)
+{
+	Scene::update(t);
 }

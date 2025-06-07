@@ -10,7 +10,7 @@ class Level : public Scene
 {
 	RigidBodySystem* rbSys = nullptr;
 	ForceSystem* fSys = nullptr;
-	std::vector<DynamicRigidBody*> drbs; // vector of dynamic rigid bodies
+	std::vector<DynamicRigidBody*> griddles; // vector of dynamic rigid bodies
 	int cDrb = 0; // current dynamic rigid body
 	double stepAngle = 0.05;
 	PxVec4 sColor = { 1, 0.8f, 0.1f, 1 },
@@ -32,4 +32,5 @@ public:
 	virtual void setGriddles();
 	virtual void setSystems();
 	virtual void generateBody();
+	void update(double t) override;
 };

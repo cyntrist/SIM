@@ -17,7 +17,6 @@ void RigidBodyGenerator::update(double t)
 
 void RigidBodyGenerator::generateBody(double t)
 {
-    //Log("Estoy generando");
     PxVec3 volumen = { 1, 1, 1 };
 
     auto drb1 = new DynamicRigidBody(

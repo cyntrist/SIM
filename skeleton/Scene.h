@@ -58,8 +58,8 @@ public:
 	virtual void onDisable();
 
 	virtual void update(double t);
-	void addGameObject(GameObject* obj);
-	void deleteDeadObjects();
+	virtual void addGameObject(GameObject* obj);
+	virtual void deleteDeadObjects();
 
 	virtual void keyPressed(unsigned char key, const PxTransform& camera) { }
 	virtual void specialKeyPressed(int key, const PxTransform& camera) { }

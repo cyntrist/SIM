@@ -26,9 +26,9 @@ StaticRigidBody::~StaticRigidBody()
 }
 
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
-                                   bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
-									double life, double maxLife)
-	: RigidBody(scn), lifetime(life), maxLifetime(maxLife)
+	bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
+	double life, double maxLife)
+	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife)
 {
 	density = 1.f;
 	pose = new PxTransform(pos);
@@ -60,6 +60,8 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 DynamicRigidBody::~DynamicRigidBody()
 {
 	DeregisterRenderItem(renderItem);
+	gScene->removeActor(*actor);
+	actor->release();
 	delete pose;
 	delete renderItem;
 }
