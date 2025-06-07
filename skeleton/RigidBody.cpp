@@ -70,8 +70,8 @@ bool DynamicRigidBody::update(double t)
 		return false;
 
 	if ((maxLifetime != -1 && lifetime > maxLifetime)
-		|| pose->p.y <= -scene->getLowerThreshold()
-		|| pose->p.y >= scene->getUpperThreshold())
+		|| actor->getGlobalPose().p.y <= -scene->getLowerThreshold()
+		|| actor->getGlobalPose().p.y >= scene->getUpperThreshold())
 	{
 		kill();
 		if (generator != nullptr)
