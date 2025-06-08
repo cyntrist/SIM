@@ -142,3 +142,85 @@ void Level::update(double t)
 {
 	Scene::update(t);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Level2::~Level2()
+{
+}
+
+void Level2::onEnable()
+{
+	Level::onEnable();
+}
+
+void Level2::onDisable()
+{
+	Level::onDisable();
+}
+
+void Level2::setGriddles()
+{
+	PxVec3 volumen = { 15, 2, 10 };
+	float x = 40, y = 30, z = 50;
+
+	auto drb1 = new DynamicRigidBody(
+		this, gPhysics, gScene, true, BOX, volumen, { -x, y, z }
+	);
+	//auto drb2 = new DynamicRigidBody(
+	//	this, gPhysics, gScene, true, BOX, volumen, { 0, y, z }
+	//);
+	auto drb3 = new DynamicRigidBody(
+		this, gPhysics, gScene, true, BOX, volumen, { x, y, z }
+	);
+
+	griddles.push_back(drb1);
+	//griddles.push_back(drb2);
+	griddles.push_back(drb3);
+
+	addGameObject(drb1);
+	//addGameObject(drb2);
+	addGameObject(drb3);
+
+	griddles[cDrb]->setColor(sColor);
+}
+
+void Level2::setSystems()
+{
+	rbSys = new RigidBodySystem(this, gPhysics, gScene, this);
+	addSystem(rbSys);
+
+	auto rbg = new RigidBodyGenerator(
+		{ 40, 45, 50 },
+		50,
+		gPhysics,
+		gScene,
+		rbSys,
+		this
+	);
+
+	rbSys->addRBGenerator(rbg);
+}
+
+void Level2::update(double t)
+{
+	Level::update(t);
+}
+
+void Level2::specialKeyPressed(int key, const PxTransform& camera)
+{
+	Level::specialKeyPressed(key, camera);
+}

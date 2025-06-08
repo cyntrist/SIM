@@ -8,6 +8,7 @@ class DynamicRigidBody;
 
 class Level : public Scene
 {
+protected:
 	RigidBodySystem* rbSys = nullptr;
 	ForceSystem* fSys = nullptr;
 	std::vector<DynamicRigidBody*> griddles; // vector of dynamic rigid bodies
@@ -33,4 +34,20 @@ public:
 	virtual void setSystems();
 	virtual void generateBody();
 	void update(double t) override;
+};
+
+class Level2 : public Level
+{
+public:
+	Level2(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Level(gphys, gscn, cam)
+	{
+		
+	}
+	~Level2()override;
+	void onEnable() override;
+	void onDisable() override;
+	void setGriddles() override;
+	void setSystems() override;
+	void update(double t) override;
+	void specialKeyPressed(int key, const PxTransform& camera) override;
 };
