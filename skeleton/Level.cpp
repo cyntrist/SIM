@@ -131,7 +131,7 @@ void Level::setSystems()
 
 	fSys = new ForceSystem(this);
 	addSystem(fSys);
-	auto windGen = new WindGenerator({ 10,25,50 }, this, { 50,0,0 });
+	auto windGen = new WindGenerator({ 10,25,50 }, this, { -50,20,0 });
 	fSys->addForceGenerator(windGen);
 	windGen->setRadius(15);
 }
