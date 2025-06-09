@@ -48,6 +48,7 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	pose = new PxTransform(pos);
 	actor = gPhysics->createRigidDynamic(*pose);
 	actor->attachShape(*shape);
+	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 	setGroup(group);
 
 	mass = m;
@@ -65,7 +66,6 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 
 
 	setKinematic(kin);
-	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 }
 
 DynamicRigidBody::~DynamicRigidBody()

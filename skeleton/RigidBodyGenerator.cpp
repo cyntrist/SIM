@@ -20,16 +20,16 @@ void RigidBodyGenerator::generateBody(double t)
     PxVec3 volumen = { 1, 1, 1 };
 
     PxMaterial* mat = nullptr;
-    auto mass = 10;
-    auto density = 10;
+    double mass = 10;
+    double density = 10;
     auto c = color;
     if (sw) 
     {
         density = 99999999999999999;
-        mass = 999999999999999;
+        mass = 1;
         c = Vector4(1, 0, 0, 1);
     }
-    sw = true;
+    sw = !sw;
     auto drb1 = new DynamicRigidBody(
         scene, gphys, gscn, mat,
         false, SPHERE, volumen, 
