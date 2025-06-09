@@ -42,6 +42,8 @@ void Level::onDisable()
 void Level::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	Scene::keyPressed(key, camera);
+	if (key == ' ')
+		rbSys->setActive(!rbSys->getActive());
 }
 
 void Level::specialKeyPressed(int key, const PxTransform& camera)
@@ -142,12 +144,6 @@ void Level::update(double t)
 {
 	Scene::update(t);
 }
-
-
-
-
-
-
 
 
 

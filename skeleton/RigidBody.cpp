@@ -29,27 +29,33 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), generator(rbg),
 	  gMaterial(mat)
 {
+	auto volumen = 1;
 	switch (sh)
 	{
 	case BOX:
 		shape = CreateShape(PxBoxGeometry(vol), mat);
+		volumen = vol.x * vol.y * vol.z;
 		break;
 	case SPHERE:
 		shape = CreateShape(PxSphereGeometry(vol.x), mat);
+		volumen = vol.x * vol.x * vol.x * 4 / 3 * PxPi;
 		break;
 	case CAPSULE:
 		shape = CreateShape(PxCapsuleGeometry(vol.x, vol.y), mat);
+		volumen = vol.x * vol.y * vol.z;
 		break;
 	}
 
 	mass = m;
 	size = s;
-	density = d;
+	//density = d;
+	density = m/volumen;
 
 	pose = new PxTransform(pos);
 	setGroup(group);
 
 	actor = gPhysics->createRigidDynamic(*pose);
+	actor->setMass(mass);
 	actor->setLinearVelocity(vel);
 	actor->setAngularVelocity({0, 0, 0});
 	actor->setMassSpaceInertiaTensor(vol);

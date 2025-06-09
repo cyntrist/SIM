@@ -5,6 +5,7 @@
 class RigidBodySystem : public System
 {
 protected:
+	bool active = true;
 	std::vector<RigidBodyGenerator*> rigidGenerators;
 	PxPhysics* gphys;
 	PxScene* gscn;
@@ -23,6 +24,7 @@ public:
 
 	bool update(double t) override
 	{
+		if (!active) return false;
 		for (auto gen : rigidGenerators)
 			gen->update(t);
 		return true;
@@ -39,4 +41,7 @@ public:
 		rigidGenerators.erase(std::find(rigidGenerators.begin(), rigidGenerators.end(),
 			rigidGenerators[i]));
 	}
+
+	void setActive(bool a = true) { active = a; }
+	bool getActive() const { return active;  }
 };
