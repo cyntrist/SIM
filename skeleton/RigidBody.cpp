@@ -85,7 +85,7 @@ void DynamicRigidBody::applyForce()
 	// F=m*a
 	auto acc = totalForc / actor->getMass();
 
-	addForce(acc);
+	addForce(acc.x, acc.y, acc.z);
 }
 
 void DynamicRigidBody::addForce(float x, float y, float z)
@@ -114,7 +114,8 @@ bool DynamicRigidBody::update(double t)
 		return false;
 	}
 
-	applyForce();
+	if (!forces.empty())
+		applyForce();
 	lifetime += t;
 	return true;
 }

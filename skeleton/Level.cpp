@@ -1,4 +1,7 @@
 ﻿#include "Level.h"
+
+#include "ForceSystem.h"
+#include "ForceGenerator.h"
 #include "RigidBody.h"
 #include "RigidBodyGenerator.h"
 #include "RigidBodySystem.h"
@@ -125,6 +128,12 @@ void Level::setSystems()
 	);
 
 	rbSys->addRBGenerator(rbg);
+
+	fSys = new ForceSystem(this);
+	addSystem(fSys);
+	auto windGen = new WindGenerator({ 10,25,50 }, this, { 50,0,0 });
+	fSys->addForceGenerator(windGen);
+	windGen->setRadius(15);
 }
 
 void Level::generateBody()
