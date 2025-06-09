@@ -28,9 +28,10 @@ class RigidBodyGenerator
 	double counter = 0, timer = 100;
 
 public:
-	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, RigidBodySystem* partsys, Level* scn,
-	                   double min = 20,
-	                   double max = 30);
+	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
+	                   RigidBodySystem* partsys, Level* scn, 
+	                   double min = 20, double max = 30,
+	                   double freq = 100);
 	virtual ~RigidBodyGenerator() = default;
 
 	virtual void update(double t);

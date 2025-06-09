@@ -25,7 +25,7 @@ StaticRigidBody::~StaticRigidBody()
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
                                    bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
                                    double life, double maxLife, RigidBodyGenerator* rbg, PxU32 group,
-	PxMaterial* mat)
+                                   PxMaterial* mat, float m, float s, float d)
 	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), generator(rbg),
 	  gMaterial(mat)
 {
@@ -42,16 +42,19 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 		break;
 	}
 
-	density = 1.f;
+	mass = m;
+	size = s;
+	density = d;
+
 	pose = new PxTransform(pos);
 	setGroup(group);
+
 	actor = gPhysics->createRigidDynamic(*pose);
 	actor->setLinearVelocity(vel);
 	actor->setAngularVelocity({0, 0, 0});
 	actor->setMassSpaceInertiaTensor(vol);
 	setKinematic(kin);
 	PxRigidBodyExt::updateMassAndInertia(*actor, density);
-	size = 1;
 
 	actor->attachShape(*shape);
 	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
@@ -64,6 +67,30 @@ DynamicRigidBody::~DynamicRigidBody()
 	actor->release();
 	delete pose;
 	delete renderItem;
+}
+
+void DynamicRigidBody::applyForce()
+{
+	Vector3 totalForc = {0, 0, 0};
+	for (auto f : forces)
+		totalForc += f;
+	forces.clear();
+
+	// F=m*a
+	auto acc = totalForc / actor->getMass();
+
+	addForce(acc);
+}
+
+void DynamicRigidBody::addForce(float x, float y, float z)
+{
+	RigidBody::addForce(x, y, z);
+	actor->addForce({x, y, z});
+}
+
+void DynamicRigidBody::addForce(const Vector3& fc)
+{
+	forces.push_back(fc);
 }
 
 bool DynamicRigidBody::update(double t)
@@ -81,20 +108,9 @@ bool DynamicRigidBody::update(double t)
 		return false;
 	}
 
-	//applyForce();
+	applyForce();
 	lifetime += t;
 	return true;
-}
-
-void DynamicRigidBody::addForce(float x, float y, float z)
-{
-	RigidBody::addForce(x, y, z);
-	actor->addForce({x, y, z});
-}
-
-void DynamicRigidBody::addForce(const Vector3& fc)
-{
-	forces.push_back(fc);
 }
 
 void DynamicRigidBody::setGroup(PxU32 group, bool autoexcludig)

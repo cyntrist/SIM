@@ -70,10 +70,18 @@ protected:
 
 public:
 	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
-		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1 }, PxVec3 pos = { 0, 0, 0 },
-		PxVec3 vel = { 0, 0, 0 }, double lifetime = -1, double maxLifetime = -1,
-		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, PxMaterial* mat = nullptr);
+		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1 }, 
+		PxVec3 pos = { 0, 0, 0 }, PxVec3 vel = { 0, 0, 0 }, 
+		double lifetime = -1, double maxLifetime = -1,
+		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, PxMaterial* mat = nullptr, 
+		float mass = 1, float size = 1, float density = 1);
 	~DynamicRigidBody() override;
+
+	bool update(double t) override;
+	void addForce(float x, float y, float z) override;
+	void addForce(const Vector3& fc) override;
+	void applyForce();
+
 
 	//setters
 	void setLinearVelocity(PxVec3 vel = { 0, 0, 0 })
@@ -132,9 +140,6 @@ public:
 	PxQuat getRotation() override { return actor->getGlobalPose().q; }
 	Vector3 getVel() override { return actor->getLinearVelocity(); }
 	float getMass() const override { return actor->getMass(); }
-	bool update(double t) override;
-	void addForce(float x, float y, float z) override;
-	void addForce(const Vector3& fc) override;
 };
 
 class Receiver : public DynamicRigidBody
