@@ -20,13 +20,13 @@ void RigidBodyGenerator::generateBody(double t)
     PxVec3 volumen = { 1, 1, 1 };
 
     PxMaterial* mat = nullptr;
-    double mass = 10;
-    double density = 10;
+    double mass = 1;
+    double density = 1;
     auto c = color;
     if (sw) 
     {
         density = 99999999999999999;
-        mass = 1;
+        mass = 99999999999999999;
         c = Vector4(1, 0, 0, 1);
     }
     sw = !sw;
