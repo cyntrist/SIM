@@ -92,12 +92,19 @@ void DynamicRigidBody::addForce(float x, float y, float z)
 	actor->addForce({x, y, z});
 }
 
-void DynamicRigidBody::setGroup(PxU32 group)
+void DynamicRigidBody::addForce(const Vector3& fc)
+{
+	forces.push_back(fc);
+}
+
+void DynamicRigidBody::setGroup(PxU32 group, bool autoexcludig)
 {
 	gScene->lockWrite();
 	PxFilterData filterData;
 	filterData.word0 = group;
-	filterData.word1 = ~group;
+	filterData.word1 = group;
+	if (autoexcludig)
+		filterData.word1 = ~group;
 	shape->setSimulationFilterData(filterData);
 	gScene->unlockWrite();
 }

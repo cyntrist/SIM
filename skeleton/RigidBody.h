@@ -56,6 +56,7 @@ public:
 
 class DynamicRigidBody : public RigidBody
 {
+protected:
 	PxRigidDynamic* actor = nullptr;
 	PxScene* gScene = nullptr;
 	PxMaterial* gMaterial = nullptr;
@@ -123,7 +124,7 @@ public:
 	{
 		actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, k);
 	}
-	void setGroup(PxU32 group);
+	void setGroup(PxU32 group, bool autoexcluding = true);
 
 	// getters
 	PxRigidActor* getActor() override { return actor; }
@@ -133,4 +134,13 @@ public:
 	float getMass() const override { return actor->getMass(); }
 	bool update(double t) override;
 	void addForce(float x, float y, float z) override;
+	void addForce(const Vector3& fc) override;
+};
+
+class Receiver : public DynamicRigidBody
+{
+
+
+public:
+
 };
