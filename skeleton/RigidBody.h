@@ -142,10 +142,33 @@ public:
 	float getMass() const override { return actor->getMass(); }
 };
 
-class Receiver : public DynamicRigidBody
+class Griddle : public DynamicRigidBody
 {
 
 
 public:
+	Griddle(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, PxMaterial* mat = nullptr,
+		bool kin = false, PxVec3 vol = { 1, 1, 1 },
+		PxVec3 pos = { 0, 0, 0 },
+		RigidBodyGenerator* rbg = nullptr)
+	: DynamicRigidBody(scn, gPhysics, gScene, mat, kin, BOX, vol, pos, {0,0,0},
+		-1, -1, rbg, eGRIDDLES, 1, 1, 1)
+	{
+		
+	}
+};
 
+class Receiver : public DynamicRigidBody
+{
+	PxVec4 offColor = { 0, 0, 0, 0 };
+	PxVec4 onColor = { 1, 1, 1, 1 };
+
+public:
+	Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, 
+		bool kin = false, PxVec3 vol = { 1, 1, 1 },
+		PxVec3 pos = { 0, 0, 0 }, float mass = 1, float size = 1, float density = 1)
+	: DynamicRigidBody(scn, gPhysics, gScene, nullptr, kin, CAPSULE,
+		vol, pos, {0,0,0}, -1, -1, nullptr, eGRIDDLES,
+		mass, size, density)
+	{}
 };

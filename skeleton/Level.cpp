@@ -98,14 +98,15 @@ void Level::setGriddles()
 		0.1f,     // friccion dinamica
 		1.0f      // restitucion
 	);
-	auto drb1 = new DynamicRigidBody(
-		this, gPhysics, gScene, material, true, BOX, volumen, {-x, y, z}
+
+	auto drb1 = new Griddle(
+		this, gPhysics, gScene, material, true, volumen, {-x, y, z}
 	);
-	auto drb2 = new DynamicRigidBody(
-		this, gPhysics, gScene, material, true, BOX, volumen, {0, y, z}
+	auto drb2 = new Griddle(
+		this, gPhysics, gScene, material, true, volumen, {0, y, z}
 	);
-	auto drb3 = new DynamicRigidBody(
-		this, gPhysics, gScene, material, true, BOX, volumen, {x, y, z}
+	auto drb3 = new Griddle(
+		this, gPhysics, gScene, material, true, volumen, {x, y, z}
 	);
 
 	griddles.push_back(drb1);
@@ -135,11 +136,11 @@ void Level::setSystems()
 
 	rbSys->addRBGenerator(rbg);
 
-	//fSys = new ForceSystem(this);
-	//addSystem(fSys);
-	//auto windGen = new WindGenerator({ -10,25,50 }, this, { -50,20,0 });
-	//fSys->addForceGenerator(windGen);
-	//windGen->setRadius(15);
+	fSys = new ForceSystem(this);
+	addSystem(fSys);
+	auto windGen = new WindGenerator({ -10,25,50 }, this, { -20,0,0 });
+	fSys->addForceGenerator(windGen);
+	windGen->setRadius(15);
 }
 
 void Level::generateBody()

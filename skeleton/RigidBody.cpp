@@ -45,24 +45,26 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 		volumen = vol.x * vol.y * vol.z;
 		break;
 	}
+	pose = new PxTransform(pos);
+	actor = gPhysics->createRigidDynamic(*pose);
+	actor->attachShape(*shape);
+	setGroup(group);
 
 	mass = m;
 	size = s;
-	//density = d;
-	density = m/volumen;
-
-	pose = new PxTransform(pos);
-	setGroup(group);
+	density = d;
+	//density = m/volumen;
 	
-	actor = gPhysics->createRigidDynamic(*pose);
-	actor->setMass(mass);
+	//actor->setMass(mass);
 	actor->setLinearVelocity(vel);
-	actor->setAngularVelocity({0, 0, 0});
-	actor->setMassSpaceInertiaTensor(vol);
-	setKinematic(kin);
+	//actor->setMassSpaceInertiaTensor(vol);
+	//actor->setMassSpaceInertiaTensor(vol);
+	//actor->setAngularVelocity({0, 0, 0});
+	//PxRigidBodyExt::updateMassAndInertia(*actor, density);
 	PxRigidBodyExt::updateMassAndInertia(*actor, density);
 
-	actor->attachShape(*shape);
+
+	setKinematic(kin);
 	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 }
 
@@ -77,20 +79,13 @@ DynamicRigidBody::~DynamicRigidBody()
 
 void DynamicRigidBody::applyForce()
 {
-	Vector3 totalForc = {0, 0, 0};
 	for (auto f : forces)
-		totalForc += f;
+		addForce(f.x, f.y, f.z); // physx ya calcula f=m/a por si solo
 	forces.clear();
-
-	// F=m*a
-	auto acc = totalForc / actor->getMass();
-
-	addForce(acc.x, acc.y, acc.z);
 }
 
 void DynamicRigidBody::addForce(float x, float y, float z)
 {
-	RigidBody::addForce(x, y, z);
 	actor->addForce({x, y, z});
 }
 

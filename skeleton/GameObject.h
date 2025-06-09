@@ -15,7 +15,7 @@ protected:
 	Scene* scene = nullptr;
 	bool alive = true;
 	bool visible = true;
-
+	int responsive = -1; // si va a tener callback en colision
 	RenderItem* renderItem = nullptr;
 	PxShape* shape = nullptr;
 	PxTransform* pose = nullptr;

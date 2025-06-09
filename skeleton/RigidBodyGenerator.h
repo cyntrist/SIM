@@ -24,9 +24,9 @@ class RigidBodyGenerator
 	double minLife, maxLife;
 	float mass = 1, size = 5;
 	double dampener = 0.98;
-
 	double counter = 0, timer = 100;
 
+	bool sw = false;
 public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
 	                   RigidBodySystem* partsys, Level* scn, 
