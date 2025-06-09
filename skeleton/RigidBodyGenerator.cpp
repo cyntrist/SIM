@@ -19,12 +19,14 @@ void RigidBodyGenerator::generateBody(double t)
 {
     PxVec3 volumen = { 1, 1, 1 };
 
+    PxMaterial* mat = nullptr;
     auto drb1 = new DynamicRigidBody(
-        scene, gphys, gscn,
+        scene, gphys, gscn, mat,
         false, SPHERE, volumen, 
         origen, velocity,
         0, 30,
-        this, eDROPS
+        this, eDROPS,
+        1, 1
     );
     
     drb1->setColor(color);

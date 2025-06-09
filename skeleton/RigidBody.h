@@ -69,11 +69,11 @@ protected:
 	Shape sh;
 
 public:
-	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin = false,
-		Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1 }, 
+	DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, PxMaterial* mat = nullptr, 
+		bool kin = false, Shape sh = SPHERE, PxVec3 vol = { 1, 1, 1 }, 
 		PxVec3 pos = { 0, 0, 0 }, PxVec3 vel = { 0, 0, 0 }, 
 		double lifetime = -1, double maxLifetime = -1,
-		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, PxMaterial* mat = nullptr, 
+		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, 
 		float mass = 1, float size = 1, float density = 1);
 	~DynamicRigidBody() override;
 

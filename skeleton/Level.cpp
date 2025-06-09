@@ -92,14 +92,20 @@ void Level::setGriddles()
 	PxVec3 volumen = {15, 2, 10};
 	float x = 40, y = 10, z = 50;
 
+
+	PxMaterial* material = gPhysics->createMaterial(
+		0.1f,     // friccion estatica
+		0.1f,     // friccion dinamica
+		1.0f      // restitucion
+	);
 	auto drb1 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, BOX, volumen, {-x, y, z}
+		this, gPhysics, gScene, material, true, BOX, volumen, {-x, y, z}
 	);
 	auto drb2 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, BOX, volumen, {0, y, z}
+		this, gPhysics, gScene, material, true, BOX, volumen, {0, y, z}
 	);
 	auto drb3 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, BOX, volumen, {x, y, z}
+		this, gPhysics, gScene, material, true, BOX, volumen, {x, y, z}
 	);
 
 	griddles.push_back(drb1);
@@ -129,11 +135,11 @@ void Level::setSystems()
 
 	rbSys->addRBGenerator(rbg);
 
-	fSys = new ForceSystem(this);
-	addSystem(fSys);
-	auto windGen = new WindGenerator({ 10,25,50 }, this, { -50,20,0 });
-	fSys->addForceGenerator(windGen);
-	windGen->setRadius(15);
+	//fSys = new ForceSystem(this);
+	//addSystem(fSys);
+	//auto windGen = new WindGenerator({ -10,25,50 }, this, { -50,20,0 });
+	//fSys->addForceGenerator(windGen);
+	//windGen->setRadius(15);
 }
 
 void Level::generateBody()
@@ -141,7 +147,7 @@ void Level::generateBody()
 	PxVec3 volumen = { 1, 1, 1 };
 	float x = 0, y = 0, z = 0;
 	auto drb1 = new DynamicRigidBody(
-		this, gPhysics, gScene, false, SPHERE, volumen, { -x,y,z }
+		this, gPhysics, gScene, nullptr, false, SPHERE, volumen, { -x,y,z }
 	);
 	drb1->setDensity(0.5f);
 	drb1->setVisible(true);
@@ -183,13 +189,13 @@ void Level2::setGriddles()
 	float x = 40, y = 30, z = 50;
 
 	auto drb1 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, BOX, volumen, { -x, y, z }
+		this, gPhysics, gScene, nullptr, true, BOX, volumen, { -x, y, z }
 	);
 	//auto drb2 = new DynamicRigidBody(
 	//	this, gPhysics, gScene, true, BOX, volumen, { 0, y, z }
 	//);
 	auto drb3 = new DynamicRigidBody(
-		this, gPhysics, gScene, true, BOX, volumen, { x, y, z }
+		this, gPhysics, gScene, nullptr, true, BOX, volumen, { x, y, z }
 	);
 
 	griddles.push_back(drb1);

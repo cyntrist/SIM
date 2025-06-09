@@ -22,10 +22,10 @@ StaticRigidBody::~StaticRigidBody()
 	delete renderItem;
 }
 
-DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
+DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, PxMaterial* mat,
                                    bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
                                    double life, double maxLife, RigidBodyGenerator* rbg, PxU32 group,
-                                   PxMaterial* mat, float m, float s, float d)
+                                   float m, float s, float d)
 	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), generator(rbg),
 	  gMaterial(mat)
 {
@@ -53,7 +53,7 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 
 	pose = new PxTransform(pos);
 	setGroup(group);
-
+	
 	actor = gPhysics->createRigidDynamic(*pose);
 	actor->setMass(mass);
 	actor->setLinearVelocity(vel);
