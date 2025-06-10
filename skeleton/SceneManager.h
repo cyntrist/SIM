@@ -14,6 +14,7 @@ class SceneManager
 	PxPhysics* gPhysics = nullptr;
 	PxScene* gScene = nullptr;
 	int actualScene = 0;
+	bool levelWon = false;
 
 public:
 	SceneManager(PxPhysics* gphys, PxScene* gscn);
@@ -24,4 +25,6 @@ public:
 	void setScene(int id);
 	void keyPressed(unsigned char key, const PxTransform& camera);
 	void specialKeyPressed(int key, const PxTransform& camera);
+	void setWon(bool v) { levelWon = v; }
+	bool getWon() const { return levelWon; }
 };

@@ -113,7 +113,7 @@ void Level::setGriddles()
 
 void Level::setSystems()
 {
-	PxVec3 pos = { 35, 25, 50 };
+	PxVec3 pos = { 40, 30, 50 };
 	/// RIGID BODY SYSTEM
 	rbSys = new RigidBodySystem(this, gPhysics, gScene, this); 
 	addSystem(rbSys);
@@ -154,7 +154,7 @@ void Level::setSystems()
 void Level::setReceiver()
 {
 	PxVec3  vol = { 3,3,3 },
-		pos = { -40, 25, 55 };
+		pos = { -40, 30, 55 };
 	receiver = new Receiver(this, gPhysics, gScene, false, {3,3,3,}, pos);
 	receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 	addGameObject(receiver);
@@ -168,6 +168,8 @@ void Level::update(double t)
 	{
 		receiver->setWon(false);
 		won = true;
+		if (sm != nullptr)
+			sm->setWon(true);
 	}
 
 	if (won)
@@ -176,9 +178,9 @@ void Level::update(double t)
 		if (counter >= timer)
 		{
 			counter = 0;
-			if (sm != nullptr) sm->setScene(0);
-			Log("!!!WON!!!");
-			// pasar de nivel
+			if (sm != nullptr)
+				sm->setScene(0);
+			//Log("!!!WON!!!");
 		}
 	}
 }

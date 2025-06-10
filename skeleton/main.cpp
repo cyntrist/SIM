@@ -17,7 +17,12 @@
 #include "SceneManager.h"
 
 std::string display_text = "Cynthia Tristan Alvarez";
-std::string won_level_text = "";
+std::string level_won_2_text = "";
+std::string level_won_1_text = "";
+std::string controls_1_text = "Flechas ARR/ABJ: Cambiar de plancha";
+std::string controls_2_text = "Flechas IZQ/DER: Girar planchas";
+std::string controls_3_text = "CTRL / SHIFT + Flechas IZQ/DER: Girar planchas mas rapido o mas lento";
+
 
 
 using namespace physx;
@@ -85,7 +90,14 @@ void stepPhysics(bool interactive, double t)
 		p->integrate(t);
 
 	if (sm != nullptr)
+	{
 		sm->update(t);
+		if (sm->getWon())
+		{
+			level_won_1_text = "!Bien hecho!";
+			level_won_2_text = "Suerte en el siguiente :^)";
+		}
+	}
 }
 
 // Function to clean data

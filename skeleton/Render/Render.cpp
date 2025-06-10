@@ -248,7 +248,8 @@ namespace Snippets
 
 		glutInit(&argc, argv);
 
-		glutInitWindowSize(512, 512);
+		glutInitWindowSize(1280, 720);
+		//glutInitWindowSize(512, 512);
 		glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 		int mainHandle = glutCreateWindow(name);
 
@@ -292,10 +293,15 @@ namespace Snippets
 	void startRender(const PxVec3& cameraEye, const PxVec3& cameraDir, PxReal clipNear, PxReal clipFar)
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
 		// Display text
-		glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
-		drawText(display_text, 0, 0);
+		//glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
+		glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+		drawText(display_text, 10, 10);
+		drawText(controls_1_text, 10, 500 - 10);
+		drawText(controls_2_text, 10, 500 - 20);
+		drawText(controls_3_text, 10, 500 - 30);
+		drawText(level_won_1_text, 230, 250);
+		drawText(level_won_2_text, 212, 230);
 
 		// Setup camera
 		glMatrixMode(GL_PROJECTION);
@@ -311,7 +317,7 @@ namespace Snippets
 		          cameraEye.y + cameraDir.y, cameraEye.z + cameraDir.z,
 		          0.0, 1.0, 0.0);
 
-		glColor4f(0.4f, 0.4f, 0.4f, 1.0f);
+		glColor4f(0.0f, 0.0f, 0.0f, 1.0f);
 
 		assert(glGetError() == GL_NO_ERROR);
 	}

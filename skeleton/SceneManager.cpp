@@ -53,6 +53,7 @@ void SceneManager::setScene(int id)
 	actualScene = id;
 	scenes[id]->onEnable();
 	scenes[id]->show();
+	levelWon = false;
 
 	Log("SETTING SCENE TO " + to_string(actualScene));
 }
