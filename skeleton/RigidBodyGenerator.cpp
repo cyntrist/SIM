@@ -2,61 +2,78 @@
 
 #include "Level.h"
 
-RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart,PxPhysics* gphys, PxScene* gscn,
+RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn,
                                        RigidBodySystem* partsys, Level* scn, double min, double max, double freq)
-    : gphys(gphys), gscn(gscn), origen(org), system(partsys), maxGameObjects(stNpart), timer(freq),
-	level(scn), minLife(min), maxLife(max)
+	: gphys(gphys), gscn(gscn), origen(org), system(partsys), maxGameObjects(stNpart), timer(freq),
+	  level(scn), minLife(min), maxLife(max)
 {
 }
 
 void RigidBodyGenerator::update(double t)
 {
-    if (mayGenerate())
-        generateBody(t);
+	if (mayGenerate())
+		generateBody(t);
 }
 
 void RigidBodyGenerator::generateBody(double t)
 {
-    PxVec3 volumen = { 1, 1, 1 };
+	PxVec3 volumen = {1, 1, 1};
 
-    PxMaterial* mat = nullptr;
-    double mass = 1;
-    double density = 1;
-    auto c = color;
-    if (sw) 
-    {
-        density = 99999999999999999;
-        mass = 99999999999999999;
-        c = Vector4(1, 0, 0, 1);
-    }
-    sw = !sw;
-    auto drb1 = new DynamicRigidBody(
-        scene, gphys, gscn, mat,
-        false, SPHERE, volumen, 
-        origen, velocity,
-        0, 30,
-        this, eDROPS,
-        mass, 1, density
-    );
-    
-    drb1->setColor(c);
-    drb1->setDensity(density);
-    drb1->setMass(10);
-    drb1->setVisible(true);
-    
-    scene->addGameObject(drb1);
-    addNumBodies(1);
+	PxMaterial* mat = nullptr;
+	double mass = 1;
+	double density = 1;
+	double size = 1;
+	auto c = color;
+	if (sw)
+	{
+		size = 1000;
+		density = 1000;
+		mass = 1000;
+		c = Vector4(1, 0, 0, 1);
+	}
+	sw = !sw;
+	auto drb1 = new DynamicRigidBody(
+		scene, gphys, gscn, mat,
+		false, SPHERE, volumen,
+		origen, velocity,
+		0, 30,
+		this, eDROPS,
+		mass, size, density, 
+		{ 10, 0, 0 }
+	);
+
+	drb1->setColor(c);
+	drb1->setVisible(true);
+
+	scene->addGameObject(drb1);
+	addNumBodies(1);
 }
 
 bool RigidBodyGenerator::mayGenerate()
 {
-    if (nGameObjects >= maxGameObjects) 
-        return false;
-    counter += 1;
-    if (counter >= timer)
-    {
-        counter = 0;
-        return true;
-    }
-    return false;
+	if (nGameObjects >= maxGameObjects)
+		return false;
+	counter += 1;
+	if (counter >= timer)
+	{
+		counter = 0;
+		return true;
+	}
+	return false;
+}
+
+void RigidBodyGenerator::setDummy()
+{
+	auto drb1 = new DynamicRigidBody(
+		scene, gphys, gscn, nullptr,
+		true, SPHERE, {2, 2, 2},
+		origen, { 0,0,0 },
+		-1, -1,
+		this, eDROPS
+	);
+
+	drb1->setColor(color);
+	drb1->setVisible(true);
+
+	scene->addGameObject(drb1);
 }

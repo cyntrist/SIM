@@ -90,57 +90,74 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 void Level::setGriddles()
 {
 	PxVec3 volumen = {15, 2, 10};
-	float x = 40, y = 10, z = 50;
+	float x = 40, y = 15, z = 50;
 
 
 	PxMaterial* material = gPhysics->createMaterial(
 		0.1f,     // friccion estatica
 		0.1f,     // friccion dinamica
-		1.0f      // restitucion
+		2.5f      // restitucion
 	);
 
-	auto drb1 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, {-x, y, z}
-	);
+	//auto drb1 = new Griddle(
+	//	this, gPhysics, gScene, material, true, volumen, {-x, y, z}
+	//);
 	auto drb2 = new Griddle(
 		this, gPhysics, gScene, material, true, volumen, {0, y, z}
 	);
-	auto drb3 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, {x, y, z}
-	);
+	//auto drb3 = new Griddle(
+	//	this, gPhysics, gScene, material, true, volumen, {x, y, z}
+	//);
 
-	griddles.push_back(drb1);
+	drb2->setRotation(1.5708);
+
+	//griddles.push_back(drb1);
 	griddles.push_back(drb2);
-	griddles.push_back(drb3);
+	//griddles.push_back(drb3);
 
-	addGameObject(drb1);
+	//addGameObject(drb1);
 	addGameObject(drb2);
-	addGameObject(drb3);
+	//addGameObject(drb3);
 
 	griddles[cDrb]->setColor(sColor);
 }
 
 void Level::setSystems()
 {
+	PxVec3 pos = { 35, 25, 50 };
+	/// RIGID BODY SYSTEM
 	rbSys = new RigidBodySystem(this, gPhysics, gScene, this); 
 	addSystem(rbSys);
 
 	auto rbg = new RigidBodyGenerator(
-		{40, 25, 50},
+		pos,
 		50,
 		gPhysics,
 		gScene,
 		rbSys,
 		this
 	);
-
 	rbSys->addRBGenerator(rbg);
+	rbg->setDummy();
 
+
+	/// FORCE SYSTEMS
 	fSys = new ForceSystem(this);
 	addSystem(fSys);
-	auto windGen = new WindGenerator({ -10,25,50 }, this, { -20,0,0 });
-	fSys->addForceGenerator(windGen);
-	windGen->setRadius(15);
+	// Viento
+	//auto windGen = new WindGenerator({ -10,25,50 }, this, { -20,0,0 });
+	//fSys->addForceGenerator(windGen);
+	//windGen->setRadius(15);
+
+	// Flotacion
+	float height = -15;
+	float k = 1.0f;
+	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
+	auto superficieLiquido = new Particle(this, { 0, height, pos.z});
+	addGameObject(superficieLiquido);
+	superficieLiquido->setImmovible(true);
+	superficieLiquido->setColor(0.1, 0.2, 0.4, 0.0);
+	superficieLiquido->setShape(CreateShape(PxBoxGeometry(1000, 0.1f, 75)), 20);
 }
 
 void Level::generateBody()

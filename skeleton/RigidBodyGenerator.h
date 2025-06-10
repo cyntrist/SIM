@@ -40,6 +40,7 @@ public:
 	void addNumBodies(int n) { nGameObjects += n; }
 	//void generateBody(Vector3 org, Vector3 vel, double life,
 	//                      Vector4 c = Vector4(1, 1, 1, 1), float mass = 1);
+	void setDummy();
 
 	/// setters
 	void setOrigen(Vector3 o) { origen = o; }
