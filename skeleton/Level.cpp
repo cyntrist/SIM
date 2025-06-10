@@ -160,7 +160,12 @@ void Level::setSystems()
 	//	new const PxTransform(0,0,50),
 	//	{ 0, 0, 1, 0.1 }
 	//);
-	water = new RenderItem(CreateShape(PxBoxGeometry(1000, 0.01, 1000)), new PxTransform(PxVec3(0, -50, 0)), { 0, 0, 1, 0.1 });
+	water = new RenderItem(CreateShape(
+		PxBoxGeometry(1000, 0.01, 100)), 
+		new PxTransform(PxVec3(0, height, pos.z)), 
+		{ 0.01f, 0.02f, 0.89f, 0.20f
+		});
+
 }
 
 void Level::generateBody()
