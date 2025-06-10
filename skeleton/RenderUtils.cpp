@@ -11,7 +11,7 @@
 using namespace physx;
 
 extern void initPhysics(bool interactive);
-extern void stepPhysics(bool interactive, double t);	
+extern void stepPhysics(bool interactive, double t);
 extern void cleanupPhysics(bool interactive);
 extern void keyPress(unsigned char key, Camera* camera);
 extern void specialKeyPress(int key, Camera* camera);
@@ -48,43 +48,43 @@ double GetCounter()
 
 namespace
 {
-	Camera*	sCamera;
+	Camera* sCamera;
 
-void motionCallback(int x, int y)
-{
-	sCamera->handleMotion(x, y);
-}
+	void motionCallback(int x, int y)
+	{
+		sCamera->handleMotion(x, y);
+	}
 
-void keyboardCallback(unsigned char key, int x, int y)
-{
-	if(key==27)
-		exit(0);
+	void keyboardCallback(unsigned char key, int x, int y)
+	{
+		if (key == 27)
+			exit(0);
 
-	if(!sCamera->handleKey(key, x, y))
-		keyPress(key, sCamera);
-}
+		if (!sCamera->handleKey(key, x, y))
+			keyPress(key, sCamera);
+	}
 
-void specialKeyboardCallback(int key, int x, int y)
-{
-	specialKeyPress(key, sCamera);
-}
+	void specialKeyboardCallback(int key, int x, int y)
+	{
+		specialKeyPress(key, sCamera);
+	}
 
-void mouseCallback(int button, int state, int x, int y)
-{
-	sCamera->handleMouse(button, state, x, y);
-}
+	void mouseCallback(int button, int state, int x, int y)
+	{
+		sCamera->handleMouse(button, state, x, y);
+	}
 
-void idleCallback()
-{
-	glutPostRedisplay();
-}
+	void idleCallback()
+	{
+		glutPostRedisplay();
+	}
 
-float stepTime = 0.0f;
-//#define FIXED_STEP
+	float stepTime = 0.0f;
+	//#define FIXED_STEP
 
-void renderCallback()
-{
-	double t = GetCounter();
+	void renderCallback()
+	{
+		double t = GetCounter();
 #ifdef FIXED_STEP
 	if (t < (1.0f / 30.0f))
 	{
@@ -100,46 +100,68 @@ void renderCallback()
 		stepTime = 0.0f;
 	}
 #else
-	stepPhysics(true, t);
+		stepPhysics(true, t);
 #endif
 
-	startRender(sCamera->getEye(), sCamera->getDir());
+		startRender(sCamera->getEye(), sCamera->getDir());
 
-	//fprintf(stderr, "Num Render Items: %d\n", static_cast<int>(gRenderItems.size()));
-	for (auto it = gRenderItems.begin(); it != gRenderItems.end(); ++it)
-	{
-		const RenderItem* obj = (*it);
-		auto objTransform = obj->transform;
-		if (!objTransform)
+		//fprintf(stderr, "Num Render Items: %d\n", static_cast<int>(gRenderItems.size()));
+		for (auto it = gRenderItems.begin(); it != gRenderItems.end(); ++it)
 		{
-			auto actor = obj->actor;
-			if (actor)
+			const RenderItem* obj = (*it);
+			auto objTransform = obj->transform;
+
+			if (obj->color.w != 1.0) continue; // omite los trasparentes y renderiza primero los opacos
+
+			if (!objTransform)
 			{
-				renderShape(*obj->shape, actor->getGlobalPose(), obj->color);
-				continue;
+				auto actor = obj->actor;
+				if (actor)
+				{
+					renderShape(*obj->shape, actor->getGlobalPose(), obj->color);
+					continue;
+				}
 			}
+			renderShape(*obj->shape, objTransform ? *objTransform : physx::PxTransform(PxIdentity), obj->color);
 		}
-		renderShape(*obj->shape, objTransform ? *objTransform : physx::PxTransform(PxIdentity), obj->color);
+
+		for (auto it = gRenderItems.begin(); it != gRenderItems.end(); ++it)
+		{
+			const RenderItem* obj = (*it);
+			auto objTransform = obj->transform;
+
+			if (obj->color.w == 1.0) continue; // omite los opacos y renderiza despues los trasparentes
+
+			if (!objTransform)
+			{
+				auto actor = obj->actor;
+				if (actor)
+				{
+					renderShape(*obj->shape, actor->getGlobalPose(), obj->color);
+					continue;
+				}
+			}
+			renderShape(*obj->shape, objTransform ? *objTransform : physx::PxTransform(PxIdentity), obj->color);
+		}
+
+		//PxScene* scene;
+		//PxGetPhysics().getScenes(&scene, 1);
+		//PxU32 nbActors = scene->getNbActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC);
+		//if (nbActors)
+		//{
+		//	std::vector<PxRigidActor*> actors(nbActors);
+		//	scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
+		//	renderActors(&actors[0], static_cast<PxU32>(actors.size()), true, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
+		//}
+
+		finishRender();
 	}
 
-	//PxScene* scene;
-	//PxGetPhysics().getScenes(&scene, 1);
-	//PxU32 nbActors = scene->getNbActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC);
-	//if (nbActors)
-	//{
-	//	std::vector<PxRigidActor*> actors(nbActors);
-	//	scene->getActors(PxActorTypeFlag::eRIGID_DYNAMIC | PxActorTypeFlag::eRIGID_STATIC, reinterpret_cast<PxActor**>(&actors[0]), nbActors);
-	//	renderActors(&actors[0], static_cast<PxU32>(actors.size()), true, Vector4(1.0f, 0.0f, 0.0f, 1.0f));
-	//}
-
-	finishRender();
-}
-
-void exitCallback(void)
-{
-	delete sCamera;
-	cleanupPhysics(true);
-}
+	void exitCallback(void)
+	{
+		delete sCamera;
+		cleanupPhysics(true);
+	}
 }
 
 void renderLoop()
@@ -147,7 +169,7 @@ void renderLoop()
 	StartCounter();
 	sCamera = new Camera(
 		PxVec3(0.0f, 25.0f, -50.0f),
-		PxVec3(0.0f,0.0f,0.5f)
+		PxVec3(0.0f, 0.0f, 0.5f)
 	);
 
 	setupDefaultWindow("Simulacion Fisica Videojuegos");
@@ -159,7 +181,7 @@ void renderLoop()
 	glutMouseFunc(mouseCallback);
 	glutMotionFunc(motionCallback);
 	glutSpecialFunc(specialKeyboardCallback);
-	motionCallback(0,0);
+	motionCallback(0, 0);
 
 	atexit(exitCallback);
 

@@ -110,12 +110,3 @@ void Particle::applyForce()
 	if (gravitable)
 		acc += grav;
 }
-
-Water::Water(Scene* scn, PxVec3 pos, PxVec3 vol, PxVec4 c) : GameObject(scn)
-{
-	pose = new PxTransform(pos);
-	vel = { 0, 0, 0 };
-	shape = CreateShape(PxBoxGeometry(vol));
-	renderItem = new RenderItem(shape, pose, color);
-	color = c;
-}

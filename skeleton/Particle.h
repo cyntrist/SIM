@@ -70,9 +70,3 @@ private:
 	ParticleGenerator* generator = nullptr;
 	bool eulerSemiImplicito = true;
 };
-
-class Water : public GameObject
-{
-public:
-	Water(Scene* scn, PxVec3 pos, PxVec3 vol, PxVec4 c = { 0, 0, 1, 0.1f });
-};
