@@ -29,6 +29,8 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), generator(rbg),
 	  gMaterial(mat)
 {
+	mass = m;
+	size = s;
 	auto volumen = 1;
 	switch (sh)
 	{
@@ -38,7 +40,8 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 		break;
 	case SPHERE:
 		shape = CreateShape(PxSphereGeometry(vol.x), mat);
-		volumen = vol.x * vol.x * vol.x * 4 / 3 * PxPi;
+		volumen = pow(vol.x, 3) * 4 / 3 * PxPi;
+		size = vol.x; // tamano de una esfera es el radio
 		break;
 	case CAPSULE:
 		shape = CreateShape(PxCapsuleGeometry(vol.x, vol.y), mat);
@@ -51,8 +54,6 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 	setGroup(group);
 
-	mass = m;
-	size = s;
 
 	if (d <= 0)
 		density = m / volumen;

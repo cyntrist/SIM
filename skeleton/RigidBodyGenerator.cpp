@@ -17,7 +17,7 @@ void RigidBodyGenerator::update(double t)
 
 void RigidBodyGenerator::generateBody(double t)
 {
-	PxVec3 volumen = {1, 1, 1};
+	PxVec3 volumen = {1,1,1}; // esferas de 2 de diametro
 
 	auto c = color;
 

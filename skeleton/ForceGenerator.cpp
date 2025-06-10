@@ -141,12 +141,12 @@ Vector3 RubberGenerator::generateForce(GameObject& obj)
 /// FLOTACION
 Vector3 FlotationGenerator::generateForce(GameObject& object)
 {
-	double height = object.getSize() * 2,
-	      h = object.getPosition().y,
-	      h0 = origen.y,
-	      immersed,
-	      density = k,
-	      volume = pow(object.getSize() * 2, 3);
+	double height = object.getSize() * 2, // diametro es su altura
+		h = object.getPosition().y, // centro del objeto
+		h0 = origen.y, // superficie del liquiedo
+		immersed,
+		density = k,
+		volume = 4 / 3 * PxPi * object.getSize();
 
 	if (h - h0 > height * 0.5)
 	{
@@ -161,31 +161,7 @@ Vector3 FlotationGenerator::generateForce(GameObject& object)
 		immersed = (h0 - h) / height + 0.5;
 	}
 
-
 	Vector3 force{0, 0, 0};
-
-	force.y = density * volume * immersed * 9.8;
-
+	force.y = density * volume * immersed * 9.8 * 0.8; // gravedad y damping
 	return force;
-
-
-	//Vector3 F = { 0,0,0 };		//
-	//float h = object.getPosition().y;	//Posicion punto medio del objeto
-	//float h0 = origen.y;				//Posicion superficie del agua
-	//float inmerso;
-
-	//if (h - h0 > altura * 0.5) {
-	//	inmerso = 0;
-	//}
-	//else if (h0 - h > altura * 0.5) {
-	//	//Totalmente inmerso
-	//	inmerso = 1;
-	//}
-	//else {
-	//	inmerso = (h0 - h) / altura + 0.5;			//Profundidad normalizada
-	//}
-
-	//F.y = densidad * volumen * inmerso * gravedad;
-
-	//return F;
 }
