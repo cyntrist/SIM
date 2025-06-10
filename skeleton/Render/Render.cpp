@@ -318,6 +318,9 @@ namespace Snippets
 
 	void renderShape(const PxShape& shape, const PxTransform& transform, const PxVec4& color)
 	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		PxGeometryHolder h = shape.getGeometry();
 
 		if (shape.getFlags() & PxShapeFlag::eTRIGGER_SHAPE)
@@ -328,19 +331,24 @@ namespace Snippets
 		PxMat44 mtx(transform);
 		glMultMatrixf(reinterpret_cast<const float*>(&mtx));
 		assert(glGetError() == GL_NO_ERROR);
-		glColor4f(color.x, color.y, color.z, 1.0f);
+		glColor4f(color.x, color.y, color.z, color.w);
 		assert(glGetError() == GL_NO_ERROR);
-		renderGeometry(h, color.w < 0.999f);
+		renderGeometry(h, color.w < 0.1);
 		assert(glGetError() == GL_NO_ERROR);
 		glPopMatrix();
 		assert(glGetError() == GL_NO_ERROR);
 
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		assert(glGetError() == GL_NO_ERROR);
+
+		glDisable(GL_BLEND);
 	}
 
 	void renderActors(PxRigidActor** actors, const PxU32 numActors, bool shadows, const PxVec4& color)
 	{
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 		PxShape* shapes[MAX_NUM_ACTOR_SHAPES];
 		for (PxU32 i = 0; i < numActors; i++)
 		{
@@ -389,6 +397,8 @@ namespace Snippets
 				}
 			}
 		}
+
+		glDisable(GL_BLEND);
 	}
 
 	void finishRender()

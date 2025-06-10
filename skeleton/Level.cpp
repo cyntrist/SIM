@@ -22,6 +22,7 @@ void Level::onEnable()
 void Level::onDisable()
 {
 	active = false;
+	delete water;
 	for (auto syst : systems)
 	{
 		delete syst;
@@ -102,22 +103,22 @@ void Level::setGriddles()
 	//auto drb1 = new Griddle(
 	//	this, gPhysics, gScene, material, true, volumen, {-x, y, z}
 	//);
+	//griddles.push_back(drb1);
+	//addGameObject(drb1);
+
 	auto drb2 = new Griddle(
 		this, gPhysics, gScene, material, true, volumen, {0, y, z}
 	);
+	drb2->setRotation(1.5708);
+	griddles.push_back(drb2);
+	addGameObject(drb2);
+
 	//auto drb3 = new Griddle(
 	//	this, gPhysics, gScene, material, true, volumen, {x, y, z}
 	//);
-
-	drb2->setRotation(1.5708);
-
-	//griddles.push_back(drb1);
-	griddles.push_back(drb2);
 	//griddles.push_back(drb3);
-
-	//addGameObject(drb1);
-	addGameObject(drb2);
 	//addGameObject(drb3);
+
 
 	griddles[cDrb]->setColor(sColor);
 }
@@ -153,11 +154,13 @@ void Level::setSystems()
 	float height = -15;
 	float k = 1.0f;
 	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
-	auto superficieLiquido = new Particle(this, { 0, height, pos.z});
-	addGameObject(superficieLiquido);
-	superficieLiquido->setImmovible(true);
-	superficieLiquido->setColor(0.1, 0.2, 0.4, 0.0);
-	superficieLiquido->setShape(CreateShape(PxBoxGeometry(1000, 0.1f, 75)), 20);
+
+	//water = new RenderItem(CreateShape(
+	//	PxBoxGeometry(1000,0.01f,1000)), 
+	//	new const PxTransform(0,0,50),
+	//	{ 0, 0, 1, 0.1 }
+	//);
+	water = new RenderItem(CreateShape(PxBoxGeometry(1000, 0.01, 1000)), new PxTransform(PxVec3(0, -50, 0)), { 0, 0, 1, 0.1 });
 }
 
 void Level::generateBody()
