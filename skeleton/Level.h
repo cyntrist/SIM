@@ -13,7 +13,7 @@ protected:
 	ForceSystem* fSys = nullptr;
 	std::vector<DynamicRigidBody*> griddles; // vector of dynamic rigid bodies
 	int cDrb = 0; // current dynamic rigid body
-	double stepAngle = 0.045;
+	double stepAngle = 0.05;
 	PxVec4 sColor = { 1, 0.8f, 0.1f, 1 },
 		nColor = { 0.5, 0.5, 0.5, 1 };
 

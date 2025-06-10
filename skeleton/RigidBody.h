@@ -74,7 +74,7 @@ public:
 		PxVec3 pos = { 0, 0, 0 }, PxVec3 vel = { 0, 0, 0 }, 
 		double lifetime = -1, double maxLifetime = -1,
 		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, 
-		double mass = 1, double size = 1, double density = 1,
+		double mass = 1, double size = 1, double density = -1,
 		PxVec3 angVel = {0, 0, 0});
 	~DynamicRigidBody() override;
 

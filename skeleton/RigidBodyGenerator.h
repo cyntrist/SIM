@@ -16,17 +16,15 @@ class RigidBodyGenerator
 
 	Vector3 origen = {0, 0, 0};
 	Vector3 velocity = Vector3(-12, 12, 0);
-	//Vector3 velocity = Vector3(0, 6, 0);
 	Vector4 color = Vector4(1, 1, 1, 1);
 	int maxGameObjects = 100;
 	int nGameObjects = 0;
-	float density = 0.5f;
+	float density = -1;
 	double minLife, maxLife;
-	float mass = 1, size = 5;
-	double dampener = 0.98;
+	float mass = 1, size = 1;
 	double counter = 0, timer = 100;
-
 	bool sw = false;
+
 public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
 	                   RigidBodySystem* partsys, Level* scn, 
@@ -57,7 +55,6 @@ public:
 	void setMaxLife(const double ml) { maxLife = ml; }
 	void setMass(const float m) { mass = m; }
 	void setSize(const float s) { size = s; }
-	void setDampener(const double d) { dampener = d; }
 	//void setVisibility(bool visibility);
 
 	/// getters
@@ -69,6 +66,5 @@ public:
 	double getMaxLife() const { return maxLife; }
 	float getMass() const { return mass; }
 	float getSize() const { return size; }
-	double getDampener() const { return dampener; }
 	int getNumBodies() const { return nGameObjects; }
 };

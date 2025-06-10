@@ -53,18 +53,17 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 
 	mass = m;
 	size = s;
-	density = d;
-	//density = m/volumen;
+	
+	if (d <= 0)
+		density = m / volumen;
+	else 
+		density = d;
 	
 	//actor->setMass(mass);
 	actor->setLinearVelocity(vel);
 	actor->setAngularVelocity(angVel);
 	//actor->setMassSpaceInertiaTensor(vol);
-	//actor->setMassSpaceInertiaTensor(vol);
-	//PxRigidBodyExt::updateMassAndInertia(*actor, density);
 	PxRigidBodyExt::updateMassAndInertia(*actor, density);
-
-
 	setKinematic(kin);
 }
 
