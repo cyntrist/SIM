@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Scene.h"
+class Receiver;
 class ForceSystem;
 class RigidBodySystem;
 class StaticRigidBody;
@@ -17,6 +18,8 @@ protected:
 	PxVec4 sColor = { 1, 0.8f, 0.1f, 1 },
 		nColor = { 0.5, 0.5, 0.5, 1 };
 	RenderItem* water = nullptr;
+	Receiver* receiver = nullptr;
+
 public:
 	Level(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn)
 	{
@@ -32,7 +35,6 @@ public:
 	void specialKeyPressed(int key, const PxTransform& camera) override;
 	virtual void setGriddles();
 	virtual void setSystems();
-	virtual void generateBody();
 	void update(double t) override;
 };
 

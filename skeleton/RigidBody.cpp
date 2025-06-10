@@ -25,7 +25,7 @@ StaticRigidBody::~StaticRigidBody()
 DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, PxMaterial* mat,
                                    bool kin, Shape sh, PxVec3 vol, PxVec3 pos, PxVec3 vel,
                                    double life, double maxLife, RigidBodyGenerator* rbg, PxU32 group,
-                                   double m, double s, double d, PxVec3 angVel)
+                                   double m, double s, double d, PxVec3 angVel, PxVec3 tensor)
 	: RigidBody(scn), gScene(gScene), lifetime(life), maxLifetime(maxLife), sh(sh), generator(rbg),
 	  gMaterial(mat)
 {
@@ -53,18 +53,26 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 
 	mass = m;
 	size = s;
-	
+
 	if (d <= 0)
 		density = m / volumen;
-	else 
+	else
 		density = d;
-	
-	//actor->setMass(mass);
-	actor->setLinearVelocity(vel);
-	actor->setAngularVelocity(angVel);
-	//actor->setMassSpaceInertiaTensor(vol);
-	PxRigidBodyExt::updateMassAndInertia(*actor, density);
+
+	if (tensor != PxVec3(1))
+	{
+		actor->setMass(mass);
+		actor->setMassSpaceInertiaTensor(vol);
+	}
+	else
+		PxRigidBodyExt::updateMassAndInertia(*actor, density);
+
 	setKinematic(kin);
+	if (!kin)
+	{
+		actor->setLinearVelocity(vel);
+		actor->setAngularVelocity(angVel);
+	}
 }
 
 DynamicRigidBody::~DynamicRigidBody()

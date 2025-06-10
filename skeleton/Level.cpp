@@ -95,9 +95,9 @@ void Level::setGriddles()
 
 
 	PxMaterial* material = gPhysics->createMaterial(
-		0.1f,     // friccion estatica
-		0.1f,     // friccion dinamica
-		2.5f      // restitucion
+		1.0f,     // friccion estatica
+		1.0f,     // friccion dinamica
+		2.25f      // restitucion
 	);
 	
 	//auto drb1 = new Griddle(
@@ -132,7 +132,7 @@ void Level::setSystems()
 
 	auto rbg = new RigidBodyGenerator(
 		pos,
-		50,
+		100,
 		gPhysics,
 		gScene,
 		rbSys,
@@ -155,36 +155,23 @@ void Level::setSystems()
 	float k = 1.0f;
 	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
 
-	//water = new RenderItem(CreateShape(
-	//	PxBoxGeometry(1000,0.01f,1000)), 
-	//	new const PxTransform(0,0,50),
-	//	{ 0, 0, 1, 0.1 }
-	//);
 	water = new RenderItem(CreateShape(
 		PxBoxGeometry(1000, 0.01, 100)), 
 		new PxTransform(PxVec3(0, height, pos.z)), 
-		{ 0.01f, 0.02f, 0.89f, 0.20f
-		});
-
-}
-
-void Level::generateBody()
-{
-	PxVec3 volumen = { 1, 1, 1 };
-	float x = 0, y = 0, z = 0;
-	auto drb1 = new DynamicRigidBody(
-		this, gPhysics, gScene, nullptr, false, SPHERE, volumen, { -x,y,z }
+		{ 0.01f, 0.02f, 0.89f, 0.20f}
 	);
-	drb1->setDensity(0.5f);
-	drb1->setVisible(true);
-	drb1->setMass(10);
-	addGameObject(drb1);
 }
 
 void Level::update(double t)
 {
 	Scene::update(t);
 }
+
+
+
+
+
+
 
 
 

@@ -66,13 +66,26 @@ bool RigidBodyGenerator::mayGenerate()
 
 void RigidBodyGenerator::setDummy()
 {
-	auto drb1 = new DynamicRigidBody(
+	float size = 2.5;
+	dummy = new DynamicRigidBody(
 		scene, gphys, gscn, nullptr,
-		true, SPHERE, {2, 2, 2},
+		false, SPHERE, {size,size,size},
 		origen, { 0,0,0 },
 		-1, -1,
-		this, eDROPS
+		this, eDROPS, 1,1,-1
 	);
-	drb1->setColor(color);
-	scene->addGameObject(drb1);
+	dummy->setColor(color);
+	//dummy->setColor(PxVec4(0.98,0.64,0.01,1.0));
+	dummy->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+	dummy->setDamping(0.0);
+	dummy->setAngularVelocity(dummyAngVel);
+	scene->addGameObject(dummy);
+}
+
+void RigidBodyGenerator::toggleDummyMovement(bool active)
+{
+	if (active)
+		dummy->setAngularVelocity(dummyAngVel);
+	else
+		dummy->setAngularVelocity(PxVec3(0.0f));
 }

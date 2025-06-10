@@ -13,9 +13,11 @@ class RigidBodyGenerator
 	PxScene* gscn;
 	RigidBodySystem* system;
 	std::default_random_engine generator;
+	DynamicRigidBody* dummy;
 
 	Vector3 origen = {0, 0, 0};
 	Vector3 velocity = Vector3(-12, 12, 0);
+	Vector3 dummyAngVel = Vector3(0,0,100);
 	Vector4 color = Vector4(1, 1, 1, 1);
 	int maxGameObjects = 100;
 	int nGameObjects = 0;
@@ -39,6 +41,7 @@ public:
 	//void generateBody(Vector3 org, Vector3 vel, double life,
 	//                      Vector4 c = Vector4(1, 1, 1, 1), float mass = 1);
 	void setDummy();
+	void toggleDummyMovement(bool active);
 
 	/// setters
 	void setOrigen(Vector3 o) { origen = o; }

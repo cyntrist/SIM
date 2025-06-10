@@ -42,6 +42,13 @@ public:
 			rigidGenerators[i]));
 	}
 
-	void setActive(bool a = true) { active = a; }
+	void setActive(bool a = true);
 	bool getActive() const { return active;  }
 };
+
+inline void RigidBodySystem::setActive(bool a)
+{
+	 active = a;
+	for (auto& r : rigidGenerators)
+		r->toggleDummyMovement(a);
+}

@@ -75,7 +75,7 @@ public:
 		double lifetime = -1, double maxLifetime = -1,
 		RigidBodyGenerator* rbg = nullptr, PxU32 group = eGRIDDLES, 
 		double mass = 1, double size = 1, double density = -1,
-		PxVec3 angVel = {0, 0, 0});
+		PxVec3 angVel = {0, 0, 0}, PxVec3 tensor = { 1,1,1});
 	~DynamicRigidBody() override;
 
 	bool update(double t) override;
@@ -134,6 +134,8 @@ public:
 		actor->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, k);
 	}
 	void setGroup(PxU32 group, bool autoexcluding = true);
+	void setActorFlag(PxActorFlag::Enum flag, bool value) { actor->setActorFlag(flag, value);  }
+	void setDamping(float damping) { actor->setLinearDamping(damping), actor->setAngularDamping(damping); }
 
 	// getters
 	PxRigidActor* getActor() override { return actor; }
