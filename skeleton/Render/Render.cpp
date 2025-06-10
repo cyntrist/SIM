@@ -424,6 +424,7 @@ namespace Snippets
 		for (int i = 0; i < length; i++)
 		{
 			glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
+			//glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[i]);
 		}
 		glPopMatrix();
 		glMatrixMode(GL_PROJECTION);

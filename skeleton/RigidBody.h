@@ -136,6 +136,7 @@ public:
 	void setGroup(PxU32 group, bool autoexcluding = true);
 	void setActorFlag(PxActorFlag::Enum flag, bool value) { actor->setActorFlag(flag, value);  }
 	void setDamping(float damping) { actor->setLinearDamping(damping), actor->setAngularDamping(damping); }
+	
 
 	// getters
 	PxRigidActor* getActor() override { return actor; }
@@ -143,6 +144,7 @@ public:
 	PxQuat getRotation() override { return actor->getGlobalPose().q; }
 	Vector3 getVel() override { return actor->getLinearVelocity(); }
 	float getMass() const override { return actor->getMass(); }
+	RigidBodyGenerator* getGenerator() const { return generator; }
 };
 
 class Griddle : public DynamicRigidBody
@@ -164,7 +166,7 @@ public:
 class Receiver : public DynamicRigidBody
 {
 	PxVec4 offColor = { 0.3, 0.3, 0.3, 1.0 };
-	PxVec4 onColor = { 0.9, 0.4, 0.4, 1 };
+	PxVec4 onColor = { 1.0, 0.7, 0.15, 1 };
 	bool hasWon = false;
 
 public:

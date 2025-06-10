@@ -17,6 +17,7 @@
 #include "SceneManager.h"
 
 std::string display_text = "Cynthia Tristan Alvarez";
+std::string won_level_text = "";
 
 
 using namespace physx;

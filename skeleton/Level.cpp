@@ -5,6 +5,7 @@
 #include "RigidBody.h"
 #include "RigidBodyGenerator.h"
 #include "RigidBodySystem.h"
+#include "SceneManager.h"
 
 Level::~Level()
 {
@@ -91,21 +92,14 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 
 void Level::setGriddles()
 {
-	PxVec3 volumen = {15, 2, 10};
-	float x = 40, y = 15, z = 50;
-
+	PxVec3 volumen = {20, 0.5, 10};
+	float y = 15, z = 50;
 
 	PxMaterial* material = gPhysics->createMaterial(
 		1.0f,     // friccion estatica
 		1.0f,     // friccion dinamica
-		2.25f      // restitucion
+		2.f      // restitucion
 	);
-	
-	//auto drb1 = new Griddle(
-	//	this, gPhysics, gScene, material, true, volumen, {-x, y, z}
-	//);
-	//griddles.push_back(drb1);
-	//addGameObject(drb1);
 
 	auto drb2 = new Griddle(
 		this, gPhysics, gScene, material, true, volumen, {0, y, z}
@@ -113,12 +107,6 @@ void Level::setGriddles()
 	drb2->setRotation(1.5708);
 	griddles.push_back(drb2);
 	addGameObject(drb2);
-
-	//auto drb3 = new Griddle(
-	//	this, gPhysics, gScene, material, true, volumen, {x, y, z}
-	//);
-	//griddles.push_back(drb3);
-	//addGameObject(drb3);
 
 	griddles[cDrb]->setColor(sColor);
 }
@@ -167,7 +155,8 @@ void Level::setReceiver()
 {
 	PxVec3  vol = { 3,3,3 },
 		pos = { -40, 25, 55 };
-	receiver = new Receiver(this, gPhysics, gScene, true, {3,3,3,}, pos);
+	receiver = new Receiver(this, gPhysics, gScene, false, {3,3,3,}, pos);
+	receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 	addGameObject(receiver);
 }
 
@@ -187,6 +176,8 @@ void Level::update(double t)
 		if (counter >= timer)
 		{
 			counter = 0;
+			if (sm != nullptr) sm->setScene(0);
+			Log("!!!WON!!!");
 			// pasar de nivel
 		}
 	}

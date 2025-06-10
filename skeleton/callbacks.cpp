@@ -2,6 +2,7 @@
 
 #include "Global.h"
 #include "RigidBody.h"
+#include "RigidBodyGenerator.h"
 
 extern void onCollision(physx::PxActor* actor1, physx::PxActor* actor2);
 
@@ -46,12 +47,22 @@ void ContactReportCallback::onContact(const physx::PxContactPairHeader& pairHead
 	if (rb1 != nullptr)
 	{
 		if (rb1->collisionCallback())
+		{
 			rb2->kill();
+			auto gen = rb2->getGenerator();
+			if (gen != nullptr)
+				gen->addNumBodies(-1);
+		}
 	}
 	if (rb2 != nullptr)
 	{
 		if (rb2->collisionCallback())
+		{
 			rb1->kill();
+			auto gen = rb1->getGenerator();
+			if (gen != nullptr)
+				gen->addNumBodies(-1);
+		}
 	}
 		
 	//Log("COLISION");

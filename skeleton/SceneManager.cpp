@@ -19,7 +19,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	//addScene(new FloatScene()); // 5
 	//addScene(new SupernovaScene()); // 6
 	//addScene(new RigidBodyScene(gphys, gscn)); // 7
-	addScene(new Level(gphys, gscn)); // 7
+	addScene(new Level(gphys, gscn, nullptr, this)); // 7
 	//addScene(new Level2(gphys, gscn)); // 7
 	setScene(1);
 }
