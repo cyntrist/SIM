@@ -35,6 +35,7 @@ public:
 	void specialKeyPressed(int key, const PxTransform& camera) override;
 	virtual void setGriddles();
 	virtual void setSystems();
+	virtual void setReceiver();
 	void update(double t) override;
 };
 

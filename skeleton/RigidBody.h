@@ -82,7 +82,7 @@ public:
 	void addForce(float x, float y, float z) override;
 	void addForce(const Vector3& fc) override;
 	void applyForce();
-
+	virtual bool collisionCallback() { return false; }
 
 	//setters
 	void setLinearVelocity(PxVec3 vel = { 0, 0, 0 })
@@ -163,15 +163,12 @@ public:
 
 class Receiver : public DynamicRigidBody
 {
-	PxVec4 offColor = { 0, 0, 0, 0 };
-	PxVec4 onColor = { 1, 1, 1, 1 };
+	PxVec4 offColor = { 0.6, 0.3, 0.3, 1.0 };
+	PxVec4 onColor = { 0.9, 0.4, 0.4, 1 };
 
 public:
-	Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, 
+	Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
 		bool kin = false, PxVec3 vol = { 1, 1, 1 },
-		PxVec3 pos = { 0, 0, 0 }, float mass = 1, float size = 1, float density = 1)
-	: DynamicRigidBody(scn, gPhysics, gScene, nullptr, kin, CAPSULE,
-		vol, pos, {0,0,0}, -1, -1, nullptr, eGRIDDLES,
-		mass, size, density)
-	{}
+		PxVec3 pos = { 0, 0, 0 }, float mass = 1, float size = 1, float density = 1);
+	bool collisionCallback() override;
 };

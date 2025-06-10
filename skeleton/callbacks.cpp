@@ -1,6 +1,7 @@
 #include "callbacks.hpp"
 
 #include "Global.h"
+#include "RigidBody.h"
 
 extern void onCollision(physx::PxActor* actor1, physx::PxActor* actor2);
 
@@ -38,6 +39,24 @@ void ContactReportCallback::onContact(const physx::PxContactPairHeader& pairHead
 	PX_UNUSED(nbPairs);
 	physx::PxActor* actor1 = pairHeader.actors[0];
 	physx::PxActor* actor2 = pairHeader.actors[1];
+
+	//auto rb1 = static_cast<DynamicRigidBody*>(actor1->userData);
+	auto rb1 = static_cast<DynamicRigidBody*>(actor1->userData);
+	auto rb2 = static_cast<DynamicRigidBody*>(actor2->userData);
+
+	if (rb1 != nullptr)
+	{
+		Log("COLISION");
+		if (rb1->collisionCallback())
+			rb2->kill();
+	}
+	if (rb2 != nullptr)
+	{
+		Log("COLISION");
+		if (rb2->collisionCallback())
+			rb1->kill();
+	}
+		
 	//Log("COLISION");
 	onCollision(actor1, actor2);
 }

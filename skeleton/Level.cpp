@@ -16,6 +16,7 @@ void Level::onEnable()
 {
 	Scene::onEnable();
 	setGriddles();
+	setReceiver();
 	setSystems();
 }
 
@@ -23,6 +24,7 @@ void Level::onDisable()
 {
 	active = false;
 	delete water;
+	delete receiver;
 	for (auto syst : systems)
 	{
 		delete syst;
@@ -119,7 +121,6 @@ void Level::setGriddles()
 	//griddles.push_back(drb3);
 	//addGameObject(drb3);
 
-
 	griddles[cDrb]->setColor(sColor);
 }
 
@@ -158,8 +159,23 @@ void Level::setSystems()
 	water = new RenderItem(CreateShape(
 		PxBoxGeometry(1000, 0.01, 100)), 
 		new PxTransform(PxVec3(0, height, pos.z)), 
-		{ 0.01f, 0.02f, 0.89f, 0.20f}
+		{ 0.01f, 0.02f, 0.89f, 0.5f}
 	);
+}
+
+void Level::setReceiver()
+{
+	PxVec3  vol = { 3,3,3 },
+		pos = { -40, 25, 55 };
+	receiver = new Receiver(this, gPhysics, gScene, true, {3,3,3,}, pos);
+	addGameObject(receiver);
+
+	//float x = -20, y = 30, z = 50;
+	//PxVec3 volumen = { 1, 15, 15 };
+	//auto drb2 = new Griddle(
+	//	this, gPhysics, gScene, nullptr, true, volumen, { 20, y, z }
+	//);
+	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 }
 
 void Level::update(double t)

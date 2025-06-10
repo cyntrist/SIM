@@ -50,6 +50,8 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	}
 	pose = new PxTransform(pos);
 	actor = gPhysics->createRigidDynamic(*pose);
+	//actor->userData = reinterpret_cast<void*>(this);
+	actor->userData = static_cast<void*>(this);
 	actor->attachShape(*shape);
 	renderItem = new RenderItem(shape, actor, Vector4(0.5, 0.5, 0.5, 1));
 	setGroup(group);
@@ -133,4 +135,21 @@ void DynamicRigidBody::setGroup(PxU32 group, bool autoexcludig)
 		filterData.word1 = ~group;
 	shape->setSimulationFilterData(filterData);
 	gScene->unlockWrite();
+}
+
+Receiver::Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin, PxVec3 vol, PxVec3 pos, float mass,
+                   float size, float density)
+	: DynamicRigidBody(scn, gPhysics, gScene, nullptr, kin, CAPSULE,
+	                   vol, pos, {0, 0, 0}, -1, -1, nullptr, eGRIDDLES,
+	                   mass, size, density)
+{
+	setRotation(1.56089);
+	setColor(offColor);
+	setGroup(eGRIDDLES);
+}
+
+bool Receiver::collisionCallback()
+{
+	setColor(onColor);
+	return true;
 }

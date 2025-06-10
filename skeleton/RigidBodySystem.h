@@ -48,7 +48,7 @@ public:
 
 inline void RigidBodySystem::setActive(bool a)
 {
-	 active = a;
+	active = a;
 	for (auto& r : rigidGenerators)
 		r->toggleDummyMovement(a);
 }
