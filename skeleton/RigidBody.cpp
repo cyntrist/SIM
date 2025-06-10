@@ -151,5 +151,11 @@ Receiver::Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin, P
 bool Receiver::collisionCallback()
 {
 	setColor(onColor);
+	hasWon = true;
 	return true;
+}
+
+bool Receiver::update(double t)
+{
+	return hasWon;
 }

@@ -23,8 +23,7 @@ void Level::onEnable()
 void Level::onDisable()
 {
 	active = false;
-	delete water;
-	delete receiver;
+	water->release();
 	for (auto syst : systems)
 	{
 		delete syst;
@@ -156,9 +155,10 @@ void Level::setSystems()
 	float k = 1.0f;
 	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
 
+	// Agua
 	water = new RenderItem(CreateShape(
 		PxBoxGeometry(1000, 0.01, 100)), 
-		new PxTransform(PxVec3(0, height, pos.z)), 
+		new PxTransform(PxVec3(0, height, pos.z)),
 		{ 0.01f, 0.02f, 0.89f, 0.5f}
 	);
 }
@@ -169,18 +169,27 @@ void Level::setReceiver()
 		pos = { -40, 25, 55 };
 	receiver = new Receiver(this, gPhysics, gScene, true, {3,3,3,}, pos);
 	addGameObject(receiver);
-
-	//float x = -20, y = 30, z = 50;
-	//PxVec3 volumen = { 1, 15, 15 };
-	//auto drb2 = new Griddle(
-	//	this, gPhysics, gScene, nullptr, true, volumen, { 20, y, z }
-	//);
-	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 }
 
 void Level::update(double t)
 {
 	Scene::update(t);
+
+	if (receiver->getWon())
+	{
+		receiver->setWon(false);
+		won = true;
+	}
+
+	if (won)
+	{
+		counter += 1;
+		if (counter >= timer)
+		{
+			counter = 0;
+			// pasar de nivel
+		}
+	}
 }
 
 

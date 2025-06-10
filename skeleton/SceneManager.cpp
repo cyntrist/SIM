@@ -11,7 +11,7 @@
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
-	//addScene(new Scene()); // 0
+	addScene(new Scene()); // 0
 	//addScene(new ParticleScene()); // 1
 	//addScene(new WindScene()); // 2
 	//addScene(new WhirlScene()); // 3
@@ -21,7 +21,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	//addScene(new RigidBodyScene(gphys, gscn)); // 7
 	addScene(new Level(gphys, gscn)); // 7
 	//addScene(new Level2(gphys, gscn)); // 7
-	setScene(0);
+	setScene(1);
 }
 
 SceneManager::~SceneManager()

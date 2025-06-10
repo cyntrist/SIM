@@ -19,7 +19,8 @@ protected:
 		nColor = { 0.5, 0.5, 0.5, 1 };
 	RenderItem* water = nullptr;
 	Receiver* receiver = nullptr;
-
+	double counter = 0, timer = 200;
+	bool won = false;
 public:
 	Level(PxPhysics* gphys, PxScene* gscn, Camera* cam = nullptr) : Scene(cam, gphys, gscn)
 	{

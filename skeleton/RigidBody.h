@@ -163,12 +163,16 @@ public:
 
 class Receiver : public DynamicRigidBody
 {
-	PxVec4 offColor = { 0.6, 0.3, 0.3, 1.0 };
+	PxVec4 offColor = { 0.3, 0.3, 0.3, 1.0 };
 	PxVec4 onColor = { 0.9, 0.4, 0.4, 1 };
+	bool hasWon = false;
 
 public:
 	Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
 		bool kin = false, PxVec3 vol = { 1, 1, 1 },
 		PxVec3 pos = { 0, 0, 0 }, float mass = 1, float size = 1, float density = 1);
 	bool collisionCallback() override;
+	bool update(double t) override;
+	bool getWon() const { return hasWon; }
+	void setWon(bool v) { hasWon = v; }
 };
