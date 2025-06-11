@@ -7,10 +7,36 @@
 #include "RigidBodySystem.h"
 #include "SceneManager.h"
 
+void Level::update(double t)
+{
+	Scene::update(t);
+	if (receiver == nullptr) return;
+
+	if (receiver->getWon())
+	{
+		receiver->setWon(false);
+		won = true;
+		if (sm != nullptr)
+			sm->setLevelWon(true);
+	}
+
+	if (won)
+	{
+		counter += 1;
+		if (counter >= timer)
+		{
+			counter = 0;
+			if (sm != nullptr)
+				sm->setScene(0);
+			//Log("!!!WON!!!");
+		}
+	}
+}
+
 Level1::~Level1()
 {
-	//for (const auto& b : griddles)
-	//	delete b;
+	for (const auto& b : griddles)
+		delete b;
 }
 
 void Level1::onEnable()
@@ -93,9 +119,9 @@ void Level1::setGriddles()
 	float y = 15, z = 50;
 
 	PxMaterial* material = gPhysics->createMaterial(
-		0.0001f,     // friccion estatica
-		0.0001f,     // friccion dinamica
-		1.75f      // restitucion
+		0.0001f, // friccion estatica
+		0.0001f, // friccion dinamica
+		1.75f // restitucion
 	);
 
 	auto drb2 = new Griddle(
@@ -110,9 +136,9 @@ void Level1::setGriddles()
 
 void Level1::setSystems()
 {
-	PxVec3 pos = { 60, 30, 50 }, vel = { -13,20,0 };
+	PxVec3 pos = {60, 30, 50}, vel = {-13, 20, 0};
 	/// RIGID BODY SYSTEM
-	rbSys = new RigidBodySystem(this, gPhysics, gScene); 
+	rbSys = new RigidBodySystem(this, gPhysics, gScene);
 	addSystem(rbSys);
 
 	auto rbg = new RigidBodyGenerator(
@@ -142,22 +168,22 @@ void Level1::setSystems()
 
 	// Agua
 	water = new RenderItem(CreateShape(
-		PxBoxGeometry(1000, 0.01, 100)), 
-		new PxTransform(PxVec3(0, height, pos.z)),
-		{ 0.01f, 0.02f, 0.89f, 0.5f}
+		                       PxBoxGeometry(1000, 0.01, 100)),
+	                       new PxTransform(PxVec3(0, height, pos.z)),
+	                       {0.01f, 0.02f, 0.89f, 0.5f}
 	);
 }
 
 void Level1::setReceiver()
 {
-	PxVec3  vol = { 3,3,3 },
-		pos = { -50, 30, 55 };
+	PxVec3 vol = {3, 3, 3},
+	       pos = {-50, 30, 55};
 
 	// Ancla Superior
-	auto anch1 = new Particle(this, { pos.x, pos.y + 20, pos.z });
+	auto anch1 = new Particle(this, {pos.x, pos.y + 20, pos.z});
 	addGameObject(anch1);
 	anch1->setImmovible(true);
-	anch1->setColor({ 0.3, 0.3, 0.3, 1.0 });
+	anch1->setColor({0.3, 0.3, 0.3, 1.0});
 	anch1->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
 
 	// Ancla inferior
@@ -176,51 +202,14 @@ void Level1::setReceiver()
 
 	// Gomas
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 2, 10,
-		receiver, anch1)
+			this, 2, 10,
+			receiver, anch1)
 	);
 	//fSys->addForceGenerator(new RubberGenerator(
 	//	this, 1000, 5,
 	//	receiver, anch2)
 	//);
-
 }
-
-void Level1::update(double t)
-{
-	Scene::update(t);
-
-	if (receiver->getWon())
-	{
-		receiver->setWon(false);
-		won = true;
-		if (sm != nullptr)
-			sm->setLevelWon(true);
-	}
-
-	if (won)
-	{
-		counter += 1;
-		if (counter >= timer)
-		{
-			counter = 0;
-			if (sm != nullptr)
-				sm->setScene(0);
-			//Log("!!!WON!!!");
-		}
-	}
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 Level2::~Level2()
@@ -304,17 +293,17 @@ void Level2::specialKeyPressed(int key, const PxTransform& camera)
 
 void Level2::setGriddles()
 {
-	PxVec3 volumen = { 20, 0.5, 10 };
+	PxVec3 volumen = {20, 0.5, 10};
 	float y = 15, z = 50;
 
 	PxMaterial* material = gPhysics->createMaterial(
-		0.0001f,     // friccion estatica
-		0.0001f,     // friccion dinamica
-		1.75f      // restitucion
+		0.0001f, // friccion estatica
+		0.0001f, // friccion dinamica
+		1.75f // restitucion
 	);
 
 	auto drb1 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
+		this, gPhysics, gScene, material, true, volumen, {0, y, z}
 	);
 	drb1->setRotation(1.5708);
 	griddles.push_back(drb1);
@@ -333,7 +322,7 @@ void Level2::setGriddles()
 
 void Level2::setSystems()
 {
-	PxVec3 pos = { 60, 30, 50 }, vel = { -13,20,0 };
+	PxVec3 pos = {60, 30, 50}, vel = {-13, 20, 0};
 	/// RIGID BODY SYSTEM
 	rbSys = new RigidBodySystem(this, gPhysics, gScene);
 	addSystem(rbSys);
@@ -365,22 +354,22 @@ void Level2::setSystems()
 
 	// Agua
 	water = new RenderItem(CreateShape(
-		PxBoxGeometry(1000, 0.01, 100)),
-		new PxTransform(PxVec3(0, height, pos.z)),
-		{ 0.01f, 0.02f, 0.89f, 0.5f }
+		                       PxBoxGeometry(1000, 0.01, 100)),
+	                       new PxTransform(PxVec3(0, height, pos.z)),
+	                       {0.01f, 0.02f, 0.89f, 0.5f}
 	);
 }
 
 void Level2::setReceiver()
 {
-	PxVec3  vol = { 3,3,3 },
-		pos = { -50, 30, 55 };
+	PxVec3 vol = {3, 3, 3},
+	       pos = {-50, 30, 55};
 
 	// Ancla Superior
-	auto anch1 = new Particle(this, { pos.x, pos.y + 20, pos.z });
+	auto anch1 = new Particle(this, {pos.x, pos.y + 20, pos.z});
 	addGameObject(anch1);
 	anch1->setImmovible(true);
-	anch1->setColor({ 0.3, 0.3, 0.3, 1.0 });
+	anch1->setColor({0.3, 0.3, 0.3, 1.0});
 	anch1->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
 
 	// Ancla inferior
@@ -399,37 +388,12 @@ void Level2::setReceiver()
 
 	// Gomas
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 2, 10,
-		receiver, anch1)
+			this, 2, 10,
+			receiver, anch1)
 	);
 	//fSys->addForceGenerator(new RubberGenerator(
 	//	this, 1000, 5,
 	//	receiver, anch2)
 	//);
-
 }
 
-void Level2::update(double t)
-{
-	Scene::update(t);
-
-	//if (receiver->getWon())
-	//{
-	//	receiver->setWon(false);
-	//	won = true;
-	//	if (sm != nullptr)
-	//		sm->setLevelWon(true);
-	//}
-
-	//if (won)
-	//{
-	//	counter += 1;
-	//	if (counter >= timer)
-	//	{
-	//		counter = 0;
-	//		if (sm != nullptr)
-	//			sm->setScene(2);
-	//		//Log("!!!WON!!!");
-	//	}
-	//}
-}

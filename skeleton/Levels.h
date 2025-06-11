@@ -8,7 +8,7 @@ class RigidBodySystem;
 class StaticRigidBody;
 class DynamicRigidBody;
 
-class Level1 : public Scene
+class Level : public Scene
 {
 protected:
 	SceneManager* sm = nullptr;
@@ -24,8 +24,21 @@ protected:
 	double counter = 0, timer = 1000;
 	bool won = false;
 public:
+	Level(PxPhysics* gphys, PxScene* gscn, SceneManager* sm = nullptr, Camera* cam = nullptr)
+		: Scene(cam, gphys, gscn), sm(sm)
+	{
+
+	}
+
+	void update(double t) override;
+};
+
+
+class Level1 : public Level
+{
+public:
 	Level1(PxPhysics* gphys, PxScene* gscn, SceneManager* sm = nullptr, Camera* cam = nullptr)
-	: Scene(cam, gphys, gscn), sm(sm)
+	: Level(gphys, gscn, sm, cam)
 	{
 		lowerThreshold = 150;
 		upperThreshold = 100;
@@ -40,7 +53,6 @@ public:
 	virtual void setGriddles();
 	virtual void setSystems();
 	virtual void setReceiver();
-	void update(double t) override;
 };
 
 class Level2 : public Scene
@@ -75,5 +87,4 @@ public:
 	virtual void setGriddles();
 	virtual void setSystems();
 	virtual void setReceiver();
-	void update(double t) override;
 };
