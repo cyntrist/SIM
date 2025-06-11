@@ -65,9 +65,29 @@ public:
 	{
 		lowerThreshold = 150;
 		upperThreshold = 100;
-		nextLevel = 0;
+		nextLevel = 3;
 	}
 	~Level2() override;
+
+	void onEnable() override;
+	void onDisable() override;
+	virtual void setGriddles();
+	virtual void setSystems();
+	virtual void setReceiver();
+};
+
+class Level3 : public Level
+{
+
+public:
+	Level3(PxPhysics* gphys, PxScene* gscn, SceneManager* sm = nullptr, Camera* cam = nullptr)
+		: Level(gphys, gscn, sm)
+	{
+		lowerThreshold = 150;
+		upperThreshold = 100;
+		nextLevel = 0;
+	}
+	~Level3() override;
 
 	void onEnable() override;
 	void onDisable() override;

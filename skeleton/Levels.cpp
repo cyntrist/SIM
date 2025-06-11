@@ -82,10 +82,8 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 
 
 
-
-
-
-
+/// LEVEL 1
+#pragma region Level 1
 Level1::~Level1()
 {
 	for (const auto& b : griddles)
@@ -216,8 +214,12 @@ void Level1::setReceiver()
 	//	receiver, anch2)
 	//);
 }
+#pragma endregion Level 1
 
 
+
+/// LEVEL 2
+#pragma region Level 2
 Level2::~Level2()
 {
 	//for (const auto& b : griddles)
@@ -356,4 +358,148 @@ void Level2::setReceiver()
 	//	receiver, anch2)
 	//);
 }
+#pragma endregion Level 2
 
+
+
+/// LEVEL 3
+#pragma region Level 3
+Level3::~Level3()
+{
+	//for (const auto& b : griddles)
+	//	delete b;
+}
+
+void Level3::onEnable()
+{
+	Scene::onEnable();
+	setGriddles();
+	//setSystems();
+	//setReceiver();
+}
+
+void Level3::onDisable()
+{
+	active = false;
+	if (water != nullptr) water->release();
+	for (auto syst : systems)
+	{
+		delete syst;
+		syst = nullptr;
+	}
+	for (auto obj : gameObjects)
+	{
+		delete obj;
+		obj = nullptr;
+	}
+	systems.clear();
+	gameObjects.clear();
+	griddles.clear();
+}
+
+void Level3::setGriddles()
+{
+	PxVec3 volumen = { 20, 0.5, 10 };
+	float y = 15, z = 50;
+
+	PxMaterial* material = gPhysics->createMaterial(
+		0.0001f, // friccion estatica
+		0.0001f, // friccion dinamica
+		1.75f // restitucion
+	);
+
+	auto drb1 = new Griddle(
+		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
+	);
+	drb1->setRotation(1.5708);
+	griddles.push_back(drb1);
+	addGameObject(drb1);
+
+	//auto drb2 = new Griddle(
+	//	this, gPhysics, gScene, material, true, volumen, { 0, y, z }
+	//);
+	//drb2->setRotation(1.5708);
+	//griddles.push_back(drb2);
+	//addGameObject(drb2);
+
+	cDrb = 0;
+	griddles[cDrb]->setColor(sColor);
+}
+
+void Level3::setSystems()
+{
+	PxVec3 pos = { 60, 30, 50 }, vel = { -13, 20, 0 };
+	/// RIGID BODY SYSTEM
+	rbSys = new RigidBodySystem(this, gPhysics, gScene);
+	addSystem(rbSys);
+
+	auto rbg = new RigidBodyGenerator(
+		pos,
+		100,
+		gPhysics,
+		gScene,
+		rbSys,
+		vel
+	);
+	rbSys->addRBGenerator(rbg);
+	rbg->setDummy();
+
+
+	/// FORCE SYSTEMS
+	fSys = new ForceSystem(this);
+	addSystem(fSys);
+	// Viento
+	//auto windGen = new WindGenerator({ -10,25,50 }, this, { -20,0,0 });
+	//fSys->addForceGenerator(windGen);
+	//windGen->setRadius(15);
+
+	// Flotacion
+	float height = -15;
+	float k = 1.0f;
+	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
+
+	// Agua
+	water = new RenderItem(CreateShape(
+		PxBoxGeometry(1000, 0.01, 100)),
+		new PxTransform(PxVec3(0, height, pos.z)),
+		{ 0.01f, 0.02f, 0.89f, 0.5f }
+	);
+}
+
+void Level3::setReceiver()
+{
+	PxVec3 vol = { 3, 3, 3 },
+		pos = { -50, 30, 55 };
+
+	// Ancla Superior
+	auto anch1 = new Particle(this, { pos.x, pos.y + 20, pos.z });
+	addGameObject(anch1);
+	anch1->setImmovible(true);
+	anch1->setColor({ 0.3, 0.3, 0.3, 1.0 });
+	anch1->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
+
+	// Ancla inferior
+	//auto anch2 = new Particle(this, { pos.x, pos.y - 20, pos.z });
+	//addGameObject(anch2);
+	//anch2->setImmovible(true);
+	//anch2->setColor({ 0.3, 0.3, 0.3, 1.0 });
+	//anch2->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
+
+	// Recibidor
+	receiver = new Receiver(this, gPhysics, gScene, false, vol, pos, 1, 1, -1);
+	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+	addGameObject(receiver);
+	receiver->setMass(2);
+	receiver->setLockFlags();
+
+	// Gomas
+	fSys->addForceGenerator(new RubberGenerator(
+		this, 2, 10,
+		receiver, anch1)
+	);
+	//fSys->addForceGenerator(new RubberGenerator(
+	//	this, 1000, 5,
+	//	receiver, anch2)
+	//);
+}
+#pragma endregion Level 3
