@@ -5,10 +5,10 @@ RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphy
                                        double min, double max, double freq,
                                        PxVec4 color,
                                        float mass, float size, float density,
-                                       PxVec3 angVel, PxVec3 tensor)
+                                       PxVec3 angVel, PxVec3 tensor, bool nonlinear, bool wave)
 	: gphys(gphys), gscn(gscn), origen(org), system(partsys), maxGameObjects(stNpart), timer(freq),
 	  velocity(vel), minLife(min), maxLife(max), color(color), mass(mass), size(size), density(density),
-	  dummyAngVel(angVel), tensor(tensor)
+	  dummyAngVel(angVel), tensor(tensor), nonlinear(nonlinear), wave(wave)
 {
 }
 
@@ -30,11 +30,24 @@ void RigidBodyGenerator::generateBody(double t)
 	hsvColor = hsvColor + angStep * sentido;
 	color = hsvToRgb(hsvColor);
 
+	auto vel = velocity;
+	if (nonlinear)
+	{
+		auto sigma = 0.5;
+		normal_distribution<> xDist(0, sigma);
+		vel.x += xDist(generator);
+	}
+	else if (wave)
+	{
+		angle += 0.5;
+		vel.x += PxCos(angle) * 2;
+	}
+
 	auto drb1 = new DynamicRigidBody(
 		scene, gphys, gscn, mat,
 		false, SPHERE, volumen,
-		origen, velocity,
-		0, 30,
+		origen, vel,
+		minLife, maxLife,
 		this, eDROPS,
 		mass, size, density,
 		{0,0,0},

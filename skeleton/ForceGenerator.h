@@ -61,7 +61,8 @@ protected:
 	Vector3 k2 = {0, 0, 0};
 
 public:
-	WindGenerator(Vector3 org, Scene* scn, Vector3 vVel = {0, 0, 0}) : ForceGenerator(org, scn), vientoVel(vVel)
+	WindGenerator(Vector3 org, Scene* scn, Vector3 vVel = {0, 0, 0}, PxVec4 c = {0,0,1,0.5})
+	: ForceGenerator(org, scn, true, c), vientoVel(vVel)
 	{
 	}
 
@@ -74,7 +75,8 @@ protected:
 	float k = 1; //coeficiente de rozamiento
 	bool clockwise = false; // sentido de la rotacion
 public:
-	WhirlwindGenerator(Vector3 org, Scene* scn) : ForceGenerator(org, scn)
+	WhirlwindGenerator(Vector3 org, Scene* scn, PxVec4 c = { 0,0,1,0.5 })
+	: ForceGenerator(org, scn, true, c)
 	{
 	}
 	void setClockwise(bool t) { clockwise = t; }

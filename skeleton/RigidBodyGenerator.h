@@ -27,13 +27,17 @@ class RigidBodyGenerator
 	int sentido = 1;
 	float angStep = 15;
 	double hsvColor = 0;
+	bool nonlinear = false;
+	bool wave = false;
+	double angle = 0;
 public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
 	                   RigidBodySystem* partsys, PxVec3 vel = {-12,12,0},
 	                   double min = 20, double max = 30,
 	                   double freq = 100, PxVec4 color = {1,1,1,1}, 
 					   float mass = 1, float size = 1, float density = -1, 
-					   PxVec3 angVel = { 0,0, 100}, PxVec3 tensor = { 1, 1, 1});
+					   PxVec3 angVel = { 0,0, 100}, PxVec3 tensor = { 1, 1, 1},
+					   bool nonlinear = false, bool wave = false);
 	virtual ~RigidBodyGenerator() = default;
 
 	virtual void update(double t);

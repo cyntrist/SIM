@@ -181,11 +181,6 @@ void Level1::setSystems()
 	/// FORCE SYSTEMS
 	fSys = new ForceSystem(this);
 	addSystem(fSys);
-	// Viento
-	//auto windGen = new WindGenerator({ -10,25,50 }, this, { -20,0,0 });
-	//fSys->addForceGenerator(windGen);
-	//windGen->setRadius(15);
-
 	setWater();
 }
 
@@ -396,8 +391,8 @@ void Level3::onDisable()
 
 void Level3::setGriddles()
 {
-	float x1 = 50, x2 = 0, x3 = -50,
-		y1 = -15, y2 = 50;
+	float x1 = 100, x2 = -100, x3 = -50,
+		y1 = -30, y2 = 80, y3 = -10;
 
 	PxMaterial* material = gPhysics->createMaterial(
 		0.0001f, // friccion estatica
@@ -405,9 +400,9 @@ void Level3::setGriddles()
 		1.75f // restitucion
 	);
 
-	addGriddle({ x1, y2, z }, material);
-	addGriddle({ x2, y1, z }, material);
-	addGriddle({ x3, y2, z }, material);
+	addGriddle({ x1, y1, z }, material);
+	addGriddle({ x2, y2, z }, material);
+	//addGriddle({ x3, y3, z }, material);
 
 	cDrb = 0;
 	griddles[cDrb]->setColor(sColor);
@@ -415,7 +410,7 @@ void Level3::setGriddles()
 
 void Level3::setSystems()
 {
-	PxVec3 pos = { 100, 0, z }, vel = { -50, 50, 0 };
+	PxVec3 pos = { 100, 75, z }, vel = { 0, 0, 0 };
 	/// RIGID BODY SYSTEM
 	rbSys = new RigidBodySystem(this, gPhysics, gScene);
 	addSystem(rbSys);
@@ -426,7 +421,14 @@ void Level3::setSystems()
 		gPhysics,
 		gScene,
 		rbSys,
-		vel
+		vel,
+		0,20,
+		20,{0,0,0,0},
+		1000,0.5,-1,
+		{50,100,200},
+		{1000,1000,1000},
+		false,
+		true
 	);
 	rbSys->addRBGenerator(rbg);
 	rbg->setDummy();
@@ -434,44 +436,58 @@ void Level3::setSystems()
 	/// FORCE SYSTEMS
 	fSys = new ForceSystem(this);
 	addSystem(fSys);
+
+	// Viento
+	PxVec4 colorViento = { 0, 0, 1, 0.4f };
+	PxVec4 colorTorbellino = { 1, 0, 0, 0.4f };
+	auto windGen = new WindGenerator(
+		{ 0,50,z }, this,
+		{ -20,0,0 },
+		colorViento
+	);
+	fSys->addForceGenerator(windGen);
+	windGen->setRadius(15);
+
+	auto whirlGen = new WhirlwindGenerator({ 0,20,z }, this, colorTorbellino);
+	fSys->addForceGenerator(whirlGen);
+	whirlGen->setRadius(15);
+
 	setWater();
 }
 
 void Level3::setReceiver()
 {
 	PxVec3 vol = { 3, 3, 3 },
-		pos = { -90, 5, z };
+		   pos = { -100, -20, z };
 
 	// Ancla Superior
-	auto anch1 = new Particle(this, { pos.x - 20, pos.y + 20, pos.z });
-	addGameObject(anch1);
+	auto anch1 = new Particle(this, { pos.x - 20, pos.y, pos.z });
 	anch1->setImmovible(true);
 	anch1->setColor({ 0.3, 0.3, 0.3, 1.0 });
 	anch1->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
+	addGameObject(anch1);
 
 	// Ancla inferior
-	auto anch2 = new Particle(this, { pos.x + 20, pos.y - 20, pos.z });
-	addGameObject(anch2);
+	auto anch2 = new Particle(this, { pos.x + 20, pos.y, pos.z });
 	anch2->setImmovible(true);
 	anch2->setColor({ 0.3, 0.3, 0.3, 1.0 });
 	anch2->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
+	addGameObject(anch2);
 
 	// Recibidor
 	receiver = new Receiver(this, gPhysics, gScene, false, vol, pos, 1, 1, -1);
-	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
-	addGameObject(receiver);
-	receiver->setMass(10);
-	receiver->setRotation(-ROT / 2);
+	receiver->setMass(1000);
 	receiver->setLockFlags();
 	receiver->setTied(true);
+	addGameObject(receiver);
 
 	// Gomas
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 10, 3,
+		this, 1100, 3,
 		receiver, anch1)
 	);
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 10, 3,
+		this, 1100, 3,
 		receiver, anch2)
 	);
 }

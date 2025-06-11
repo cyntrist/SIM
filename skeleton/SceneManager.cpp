@@ -25,7 +25,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	addScene(new Level1(gphys, gscn, this)); // 1
 	addScene(new Level2(gphys, gscn, this)); // 2
 	addScene(new Level3(gphys, gscn, this)); // 3
-	setScene(2);
+	setScene(3);
 }
 
 SceneManager::~SceneManager()
