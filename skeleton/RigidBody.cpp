@@ -145,9 +145,7 @@ Receiver::Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene, bool kin, P
 	                   vol, pos, {0, 0, 0}, -1, -1, nullptr, eGRIDDLES,
 	                   mass, size, density)
 {
-	setRotation(1.56089);
 	setColor(offColor);
-	setGroup(eGRIDDLES);
 }
 
 bool Receiver::collisionCallback()

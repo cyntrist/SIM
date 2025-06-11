@@ -8,6 +8,8 @@ class RigidBodySystem;
 class StaticRigidBody;
 class DynamicRigidBody;
 
+constexpr float ROT = 1.5708;
+
 class Level : public Scene
 {
 protected:
@@ -34,6 +36,10 @@ public:
 	void update(double t) override;
 	void keyPressed(unsigned char key, const PxTransform& camera) override;
 	void specialKeyPressed(int key, const PxTransform& camera) override;
+	virtual void setGriddles() {}
+	virtual void setSystems(){}
+	virtual void setReceiver() {}
+	virtual void addGriddle(PxVec3 pos, PxVec3 vol = { 20, 0.5, 10 }, PxMaterial* mat = nullptr);
 };
 
 
@@ -51,9 +57,9 @@ public:
 
 	void onEnable() override;
 	void onDisable() override;
-	virtual void setGriddles();
-	virtual void setSystems();
-	virtual void setReceiver();
+	void setGriddles() override;
+	void setSystems() override;
+	void setReceiver() override;
 };
 
 class Level2 : public Level
@@ -71,9 +77,9 @@ public:
 
 	void onEnable() override;
 	void onDisable() override;
-	virtual void setGriddles();
-	virtual void setSystems();
-	virtual void setReceiver();
+	void setGriddles() override;
+	void setSystems() override;
+	void setReceiver() override;
 };
 
 class Level3 : public Level
@@ -91,7 +97,7 @@ public:
 
 	void onEnable() override;
 	void onDisable() override;
-	virtual void setGriddles();
-	virtual void setSystems();
-	virtual void setReceiver();
+	void setGriddles() override;
+	void setSystems() override;
+	void setReceiver() override;
 };

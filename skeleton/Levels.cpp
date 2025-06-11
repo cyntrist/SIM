@@ -84,6 +84,16 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 
 /// LEVEL 1
 #pragma region Level 1
+void Level::addGriddle(PxVec3 pos, PxVec3 vol, PxMaterial* mat)
+{
+	auto drb = new Griddle(
+		this, gPhysics, gScene, mat, true, volumen, { 0, y, z }
+	);
+	drb->setRotation(ROT);
+	griddles.push_back(drb);
+	addGameObject(drb);
+}
+
 Level1::~Level1()
 {
 	for (const auto& b : griddles)
@@ -131,7 +141,7 @@ void Level1::setGriddles()
 	auto drb2 = new Griddle(
 		this, gPhysics, gScene, material, true, volumen, {0, y, z}
 	);
-	drb2->setRotation(1.5708);
+	drb2->setRotation(ROT);
 	griddles.push_back(drb2);
 	addGameObject(drb2);
 
@@ -201,6 +211,7 @@ void Level1::setReceiver()
 	receiver = new Receiver(this, gPhysics, gScene, false, vol, pos, 1, 1, -1);
 	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 	addGameObject(receiver);
+	receiver->setRotation(ROT);
 	receiver->setMass(2);
 	receiver->setLockFlags();
 
@@ -267,16 +278,23 @@ void Level2::setGriddles()
 	auto drb1 = new Griddle(
 		this, gPhysics, gScene, material, true, volumen, {0, y, z}
 	);
-	drb1->setRotation(1.5708);
+	drb1->setRotation(ROT);
 	griddles.push_back(drb1);
 	addGameObject(drb1);
 
-	//auto drb2 = new Griddle(
-	//	this, gPhysics, gScene, material, true, volumen, { 0, y, z }
-	//);
-	//drb2->setRotation(1.5708);
-	//griddles.push_back(drb2);
-	//addGameObject(drb2);
+	auto drb2 = new Griddle(
+		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
+	);
+	drb2->setRotation(ROT);
+	griddles.push_back(drb2);
+	addGameObject(drb2);
+
+	auto drb3 = new Griddle(
+		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
+	);
+	drb3->setRotation(ROT);
+	griddles.push_back(drb2);
+	addGameObject(drb2);
 
 	cDrb = 0;
 	griddles[cDrb]->setColor(sColor);
