@@ -1,6 +1,7 @@
 ﻿#pragma once
 
 #include "Scene.h"
+class Griddle;
 class SceneManager;
 class Receiver;
 class ForceSystem;
@@ -19,7 +20,7 @@ protected:
 	std::vector<DynamicRigidBody*> griddles; // vector of dynamic rigid bodies
 	int cDrb = 0; // current dynamic rigid body
 	double stepAngle = 0.05;
-	PxVec4 nColor = { 0.1, 0.8f, 0.3f, 1 },
+	PxVec4 nColor = { 0.1, 0.4f, 0.2f, 1 },
 		sColor = { 0.2, 0.8, 0.5, 1 };
 	RenderItem* water = nullptr;
 	Receiver* receiver = nullptr;
@@ -39,7 +40,8 @@ public:
 	virtual void setGriddles() {}
 	virtual void setSystems(){}
 	virtual void setReceiver() {}
-	virtual void addGriddle(PxVec3 pos, PxVec3 vol = { 20, 0.5, 10 }, PxMaterial* mat = nullptr);
+	virtual void setWater();
+	virtual Griddle* addGriddle(PxVec3 pos, PxMaterial* mat = nullptr, PxVec3 vol = { 20, 0.5, 10 });
 };
 
 

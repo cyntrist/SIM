@@ -76,22 +76,37 @@ void Level::specialKeyPressed(int key, const PxTransform& camera)
 	for (auto& b : griddles)
 		b->setColor(nColor);
 
-	cDrb = 0;
 	griddles[cDrb]->setColor(sColor);
+}
+
+void Level::setWater()
+{
+	// Flotacion
+	float height = -15;
+	float k = 1.0f;
+	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
+	// Agua
+	water = new RenderItem(CreateShape(
+		PxBoxGeometry(1000, 0.01, 100)),
+		new PxTransform(PxVec3(0, height, 50)),
+		{ 0.01f, 0.02f, 0.89f, 0.5f }
+	);
 }
 
 
 
 /// LEVEL 1
 #pragma region Level 1
-void Level::addGriddle(PxVec3 pos, PxVec3 vol, PxMaterial* mat)
+Griddle* Level::addGriddle(PxVec3 pos, PxMaterial* mat, PxVec3 vol)
 {
 	auto drb = new Griddle(
-		this, gPhysics, gScene, mat, true, volumen, { 0, y, z }
+		this, gPhysics, gScene, mat, true, vol, pos
 	);
 	drb->setRotation(ROT);
 	griddles.push_back(drb);
 	addGameObject(drb);
+	drb->setColor(nColor);
+	return drb;
 }
 
 Level1::~Level1()
@@ -138,12 +153,7 @@ void Level1::setGriddles()
 		1.75f // restitucion
 	);
 
-	auto drb2 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, {0, y, z}
-	);
-	drb2->setRotation(ROT);
-	griddles.push_back(drb2);
-	addGameObject(drb2);
+	addGriddle({ 0, y, z }, material);
 
 	griddles[cDrb]->setColor(sColor);
 }
@@ -175,17 +185,7 @@ void Level1::setSystems()
 	//fSys->addForceGenerator(windGen);
 	//windGen->setRadius(15);
 
-	// Flotacion
-	float height = -15;
-	float k = 1.0f;
-	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
-
-	// Agua
-	water = new RenderItem(CreateShape(
-		                       PxBoxGeometry(1000, 0.01, 100)),
-	                       new PxTransform(PxVec3(0, height, pos.z)),
-	                       {0.01f, 0.02f, 0.89f, 0.5f}
-	);
+	setWater();
 }
 
 void Level1::setReceiver()
@@ -241,8 +241,8 @@ void Level2::onEnable()
 {
 	Scene::onEnable();
 	setGriddles();
-	//setSystems();
-	//setReceiver();
+	setSystems();
+	setReceiver();
 }
 
 void Level2::onDisable()
@@ -266,8 +266,9 @@ void Level2::onDisable()
 
 void Level2::setGriddles()
 {
-	PxVec3 volumen = {20, 0.5, 10};
-	float y = 15, z = 50;
+	float x1 = 50, x2 = 0, x3 = -50,
+		y1 = 15, y2 = 50,
+		z = 50;
 
 	PxMaterial* material = gPhysics->createMaterial(
 		0.0001f, // friccion estatica
@@ -275,28 +276,11 @@ void Level2::setGriddles()
 		1.75f // restitucion
 	);
 
-	auto drb1 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, {0, y, z}
-	);
-	drb1->setRotation(ROT);
-	griddles.push_back(drb1);
-	addGameObject(drb1);
+	addGriddle({x1, y1, z}, material);
+	addGriddle({x2, y2, z}, material);
+	addGriddle({x3, y1, z}, material);
 
-	auto drb2 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
-	);
-	drb2->setRotation(ROT);
-	griddles.push_back(drb2);
-	addGameObject(drb2);
-
-	auto drb3 = new Griddle(
-		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
-	);
-	drb3->setRotation(ROT);
-	griddles.push_back(drb2);
-	addGameObject(drb2);
-
-	cDrb = 0;
+	cDrb = 1;
 	griddles[cDrb]->setColor(sColor);
 }
 
@@ -318,26 +302,10 @@ void Level2::setSystems()
 	rbSys->addRBGenerator(rbg);
 	rbg->setDummy();
 
-
 	/// FORCE SYSTEMS
 	fSys = new ForceSystem(this);
 	addSystem(fSys);
-	// Viento
-	//auto windGen = new WindGenerator({ -10,25,50 }, this, { -20,0,0 });
-	//fSys->addForceGenerator(windGen);
-	//windGen->setRadius(15);
-
-	// Flotacion
-	float height = -15;
-	float k = 1.0f;
-	fSys->addForceGenerator(new FlotationGenerator(this, height, k));
-
-	// Agua
-	water = new RenderItem(CreateShape(
-		                       PxBoxGeometry(1000, 0.01, 100)),
-	                       new PxTransform(PxVec3(0, height, pos.z)),
-	                       {0.01f, 0.02f, 0.89f, 0.5f}
-	);
+	setWater();
 }
 
 void Level2::setReceiver()
