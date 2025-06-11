@@ -23,7 +23,7 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 
 	addScene(new FireworkScene(this));
 	addScene(new Level1(gphys, gscn, this)); // 7
-	//addScene(new Level2(gphys, gscn, this)); // 7
+	addScene(new Level2(gphys, gscn, this)); // 7
 	setScene(1);
 }
 

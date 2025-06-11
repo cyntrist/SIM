@@ -62,4 +62,5 @@ void FireworkScene::onEnable()
 void FireworkScene::onDisable()
 {
 	Scene::onDisable();
+	sm->setGameWon(false);
 }

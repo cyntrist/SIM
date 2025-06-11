@@ -24,7 +24,7 @@ void Level1::onEnable()
 void Level1::onDisable()
 {
 	active = false;
-	water->release();
+	if (water != nullptr) water->release();
 	for (auto syst : systems)
 	{
 		delete syst;
@@ -50,6 +50,7 @@ void Level1::keyPressed(unsigned char key, const PxTransform& camera)
 void Level1::specialKeyPressed(int key, const PxTransform& camera)
 {
 	Scene::specialKeyPressed(key, camera);
+	if (griddles.empty()) return;
 
 	int modifiers = glutGetModifiers();
 
@@ -82,6 +83,7 @@ void Level1::specialKeyPressed(int key, const PxTransform& camera)
 	for (auto& b : griddles)
 		b->setColor(nColor);
 
+	cDrb = 0;
 	griddles[cDrb]->setColor(sColor);
 }
 
@@ -231,14 +233,14 @@ void Level2::onEnable()
 {
 	Scene::onEnable();
 	setGriddles();
-	setSystems();
-	setReceiver();
+	//setSystems();
+	//setReceiver();
 }
 
 void Level2::onDisable()
 {
 	active = false;
-	water->release();
+	if (water != nullptr) water->release();
 	for (auto syst : systems)
 	{
 		delete syst;
@@ -264,6 +266,7 @@ void Level2::keyPressed(unsigned char key, const PxTransform& camera)
 void Level2::specialKeyPressed(int key, const PxTransform& camera)
 {
 	Scene::specialKeyPressed(key, camera);
+	if (griddles.empty()) return;
 
 	int modifiers = glutGetModifiers();
 
@@ -310,13 +313,21 @@ void Level2::setGriddles()
 		1.75f      // restitucion
 	);
 
-	auto drb2 = new Griddle(
+	auto drb1 = new Griddle(
 		this, gPhysics, gScene, material, true, volumen, { 0, y, z }
 	);
-	drb2->setRotation(1.5708);
-	griddles.push_back(drb2);
-	addGameObject(drb2);
+	drb1->setRotation(1.5708);
+	griddles.push_back(drb1);
+	addGameObject(drb1);
 
+	//auto drb2 = new Griddle(
+	//	this, gPhysics, gScene, material, true, volumen, { 0, y, z }
+	//);
+	//drb2->setRotation(1.5708);
+	//griddles.push_back(drb2);
+	//addGameObject(drb2);
+
+	cDrb = 0;
 	griddles[cDrb]->setColor(sColor);
 }
 
@@ -402,23 +413,23 @@ void Level2::update(double t)
 {
 	Scene::update(t);
 
-	if (receiver->getWon())
-	{
-		receiver->setWon(false);
-		won = true;
-		if (sm != nullptr)
-			sm->setLevelWon(true);
-	}
+	//if (receiver->getWon())
+	//{
+	//	receiver->setWon(false);
+	//	won = true;
+	//	if (sm != nullptr)
+	//		sm->setLevelWon(true);
+	//}
 
-	if (won)
-	{
-		counter += 1;
-		if (counter >= timer)
-		{
-			counter = 0;
-			if (sm != nullptr)
-				sm->setScene(2);
-			//Log("!!!WON!!!");
-		}
-	}
+	//if (won)
+	//{
+	//	counter += 1;
+	//	if (counter >= timer)
+	//	{
+	//		counter = 0;
+	//		if (sm != nullptr)
+	//			sm->setScene(2);
+	//		//Log("!!!WON!!!");
+	//	}
+	//}
 }
