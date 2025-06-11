@@ -81,7 +81,7 @@ public:
 	bool update(double t) override;
 	void addForce(float x, float y, float z) override;
 	void addForce(const Vector3& fc) override;
-	void applyForce();
+	virtual void applyForce();
 	virtual bool collisionCallback() { return false; }
 
 	//setters
@@ -177,4 +177,9 @@ public:
 	bool update(double t) override;
 	bool getWon() const { return hasWon; }
 	void setWon(bool v) { hasWon = v; }
+	void applyForce() override;
+	void addForce(const Vector3& fc) override;
+	void addForce(float x, float y, float z) override;
+	void setLockFlags() { actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlags(0));
+	}
 };

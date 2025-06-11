@@ -109,6 +109,8 @@ bool DynamicRigidBody::update(double t)
 	if (!alive)
 		return false;
 
+	pose->p = actor->getGlobalPose().p;
+
 	if ((maxLifetime != -1 && lifetime > maxLifetime)
 		|| actor->getGlobalPose().p.y <= -scene->getLowerThreshold()
 		|| actor->getGlobalPose().p.y >= scene->getUpperThreshold())
@@ -157,5 +159,27 @@ bool Receiver::collisionCallback()
 
 bool Receiver::update(double t)
 {
+	pose->p = actor->getGlobalPose().p;
+	if (!forces.empty())
+		applyForce();
+	Log("POSE:");
+	Log(to_string(pose->p.y));
+	Log("ACTOR:");
+	Log(to_string(actor->getGlobalPose().p.y));
 	return hasWon;
+}
+
+void Receiver::applyForce()
+{
+	DynamicRigidBody::applyForce();
+}
+
+void Receiver::addForce(const Vector3& fc)
+{
+	DynamicRigidBody::addForce(fc);
+}
+
+void Receiver::addForce(float x, float y, float z)
+{
+	actor->addForce({ x,y,z }, PxForceMode::eFORCE);
 }

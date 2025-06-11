@@ -17,8 +17,8 @@ void Level::onEnable()
 {
 	Scene::onEnable();
 	setGriddles();
-	setReceiver();
 	setSystems();
+	setReceiver();
 }
 
 void Level::onDisable()
@@ -96,9 +96,9 @@ void Level::setGriddles()
 	float y = 15, z = 50;
 
 	PxMaterial* material = gPhysics->createMaterial(
-		1.0f,     // friccion estatica
-		1.0f,     // friccion dinamica
-		2.f      // restitucion
+		0.0001f,     // friccion estatica
+		0.0001f,     // friccion dinamica
+		1.75f      // restitucion
 	);
 
 	auto drb2 = new Griddle(
@@ -155,9 +155,38 @@ void Level::setReceiver()
 {
 	PxVec3  vol = { 3,3,3 },
 		pos = { -40, 30, 55 };
-	receiver = new Receiver(this, gPhysics, gScene, false, {3,3,3,}, pos);
-	receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+
+	// Ancla Superior
+	auto anch1 = new Particle(this, { pos.x, pos.y + 20, pos.z });
+	addGameObject(anch1);
+	anch1->setImmovible(true);
+	anch1->setColor({ 0.3, 0.3, 0.3, 1.0 });
+	anch1->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
+
+	// Ancla inferior
+	//auto anch2 = new Particle(this, { pos.x, pos.y - 20, pos.z });
+	//addGameObject(anch2);
+	//anch2->setImmovible(true);
+	//anch2->setColor({ 0.3, 0.3, 0.3, 1.0 });
+	//anch2->setShape(CreateShape(PxBoxGeometry(1, 1, 1)), 1);
+
+	// Recibidor
+	receiver = new Receiver(this, gPhysics, gScene, false, vol, pos, 1, 1, -1);
+	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 	addGameObject(receiver);
+	receiver->setMass(1);
+	receiver->setLockFlags();
+
+	// Gomas
+	fSys->addForceGenerator(new RubberGenerator(
+		this, 1, 10,
+		receiver, anch1)
+	);
+	//fSys->addForceGenerator(new RubberGenerator(
+	//	this, 1000, 5,
+	//	receiver, anch2)
+	//);
+
 }
 
 void Level::update(double t)

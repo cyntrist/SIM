@@ -97,6 +97,11 @@ void stepPhysics(bool interactive, double t)
 			level_won_1_text = "!Bien hecho!";
 			level_won_2_text = "Suerte en el siguiente :^)";
 		}
+		else
+		{
+			level_won_1_text = "";
+			level_won_2_text = "";
+		}
 	}
 }
 
