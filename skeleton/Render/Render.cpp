@@ -300,6 +300,7 @@ namespace Snippets
 		drawText(controls_1_text, 10, 500 - 10);
 		drawText(controls_2_text, 10, 500 - 20);
 		drawText(controls_3_text, 10, 500 - 30);
+		drawText(controls_4_text, 10, 500 - 40);
 		drawText(level_won_1_text, 230, 250);
 		drawText(level_won_2_text, 212, 230);
 

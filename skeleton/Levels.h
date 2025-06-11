@@ -21,7 +21,7 @@ protected:
 	int cDrb = 0; // current dynamic rigid body
 	double stepAngle = 0.05;
 	PxVec4 nColor = { 0.1, 0.4f, 0.2f, 1 },
-		sColor = { 0.2, 0.8, 0.5, 1 };
+		sColor = { 0.3, 1.0, 0.7, 1 };
 	RenderItem* water = nullptr;
 	Receiver* receiver = nullptr;
 	double counter = 0, timer = 1000;
@@ -73,7 +73,7 @@ public:
 		: Level(gphys, gscn, sm)
 	{
 		lowerThreshold = 150;
-		upperThreshold = 100;
+		upperThreshold = 150;
 		nextLevel = 3;
 		z = 75;
 	}
@@ -96,6 +96,7 @@ public:
 		lowerThreshold = 150;
 		upperThreshold = 100;
 		nextLevel = 0;
+		z = 100;
 	}
 	~Level3() override;
 

@@ -70,7 +70,7 @@ DynamicRigidBody::DynamicRigidBody(Scene* scn, PxPhysics* gPhysics, PxScene* gSc
 	else
 		PxRigidBodyExt::updateMassAndInertia(*actor, density);
 
-	setKinematic(kin);
+	//setKinematic(kin);
 	if (!kin)
 	{
 		actor->setLinearVelocity(vel);

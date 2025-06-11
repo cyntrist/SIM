@@ -88,7 +88,7 @@ void Level::setWater()
 	// Agua
 	water = new RenderItem(CreateShape(
 		PxBoxGeometry(1000, 0.01, 100)),
-		new PxTransform(PxVec3(0, height, 50)),
+		new PxTransform(PxVec3(0, height, z)),
 		{ 0.01f, 0.02f, 0.89f, 0.5f }
 	);
 }
@@ -106,6 +106,7 @@ Griddle* Level::addGriddle(PxVec3 pos, PxMaterial* mat, PxVec3 vol)
 	griddles.push_back(drb);
 	addGameObject(drb);
 	drb->setColor(nColor);
+	drb->setKinematic(true);
 	return drb;
 }
 
@@ -296,7 +297,16 @@ void Level2::setSystems()
 		gPhysics,
 		gScene,
 		rbSys,
-		vel
+		vel,
+		0,
+		20,
+		50,
+		{1,1,1,1},
+		10,
+		2,
+		-1,
+		{0,0,-50},
+		{2,2,2}
 	);
 	rbSys->addRBGenerator(rbg);
 	rbg->setDummy();
@@ -309,7 +319,7 @@ void Level2::setSystems()
 
 void Level2::setReceiver()
 {
-	PxVec3 vol = {3, 3, 3},
+	PxVec3 vol = {2, 10, 10},
 	       pos = {-90, 5, z};
 
 	// Ancla Superior
@@ -337,11 +347,11 @@ void Level2::setReceiver()
 
 	// Gomas
 	fSys->addForceGenerator(new RubberGenerator(
-			this, 10, 3,
+			this, 10, 1,
 			receiver, anch1)
 	);
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 10, 3,
+		this, 10, 1,
 		receiver, anch2)
 	);
 }

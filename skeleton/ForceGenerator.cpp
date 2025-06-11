@@ -14,7 +14,7 @@ void ForceGenerator::generateRadiusSphere()
 	{
 		if (widget == nullptr)
 		{
-			widget = new Widget(scene, origen, radius);
+			widget = new Widget(scene, origen, radius, color);
 			scene->addGameObject(widget);
 		}
 		else widget->setVisible(true);
@@ -23,7 +23,8 @@ void ForceGenerator::generateRadiusSphere()
 	widget->changeShape(CreateShape(PxSphereGeometry(radius)));
 }
 
-ForceGenerator::ForceGenerator(Vector3 org, Scene* scn, bool act) : origen(org), scene(scn), active(act)
+ForceGenerator::ForceGenerator(Vector3 org, Scene* scn, bool act, PxVec4 color)
+	: origen(org), scene(scn), active(act), color(color)
 {
 	if (act) generateRadiusSphere();
 }

@@ -53,6 +53,7 @@ extern std::string level_won_2_text;
 extern std::string controls_1_text;
 extern std::string controls_2_text;
 extern std::string controls_3_text;
+extern std::string controls_4_text;
 
 namespace Snippets
 {

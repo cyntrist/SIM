@@ -10,12 +10,12 @@ protected:
 	Vector3 origen = {0, 0, 0};
 	Widget* widget = nullptr;
 	Scene* scene = nullptr;
-
+	PxVec4 color = { 0, 0, 1, 0.5 };
 	bool active = true;
 	void generateRadiusSphere();
 
 public:
-	ForceGenerator(Vector3 org, Scene* scn, bool active = true);
+	ForceGenerator(Vector3 org, Scene* scn, bool active = true, PxVec4 color = { 0, 0, 1, 0.5 });
 	virtual ~ForceGenerator();
 
 	virtual Vector3 generateForce(GameObject& object) = 0;
