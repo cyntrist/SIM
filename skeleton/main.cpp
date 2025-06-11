@@ -92,7 +92,12 @@ void stepPhysics(bool interactive, double t)
 	if (sm != nullptr)
 	{
 		sm->update(t);
-		if (sm->getWon())
+		if (sm->getGameWon())
+		{
+			level_won_1_text = "!Enhorabuena!";
+			level_won_2_text = "Muchas gracias por jugar";
+		}
+		else if (sm->getLevelWon())
 		{
 			level_won_1_text = "!Bien hecho!";
 			level_won_2_text = "Suerte en el siguiente :^)";

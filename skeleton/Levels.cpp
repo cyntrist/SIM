@@ -193,7 +193,7 @@ void Level1::update(double t)
 		receiver->setWon(false);
 		won = true;
 		if (sm != nullptr)
-			sm->setWon(true);
+			sm->setLevelWon(true);
 	}
 
 	if (won)
@@ -407,7 +407,7 @@ void Level2::update(double t)
 		receiver->setWon(false);
 		won = true;
 		if (sm != nullptr)
-			sm->setWon(true);
+			sm->setLevelWon(true);
 	}
 
 	if (won)

@@ -50,8 +50,8 @@ class FireworkSystem : public ParticleSystem
 	Vector3 iniVel = {0, 60, 0};
 
 public:
-	FireworkSystem(Scene* scn, Vector3 orgn, Vector3 vel = {0, 40, 0})
-	: ParticleSystem(scn), origin(orgn), nextOrigin(orgn), iniVel(vel), generator(69)
+	FireworkSystem(Scene* scn, Vector3 orgn, Vector3 vel = {0, 40, 0}, int gen = 69)
+	: ParticleSystem(scn), origin(orgn), nextOrigin(orgn), iniVel(vel), generator(gen)
 	{
 		generateFirstPart();
 	}
@@ -73,7 +73,7 @@ public:
 		}
 
 		auto vel = iniVel;
-		auto sigma = 10.0;
+		auto sigma = 5.0;
 		normal_distribution<> xDist(0, sigma);
 		normal_distribution<> yDist(0, sigma);
 		normal_distribution<> zDist(0, sigma);

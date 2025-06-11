@@ -1,5 +1,6 @@
 ﻿#include "SceneManager.h"
 
+#include "FireworkScene.h"
 #include "SupernovaScene.h"
 #include "FloatScene.h"
 #include "RigidBodyScene.h"
@@ -11,7 +12,7 @@
 
 SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gScene(gscn)
 {
-	addScene(new Scene()); // 0
+	//addScene(new Scene()); // 0
 	//addScene(new ParticleScene()); // 1
 	//addScene(new WindScene()); // 2
 	//addScene(new WhirlScene()); // 3
@@ -19,6 +20,8 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	//addScene(new FloatScene()); // 5
 	//addScene(new SupernovaScene()); // 6
 	//addScene(new RigidBodyScene(gphys, gscn)); // 7
+
+	addScene(new FireworkScene(this));
 	addScene(new Level1(gphys, gscn, this)); // 7
 	//addScene(new Level2(gphys, gscn, this)); // 7
 	setScene(1);

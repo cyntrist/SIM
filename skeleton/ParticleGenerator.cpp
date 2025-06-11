@@ -166,7 +166,6 @@ void EqualMassGenerator::generateParticles(double t)
 		float r = rGen(generator);
 		float g = gGen(generator);
 		float b = bGen(generator);
-
 		color = {r, g, b, 1.0};
 
 		org = origen;
@@ -197,6 +196,20 @@ void FireworkGenerator::generateParticles(double t)
 
 	for (int i = 0; i < particlesGenerated; i++)
 	{
+		// MASAS
+		std::uniform_real_distribution<> sizeDistribution(0.5, 2);
+		double s = sizeDistribution(generator);
+
+		//COLORES
+		uniform_real_distribution<> rGen(0.0f, 0.5f);
+		uniform_real_distribution<> gGen(0.5f, 1.1f);
+		uniform_real_distribution<> bGen(0.0f, 0.5f);
+		float r = rGen(generator);
+		float g = gGen(generator);
+		float b = bGen(generator);
+		color = { r, g, b, 1.0 };
+
+		// VELOCIDAD
 		Vector3 vel;
 		vel.x = xDist(generator);
 		vel.y = yDist(generator);
@@ -209,10 +222,13 @@ void FireworkGenerator::generateParticles(double t)
 				vel.x = 0;
 			par = !par;
 		}
+
+		// TIEMPO DE VIDA
 		float maxLifetime = lifeDist(generator);
 		maxLifetime = min(max(maxLifetime, 5.0f), 50.0f);
 
-		generateParticle(origen, vel, maxLifetime, color, mass);
+		size = s;
+		generateParticle(origen, vel, maxLifetime, color, s);
 	}
 }
 
