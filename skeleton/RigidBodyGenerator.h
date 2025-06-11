@@ -17,6 +17,7 @@ class RigidBodyGenerator
 	Vector3 origen = {0, 0, 0};
 	Vector3 velocity = Vector3(-12, 12, 0);
 	Vector3 dummyAngVel = Vector3(0,0,100);
+	Vector3 tensor = Vector3(1,1,1);
 	Vector4 color = Vector4(1, 1, 1, 1);
 	int maxGameObjects = 100;
 	int nGameObjects = 0;
@@ -31,7 +32,7 @@ public:
 	                   double min = 20, double max = 30,
 	                   double freq = 100, PxVec4 color = {1,1,1,1}, 
 					   float mass = 1, float size = 1, float density = -1, 
-					   PxVec3 angVel = { 0,0, 100});
+					   PxVec3 angVel = { 0,0, 100}, PxVec3 tensor = { 1, 1, 1});
 	virtual ~RigidBodyGenerator() = default;
 
 	virtual void update(double t);

@@ -5,10 +5,10 @@ RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphy
                                        double min, double max, double freq,
                                        PxVec4 color,
                                        float mass, float size, float density,
-                                       PxVec3 angVel)
+                                       PxVec3 angVel, PxVec3 tensor)
 	: gphys(gphys), gscn(gscn), origen(org), system(partsys), maxGameObjects(stNpart), timer(freq),
 	  velocity(vel), minLife(min), maxLife(max), color(color), mass(mass), size(size), density(density),
-	  dummyAngVel(angVel)
+	  dummyAngVel(angVel), tensor(tensor)
 {
 }
 
@@ -30,7 +30,8 @@ void RigidBodyGenerator::generateBody(double t)
 		0, 30,
 		this, eDROPS,
 		mass, size, density,
-		{0,0,0}
+		{0,0,0},
+		tensor
 	);
 	drb1->setColor(color);
 	drb1->setVisible(true);
