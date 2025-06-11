@@ -18,7 +18,7 @@ void ParticleGenerator::update(double t)
 		generateParticles(t);
 }
 
-void ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, Vector4 c, float m)
+Particle* ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, Vector4 c, float m)
 {
 	auto aux = new Particle(scene, org, size);
 	aux->setVel(vel);
@@ -33,6 +33,8 @@ void ParticleGenerator::generateParticle(Vector3 org, Vector3 vel, double life, 
 	scene->addGameObject(aux);
 	addNumParticles(1);
 	nGameObjectsTotal++;
+
+	return aux;
 }
 
 void ParticleGenerator::generateParticles(double t)
@@ -201,9 +203,12 @@ void FireworkGenerator::generateParticles(double t)
 		double s = sizeDistribution(generator);
 
 		//COLORES
-		uniform_real_distribution<> rGen(0.0f, 0.5f);
-		uniform_real_distribution<> gGen(0.5f, 1.1f);
-		uniform_real_distribution<> bGen(0.0f, 0.5f);
+		//uniform_real_distribution<> rGen(0.2f, 1.01f);
+		//uniform_real_distribution<> gGen(0.2f, 1.01f);
+		//uniform_real_distribution<> bGen(0.2f, 1.01f);
+		normal_distribution<> rGen(0.5f, 0.3f);
+		normal_distribution<> gGen(0.5f, 0.3f);
+		normal_distribution<> bGen(0.5f, 0.3f);
 		float r = rGen(generator);
 		float g = gGen(generator);
 		float b = bGen(generator);
@@ -216,11 +221,11 @@ void FireworkGenerator::generateParticles(double t)
 		vel.z = zDist(generator);
 		if (bidim)
 		{
-			if (par)
+			//if (par)
 				vel.z = 0;
-			else
-				vel.x = 0;
-			par = !par;
+			//else
+				//vel.x = 0;
+			//par = !par;
 		}
 
 		// TIEMPO DE VIDA
@@ -241,7 +246,65 @@ bool FireworkGenerator::mayGenerate() const
 	return true;
 }
 
+void CircleGenerator::generateParticles(double t)
+{
+	constexpr int radius = 30;
+	actAngle += angStep;
 
+	//POSICION Y VELOCIDAD
+	auto cos = PxCos(actAngle), sen = PxSin(actAngle);
+	Vector3 pos = { radius * cos, radius * sen, 0 };
+	Vector3 vel = { 25 * cos, 25 * sen, 0 };
+	//(radius * Math::Cos(inc * i), radius * Math::Sin(inc * i), 0)
+
+	//COLORES
+	//Log(to_string(hsvColor));
+	if (hsvColor >= 30)
+		sentido = -1;
+	if (hsvColor <= 0)
+		sentido = 1;
+	hsvColor = hsvColor + angStep * sentido;
+	color = hsvToRgb(hsvColor * 10);
+
+	auto aux = generateParticle(origen + pos, vel, maxLife, color, mass);
+	aux->toggleGrav();
+}
+
+void CircleGenerator::update(double t)
+{
+	if (mayGenerate())
+		generateParticles(t);
+}
+
+bool CircleGenerator::mayGenerate()
+{
+	if (nGameObjects >= maxGameObjects)
+		return false;
+	counter += 1;
+	if (counter >= timer)
+	{
+		counter = 0;
+		return true;
+	}
+	return false;
+}
+
+PxVec4 CircleGenerator::hsvToRgb(float h, float s, float v, float a)
+{ // esto no lo he hecho yo, lo he sacado de: https://gist.github.com/fairlight1337/4935ae72bcbcc1ba5c72
+	float c = v * s;
+	float x = c * (1 - std::fabs(fmod(h / 60.0f, 2) - 1));
+	float m = v - c;
+	float r, g, b;
+
+	if (h < 60) { r = c; g = x; b = 0; }
+	else if (h < 120) { r = x; g = c; b = 0; }
+	else if (h < 180) { r = 0; g = c; b = x; }
+	else if (h < 240) { r = 0; g = x; b = c; }
+	else if (h < 300) { r = x; g = 0; b = c; }
+	else { r = c; g = 0; b = x; }
+
+	return { r + m, g + m, b + m, a };
+}
 
 
 

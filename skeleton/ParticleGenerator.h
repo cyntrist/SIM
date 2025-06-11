@@ -31,7 +31,7 @@ public:
 	virtual void generateParticles(double t) = 0;
 	virtual bool mayGenerate() const	{ return nGameObjects <= maxGameObjects; }
 	void addNumParticles(int n)			{ nGameObjects += n;  }
-	void generateParticle(Vector3 org, Vector3 vel, double life, 
+	Particle* generateParticle(Vector3 org, Vector3 vel, double life, 
 		Vector4 c = Vector4(1, 1, 1, 1), float mass = 1);
 
 	/// setters
@@ -118,7 +118,7 @@ class FireworkGenerator : public ParticleGenerator //
 	bool par = false; // para ir cambiando de dimension alternadamente
 
 public:
-	FireworkGenerator( int nparts, ParticleSystem* partsys, Scene* scn, bool bi = false, double min = 20, double max = 30)
+	FireworkGenerator(int nparts, ParticleSystem* partsys, Scene* scn, bool bi = false, double min = 20, double max = 30)
 		: ParticleGenerator(Vector3(0,0,0), nparts, partsys, scn, min, max), bidim(bi)
 	{
 		color = Vector4(0, 1, 0, 1);
@@ -128,4 +128,24 @@ public:
 	void generateParticles(double t) override;
 	void update(double t) override;
 	bool mayGenerate() const override;
+};
+
+class CircleGenerator : public ParticleGenerator
+{
+	float actAngle = 0;
+	float angStep = 0.25;
+	float hsvColor = 0;
+	int sentido = 1;
+	double counter = 0, timer = 10;
+public:
+	CircleGenerator(PxVec3 org, ParticleSystem* partsys, Scene* scn, int nparts, double min = 20, double max = 30)
+	: ParticleGenerator(org, nparts, partsys, scn, min, max)
+	{
+		color = Vector4(0, 1, 0, 1);
+		size = 0.5;
+	}
+	void generateParticles(double t) override;
+	void update(double t) override;
+	bool mayGenerate();
+	PxVec4 hsvToRgb(float h, float s = 1.0f, float v = 1.0f, float a = 1.0f);
 };

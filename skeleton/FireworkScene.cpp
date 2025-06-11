@@ -11,8 +11,8 @@ void FireworkScene::onEnable()
 	lowerThreshold = 500;
 	upperThreshold = 400;
 
-	//partSyst = new ParticleSystem(this); // inicialicacion de sistema
-	//addSystem(partSyst);
+	partSyst = new ParticleSystem(this); // inicialicacion de sistema
+	addSystem(partSyst);
 	//auto wg = new WaterfallGenerator(
 	//	Vector3(-50, 50, -50),
 	//	750,
@@ -22,6 +22,17 @@ void FireworkScene::onEnable()
 	//wg->setMinLife(5);
 	//wg->setMaxLife(15);
 	//partSyst->addParticleGenerator(wg);
+
+	auto cg = new CircleGenerator(
+		Vector3(0,20, 100),
+		partSyst, this, 1000, 5, 10
+	);
+	cg->setSize(3);
+	partSyst->addParticleGenerator(cg);
+
+
+
+
 
 	float x = 100, y = -30, z = 100;
 	PxVec3 vel = { 0, 50, 0 };
@@ -35,6 +46,7 @@ void FireworkScene::onEnable()
 		1000,
 		firewSyst1,
 		this
+		//,true
 	);
 	fw1->setMinLife(1);
 	fw1->setMaxLife(4);
@@ -51,6 +63,7 @@ void FireworkScene::onEnable()
 		1000,
 		firewSyst2,
 		this
+		//,true
 	);
 	fw2->setMinLife(2);
 	fw2->setMaxLife(3);
