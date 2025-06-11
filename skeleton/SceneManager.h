@@ -21,7 +21,7 @@ public:
 	SceneManager(PxPhysics* gphys, PxScene* gscn);
 	~SceneManager();
 
-	void update(float t);
+	void update(double t);
 	void addScene(Scene* scn);
 	void setScene(int id);
 	void keyPressed(unsigned char key, const PxTransform& camera);

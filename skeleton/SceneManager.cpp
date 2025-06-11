@@ -43,7 +43,7 @@ void SceneManager::addScene(Scene* scn)
 	}
 }
 
-void SceneManager::update(float t)
+void SceneManager::update(double t)
 {
 	scenes[actualScene]->update(t);
 }
