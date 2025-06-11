@@ -19,11 +19,13 @@
 std::string display_text = "Cynthia Tristan Alvarez";
 std::string level_won_2_text = "";
 std::string level_won_1_text = "";
-std::string controls_1_text = "FLECHAS ARR/ABJ: Cambiar de plancha";
-std::string controls_2_text = "FLECHAS IZQ/DER: Girar planchas";
+std::string controls_1_text = "FLECHAS IZQ/DER: Girar planchas";
+std::string controls_2_text = "FLECHAS ARR/ABJ: Cambiar de plancha";
 std::string controls_3_text = "CTRL / SHIFT + Flechas IZQ/DER: Girar planchas mas rapido o mas lento";
 std::string controls_4_text = "BARRA ESPACIADORA: Activar/Desactivar emisor";
-
+int sentido = 1;
+double hsvColor = 0;
+bool won = false;
 
 
 using namespace physx;
@@ -97,6 +99,7 @@ void stepPhysics(bool interactive, double t)
 		{
 			level_won_1_text = "!Enhorabuena!";
 			level_won_2_text = "Muchas gracias por jugar";
+			won = true;
 		}
 		else if (sm->getLevelWon())
 		{

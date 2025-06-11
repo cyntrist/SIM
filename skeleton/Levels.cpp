@@ -347,11 +347,11 @@ void Level2::setReceiver()
 
 	// Gomas
 	fSys->addForceGenerator(new RubberGenerator(
-			this, 10, 1,
+			this, 20, 1,
 			receiver, anch1)
 	);
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 10, 1,
+		this, 20, 1,
 		receiver, anch2)
 	);
 }

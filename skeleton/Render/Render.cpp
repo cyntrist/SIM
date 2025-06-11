@@ -29,6 +29,7 @@
 
 #include "Render.h"
 #include <assert.h>
+#include <../../../../skeleton/Global.h>
 
 using namespace physx;
 
@@ -295,7 +296,18 @@ namespace Snippets
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		// Display text
 		//glColor4f(1.0f, 0.2f, 0.2f, 1.0f);
-		glColor4f(1.0f, 1.0f, 0.0f, 1.0f);
+		Vector4 color = { 1.0f, 1.0f, 0.0f, 1.0f };
+		if (won)
+		{
+			if (hsvColor >= 360)
+				sentido = -1;
+			if (hsvColor <= 0)
+				sentido = 1;
+			hsvColor = hsvColor + 0.25 * sentido;
+			color = hsvToRgb(hsvColor);
+		}
+
+		glColor4f(color.x, color.y, color.z, color.w);
 		drawText(display_text, 10, 10);
 		drawText(controls_1_text, 10, 500 - 10);
 		drawText(controls_2_text, 10, 500 - 20);
