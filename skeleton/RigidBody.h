@@ -180,6 +180,12 @@ public:
 	void applyForce() override;
 	void addForce(const Vector3& fc) override;
 	void addForce(float x, float y, float z) override;
-	void setLockFlags() { actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlags(0));
+	void setLockFlags()
+	{
+		//actor->setRigidDynamicLockFlags(PxRigidDynamicLockFlags(0));
+		actor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_LINEAR_Z, true);
+		actor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_X, false);
+		actor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_Y, false);
+		actor->setRigidDynamicLockFlag(PxRigidDynamicLockFlag::eLOCK_ANGULAR_Z, false);
 	}
 };
