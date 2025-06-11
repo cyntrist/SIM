@@ -179,9 +179,15 @@ void Receiver::addForce(const Vector3& fc)
 
 void Receiver::addForce(float x, float y, float z)
 {
-	//actor->addForce({ x,y,z }, PxForceMode::eFORCE);
-	PxRigidBodyExt::addForceAtPos(*actor, {x,y,z}, 
-		actor->getGlobalPose().p + PxVec3(0,3,0),
-		PxForceMode::eFORCE
-	);
+	if (!tiedBothEnds)
+	{
+		PxRigidBodyExt::addForceAtPos(*actor, {x,y,z}, 
+			actor->getGlobalPose().p + PxVec3(0,3,0),
+			PxForceMode::eFORCE
+		);
+	}
+	else
+	{
+		actor->addForce({ x,y,z }, PxForceMode::eFORCE);
+	}
 }

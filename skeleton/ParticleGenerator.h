@@ -147,5 +147,4 @@ public:
 	void generateParticles(double t) override;
 	void update(double t) override;
 	bool mayGenerate();
-	PxVec4 hsvToRgb(float h, float s = 1.0f, float v = 1.0f, float a = 1.0f);
 };

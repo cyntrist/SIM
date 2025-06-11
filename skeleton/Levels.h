@@ -27,6 +27,7 @@ protected:
 	double counter = 0, timer = 1000;
 	bool won = false;
 	int nextLevel = 0;
+	float z = 50;
 public:
 	Level(PxPhysics* gphys, PxScene* gscn, SceneManager* sm = nullptr, Camera* cam = nullptr)
 		: Scene(cam, gphys, gscn), sm(sm)
@@ -74,6 +75,7 @@ public:
 		lowerThreshold = 150;
 		upperThreshold = 100;
 		nextLevel = 3;
+		z = 75;
 	}
 	~Level2() override;
 

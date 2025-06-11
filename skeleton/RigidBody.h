@@ -168,7 +168,7 @@ class Receiver : public DynamicRigidBody
 	PxVec4 offColor = { 0.3, 0.3, 0.3, 1.0 };
 	PxVec4 onColor = { 1.0, 0.7, 0.15, 1 };
 	bool hasWon = false;
-
+	bool tiedBothEnds = false;
 public:
 	Receiver(Scene* scn, PxPhysics* gPhysics, PxScene* gScene,
 		bool kin = false, PxVec3 vol = { 1, 1, 1 },
@@ -177,6 +177,7 @@ public:
 	bool update(double t) override;
 	bool getWon() const { return hasWon; }
 	void setWon(bool v) { hasWon = v; }
+	void setTied(bool t) { tiedBothEnds = t; }
 	void applyForce() override;
 	void addForce(const Vector3& fc) override;
 	void addForce(float x, float y, float z) override;
