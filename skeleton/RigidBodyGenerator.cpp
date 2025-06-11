@@ -21,8 +21,15 @@ void RigidBodyGenerator::update(double t)
 void RigidBodyGenerator::generateBody(double t)
 {
 	PxVec3 volumen = {size, size, size}; // esferas de 2 de diametro
-
 	PxMaterial* mat = nullptr;
+	// color
+	if (hsvColor >= 360)
+		sentido = -1;
+	if (hsvColor <= 0)
+		sentido = 1;
+	hsvColor = hsvColor + angStep * sentido;
+	color = hsvToRgb(hsvColor);
+
 	auto drb1 = new DynamicRigidBody(
 		scene, gphys, gscn, mat,
 		false, SPHERE, volumen,

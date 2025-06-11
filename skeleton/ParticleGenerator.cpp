@@ -259,12 +259,12 @@ void CircleGenerator::generateParticles(double t)
 
 	//COLORES
 	//Log(to_string(hsvColor));
-	if (hsvColor >= 30)
+	if (hsvColor >= 360)
 		sentido = -1;
 	if (hsvColor <= 0)
 		sentido = 1;
-	hsvColor = hsvColor + angStep * sentido;
-	color = hsvToRgb(hsvColor * 10);
+	hsvColor = hsvColor + angStep * 10 * sentido;
+	color = hsvToRgb(hsvColor);
 
 	auto aux = generateParticle(origen + pos, vel, maxLife, color, mass);
 	aux->toggleGrav();

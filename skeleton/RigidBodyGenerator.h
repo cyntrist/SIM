@@ -24,8 +24,9 @@ class RigidBodyGenerator
 	double minLife, maxLife;
 	float mass = 1, size = 1, density = -1;
 	double counter = 0, timer = 100;
-	bool sw = false;
-
+	int sentido = 1;
+	float angStep = 15;
+	double hsvColor = 0;
 public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
 	                   RigidBodySystem* partsys, PxVec3 vel = {-12,12,0},
