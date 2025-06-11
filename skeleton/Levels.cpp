@@ -181,7 +181,7 @@ void Level1::setSystems()
 void Level1::setReceiver()
 {
 	PxVec3 vol = {3, 3, 3},
-	       pos = {-50, 30, 55};
+	       pos = {-50, 30, 50};
 
 	// Ancla Superior
 	auto anch1 = new Particle(this, {pos.x, pos.y + 20, pos.z});

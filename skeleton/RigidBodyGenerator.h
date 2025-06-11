@@ -20,9 +20,8 @@ class RigidBodyGenerator
 	Vector4 color = Vector4(1, 1, 1, 1);
 	int maxGameObjects = 100;
 	int nGameObjects = 0;
-	float density = -1;
 	double minLife, maxLife;
-	float mass = 1, size = 1;
+	float mass = 1, size = 1, density = -1;
 	double counter = 0, timer = 100;
 	bool sw = false;
 
@@ -30,7 +29,9 @@ public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
 	                   RigidBodySystem* partsys, PxVec3 vel = {-12,12,0},
 	                   double min = 20, double max = 30,
-	                   double freq = 100);
+	                   double freq = 100, PxVec4 color = {1,1,1,1}, 
+					   float mass = 1, float size = 1, float density = -1, 
+					   PxVec3 angVel = { 0,0, 100});
 	virtual ~RigidBodyGenerator() = default;
 
 	virtual void update(double t);
