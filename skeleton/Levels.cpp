@@ -27,53 +27,20 @@ void Level::update(double t)
 		{
 			counter = 0;
 			if (sm != nullptr)
-				sm->setScene(0);
+				sm->setScene(nextLevel);
 			//Log("!!!WON!!!");
 		}
 	}
 }
 
-Level1::~Level1()
-{
-	for (const auto& b : griddles)
-		delete b;
-}
-
-void Level1::onEnable()
-{
-	Scene::onEnable();
-	setGriddles();
-	setSystems();
-	setReceiver();
-}
-
-void Level1::onDisable()
-{
-	active = false;
-	if (water != nullptr) water->release();
-	for (auto syst : systems)
-	{
-		delete syst;
-		syst = nullptr;
-	}
-	for (auto obj : gameObjects)
-	{
-		delete obj;
-		obj = nullptr;
-	}
-	systems.clear();
-	gameObjects.clear();
-	griddles.clear();
-}
-
-void Level1::keyPressed(unsigned char key, const PxTransform& camera)
+void Level::keyPressed(unsigned char key, const PxTransform& camera)
 {
 	Scene::keyPressed(key, camera);
-	if (key == ' ')
+	if (key == ' ' && rbSys != nullptr)
 		rbSys->setActive(!rbSys->getActive());
 }
 
-void Level1::specialKeyPressed(int key, const PxTransform& camera)
+void Level::specialKeyPressed(int key, const PxTransform& camera)
 {
 	Scene::specialKeyPressed(key, camera);
 	if (griddles.empty()) return;
@@ -111,6 +78,45 @@ void Level1::specialKeyPressed(int key, const PxTransform& camera)
 
 	cDrb = 0;
 	griddles[cDrb]->setColor(sColor);
+}
+
+
+
+
+
+
+
+Level1::~Level1()
+{
+	for (const auto& b : griddles)
+		delete b;
+}
+
+void Level1::onEnable()
+{
+	Scene::onEnable();
+	setGriddles();
+	setSystems();
+	setReceiver();
+}
+
+void Level1::onDisable()
+{
+	active = false;
+	if (water != nullptr) water->release();
+	for (auto syst : systems)
+	{
+		delete syst;
+		syst = nullptr;
+	}
+	for (auto obj : gameObjects)
+	{
+		delete obj;
+		obj = nullptr;
+	}
+	systems.clear();
+	gameObjects.clear();
+	griddles.clear();
 }
 
 void Level1::setGriddles()
@@ -243,52 +249,6 @@ void Level2::onDisable()
 	systems.clear();
 	gameObjects.clear();
 	griddles.clear();
-}
-
-void Level2::keyPressed(unsigned char key, const PxTransform& camera)
-{
-	Scene::keyPressed(key, camera);
-	if (key == ' ')
-		rbSys->setActive(!rbSys->getActive());
-}
-
-void Level2::specialKeyPressed(int key, const PxTransform& camera)
-{
-	Scene::specialKeyPressed(key, camera);
-	if (griddles.empty()) return;
-
-	int modifiers = glutGetModifiers();
-
-	auto angle = stepAngle;
-	auto times = 5;
-
-	if (modifiers & GLUT_ACTIVE_SHIFT)
-		angle /= times;
-	else if (modifiers & GLUT_ACTIVE_CTRL)
-		angle *= times;
-
-	switch (key)
-	{
-	case GLUT_KEY_UP:
-		cDrb++;
-		break;
-	case GLUT_KEY_DOWN:
-		cDrb--;
-		break;
-	case GLUT_KEY_LEFT:
-		if (griddles[cDrb] != nullptr) griddles[cDrb]->setRotation(-angle);
-		break;
-	case GLUT_KEY_RIGHT:
-		if (griddles[cDrb] != nullptr) griddles[cDrb]->setRotation(angle);
-		break;
-	}
-
-	int max = griddles.size() - 1ull;
-	cDrb = PxClamp(cDrb, 0, max);
-	for (auto& b : griddles)
-		b->setColor(nColor);
-
-	griddles[cDrb]->setColor(sColor);
 }
 
 void Level2::setGriddles()
