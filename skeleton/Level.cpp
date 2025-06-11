@@ -174,12 +174,12 @@ void Level::setReceiver()
 	receiver = new Receiver(this, gPhysics, gScene, false, vol, pos, 1, 1, -1);
 	//receiver->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 	addGameObject(receiver);
-	receiver->setMass(1);
+	receiver->setMass(2);
 	receiver->setLockFlags();
 
 	// Gomas
 	fSys->addForceGenerator(new RubberGenerator(
-		this, 1, 10,
+		this, 2, 10,
 		receiver, anch1)
 	);
 	//fSys->addForceGenerator(new RubberGenerator(
