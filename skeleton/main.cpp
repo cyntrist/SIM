@@ -16,7 +16,7 @@
 #include "Scene.h"
 #include "SceneManager.h"
 
-std::string display_text = "Cynthia Tristan Alvarez";
+std::string display_text = "";
 std::string level_won_2_text = "";
 std::string level_won_1_text = "";
 std::string controls_1_text = "FLECHAS IZQ/DER: Girar planchas";
@@ -98,7 +98,12 @@ void stepPhysics(bool interactive, double t)
 		if (sm->getGameWon())
 		{
 			level_won_1_text = "!Enhorabuena!";
-			level_won_2_text = "Muchas gracias por jugar";
+			level_won_2_text = "Muchas gracias por jugar.";
+			display_text = "Cynthia Tristan";
+			controls_1_text = "";
+			controls_2_text = "";
+			controls_3_text = "";
+			controls_4_text = "";
 			won = true;
 		}
 		else if (sm->getLevelWon())
