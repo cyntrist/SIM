@@ -2,13 +2,12 @@
 #include <random>
 #include "RigidBody.h"
 
-class Level;
+class Level1;
 class RigidBodySystem;
 
 class RigidBodyGenerator
 {
 	Scene* scene;
-	Level* level;
 	PxPhysics* gphys;
 	PxScene* gscn;
 	RigidBodySystem* system;
@@ -29,7 +28,7 @@ class RigidBodyGenerator
 
 public:
 	RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn, 
-	                   RigidBodySystem* partsys, Level* scn, 
+	                   RigidBodySystem* partsys, PxVec3 vel = {-12,12,0},
 	                   double min = 20, double max = 30,
 	                   double freq = 100);
 	virtual ~RigidBodyGenerator() = default;

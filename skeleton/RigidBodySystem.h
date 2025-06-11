@@ -9,12 +9,11 @@ protected:
 	std::vector<RigidBodyGenerator*> rigidGenerators;
 	PxPhysics* gphys;
 	PxScene* gscn;
-	Level* level;
 	vector<Vector3> forces;
 
 public:
-	RigidBodySystem(Scene* sc, PxPhysics* gphys, PxScene* gscn, Level* level)
-	: System(sc), gphys(gphys), gscn(gscn), level(level) {}
+	RigidBodySystem(Scene* sc, PxPhysics* gphys, PxScene* gscn)
+	: System(sc), gphys(gphys), gscn(gscn) {}
 
 	~RigidBodySystem() override
 	{

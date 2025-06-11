@@ -5,7 +5,7 @@
 #include "RigidBodyScene.h"
 #include "Scene.h"
 #include "SpringScene.h"
-#include "Level.h"
+#include "Levels.h"
 #include "WhirlScene.h"
 #include "WindScene.h"
 
@@ -19,8 +19,8 @@ SceneManager::SceneManager(PxPhysics* gphys, PxScene* gscn): gPhysics(gphys), gS
 	//addScene(new FloatScene()); // 5
 	//addScene(new SupernovaScene()); // 6
 	//addScene(new RigidBodyScene(gphys, gscn)); // 7
-	addScene(new Level(gphys, gscn, nullptr, this)); // 7
-	//addScene(new Level2(gphys, gscn)); // 7
+	addScene(new Level1(gphys, gscn, this)); // 7
+	//addScene(new Level2(gphys, gscn, this)); // 7
 	setScene(1);
 }
 

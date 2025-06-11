@@ -1,11 +1,10 @@
 ﻿#include "RigidBodyGenerator.h"
 
-#include "Level.h"
-
 RigidBodyGenerator::RigidBodyGenerator(Vector3 org, int stNpart, PxPhysics* gphys, PxScene* gscn,
-                                       RigidBodySystem* partsys, Level* scn, double min, double max, double freq)
+                                       RigidBodySystem* partsys, PxVec3 vel,	
+                                       double min, double max, double freq)
 	: gphys(gphys), gscn(gscn), origen(org), system(partsys), maxGameObjects(stNpart), timer(freq),
-	  level(scn), minLife(min), maxLife(max)
+	  velocity(vel), minLife(min), maxLife(max)
 {
 }
 

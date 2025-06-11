@@ -162,10 +162,10 @@ bool Receiver::update(double t)
 	pose->p = actor->getGlobalPose().p;
 	if (!forces.empty())
 		applyForce();
-	Log("POSE:");
-	Log(to_string(pose->p.y));
-	Log("ACTOR:");
-	Log(to_string(actor->getGlobalPose().p.y));
+	//Log("POSE:");
+	//Log(to_string(pose->p.y));
+	//Log("ACTOR:");
+	//Log(to_string(actor->getGlobalPose().p.y));
 	return hasWon;
 }
 
