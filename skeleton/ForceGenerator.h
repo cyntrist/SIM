@@ -80,6 +80,7 @@ public:
 	{
 	}
 	void setClockwise(bool t) { clockwise = t; }
+	void setK(float v) { k = v; }
 	Vector3 generateForce(GameObject& object) override;
 };
 

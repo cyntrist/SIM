@@ -43,6 +43,7 @@ public:
 	virtual void setReceiver() {}
 	virtual void setWater();
 	virtual Griddle* addGriddle(PxVec3 pos, PxMaterial* mat = nullptr, PxVec3 vol = { 20, 0.5, 10 });
+	virtual DynamicRigidBody* addWall(PxVec3 pos, PxVec3 vol = { 20, 0.5, 10 }, float rot = 0);
 };
 
 

@@ -310,9 +310,9 @@ namespace Snippets
 		glColor4f(color.x, color.y, color.z, color.w);
 		drawText(display_text, 10, 10);
 		drawText(controls_1_text, 10, 500 - 10);
-		drawText(controls_2_text, 10, 500 - 20);
-		drawText(controls_3_text, 10, 500 - 30);
-		drawText(controls_4_text, 10, 500 - 40);
+		drawText(controls_2_text, 10, 500 - 25);
+		drawText(controls_3_text, 10, 500 - 40);
+		drawText(controls_4_text, 10, 500 - 55);
 		drawText(level_won_1_text, 230, 250);
 		drawText(level_won_2_text, 212, 230);
 
@@ -352,7 +352,7 @@ namespace Snippets
 		assert(glGetError() == GL_NO_ERROR);
 		glColor4f(color.x, color.y, color.z, color.w);
 		assert(glGetError() == GL_NO_ERROR);
-		renderGeometry(h, color.w < 0.1);
+		renderGeometry(h, color.w < 0.5);
 		assert(glGetError() == GL_NO_ERROR);
 		glPopMatrix();
 		assert(glGetError() == GL_NO_ERROR);
@@ -442,7 +442,8 @@ namespace Snippets
 
 		for (int i = 0; i < length; i++)
 		{
-			glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
+			glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, text[i]);
+			//glutBitmapCharacter(GLUT_BITMAP_9_BY_15, text[i]);
 			//glutBitmapCharacter(GLUT_BITMAP_8_BY_13, text[i]);
 		}
 		glPopMatrix();

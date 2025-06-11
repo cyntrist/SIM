@@ -110,6 +110,18 @@ Griddle* Level::addGriddle(PxVec3 pos, PxMaterial* mat, PxVec3 vol)
 	return drb;
 }
 
+DynamicRigidBody* Level::addWall(PxVec3 pos, PxVec3 vol, float rot)
+{
+	auto drb = new Griddle(
+		this, gPhysics, gScene, nullptr, true, vol, pos
+	);
+	drb->setRotation(rot);
+	drb->setColor({0.2,0.2,0.2,1.0f});
+	drb->setKinematic(true);
+	addGameObject(drb);
+	return drb;
+}
+
 Level1::~Level1()
 {
 	for (const auto& b : griddles)
@@ -122,6 +134,7 @@ void Level1::onEnable()
 	setGriddles();
 	setSystems();
 	setReceiver();
+	won = false;
 }
 
 void Level1::onDisable()
@@ -172,7 +185,8 @@ void Level1::setSystems()
 		gPhysics,
 		gScene,
 		rbSys,
-		vel
+		vel,
+		0, 30
 	);
 	rbSys->addRBGenerator(rbg);
 	rbg->setDummy();
@@ -239,6 +253,7 @@ void Level2::onEnable()
 	setGriddles();
 	setSystems();
 	setReceiver();
+	won = false;
 }
 
 void Level2::onDisable()
@@ -368,6 +383,7 @@ void Level3::onEnable()
 	setGriddles();
 	setSystems();
 	setReceiver();
+	won = false;
 }
 
 void Level3::onDisable()
@@ -392,7 +408,7 @@ void Level3::onDisable()
 void Level3::setGriddles()
 {
 	float x1 = 100, x2 = -100, x3 = -50,
-		y1 = -30, y2 = 80, y3 = -10;
+		y1 = -30, y2 = 70, y3 = -10;
 
 	PxMaterial* material = gPhysics->createMaterial(
 		0.0001f, // friccion estatica
@@ -417,7 +433,7 @@ void Level3::setSystems()
 
 	auto rbg = new RigidBodyGenerator(
 		pos,
-		100,
+		1000,
 		gPhysics,
 		gScene,
 		rbSys,
@@ -440,24 +456,56 @@ void Level3::setSystems()
 	// Viento
 	PxVec4 colorViento = { 0, 0, 1, 0.4f };
 	PxVec4 colorTorbellino = { 1, 0, 0, 0.4f };
-	auto windGen = new WindGenerator(
-		{ 0,50,z }, this,
-		{ -20,0,0 },
+
+	auto windGen1 = new WindGenerator(
+		{ 50,30,z }, this,
+		{ 0,10000,0 },
 		colorViento
 	);
-	fSys->addForceGenerator(windGen);
-	windGen->setRadius(15);
+	fSys->addForceGenerator(windGen1);
+	windGen1->setRadius(15);
 
-	auto whirlGen = new WhirlwindGenerator({ 0,20,z }, this, colorTorbellino);
+	auto windGen2 = new WindGenerator(
+		{ 30,50,z }, this,
+		{ 0,10000,0 },
+		colorViento
+	);
+	fSys->addForceGenerator(windGen2);
+	windGen2->setRadius(15);
+
+	auto windGen3 = new WindGenerator(
+		{ 10,70,z }, this,
+		{ 0,10000,0 },
+		colorViento
+	);
+	fSys->addForceGenerator(windGen3);
+	windGen3->setRadius(15);
+
+	auto windGen4 = new WindGenerator(
+		{ -15,80,z }, this,
+		{ -1000,0,0 },
+		{0,1,0,0.4}
+	);
+	fSys->addForceGenerator(windGen4);
+	windGen4->setRadius(10);
+
+	auto whirlGen = new WhirlwindGenerator({ -10,-10,z }, this, colorTorbellino);
 	fSys->addForceGenerator(whirlGen);
-	whirlGen->setRadius(15);
+	whirlGen->setRadius(50);
+	whirlGen->setK(1000);
 
+	// Paredes
+	addWall({ 35,50,z }, { 50, 0.5, 10 }, -ROT / 2);
+	addWall({ -50,85,z }, { 50, 0.5, 10 });
+	addWall({ -50,50,z }, { 30, 0.5, 10 });
+
+	// Agua
 	setWater();
 }
 
 void Level3::setReceiver()
 {
-	PxVec3 vol = { 3, 3, 3 },
+	PxVec3 vol = { 2, 1, 2 },
 		   pos = { -100, -20, z };
 
 	// Ancla Superior

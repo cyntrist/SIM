@@ -40,7 +40,7 @@ void RigidBodyGenerator::generateBody(double t)
 	else if (wave)
 	{
 		angle += 0.5;
-		vel.x += PxCos(angle) * 2;
+		vel.x += PxCos(angle) ;
 	}
 
 	auto drb1 = new DynamicRigidBody(
