@@ -30,4 +30,5 @@ public:
 	bool getLevelWon() const { return levelWon; }
 	void setGameWon(bool v) { gameWon = v; }
 	bool getGameWon() const { return gameWon; }
+	int getActualScene() const { return actualScene; }
 };

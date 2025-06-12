@@ -109,7 +109,8 @@ void stepPhysics(bool interactive, double t)
 		else if (sm->getLevelWon())
 		{
 			level_won_1_text = "!Bien hecho!";
-			level_won_2_text = "Suerte en el siguiente :^)";
+			if (sm->getActualScene() != 3)
+				level_won_2_text = "Suerte en el siguiente :^)";
 		}
 		else
 		{
